@@ -1,0 +1,12 @@
+INSTUPsamplePython.Assignment5PM.phonebookMenu.phonebook.tests
+/home/kyi/newSamplePython/SamplePython/samplePython/Assignment5PM/phonebookMenu/phonebook/tests.py
+INFOS:&&1|1|2|0&&2|3|2|1&&3|4|2|5&&2|6|2|1&&2|7|2|1&&2|8|2|1&&2|9|2|0
+setUp=3
+samplePython.Assignment5PM.phonebookMenu.phonebook.tests=2
+PhonebookTest=1
+suite=9
+controller=4
+testAddAddress=8
+testAddPerson=7
+PhonebookTest.setUp=5
+tearDown=6

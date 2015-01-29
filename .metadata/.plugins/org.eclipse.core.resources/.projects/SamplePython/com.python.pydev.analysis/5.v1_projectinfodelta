@@ -1,0 +1,10 @@
+INSTUPsamplePython.Assignment5PM.phonebookMenu.phonebook.__init__
+/home/kyi/newSamplePython/SamplePython/samplePython/Assignment5PM/phonebookMenu/phonebook/__init__.py
+INFOS:&&3|1|2|0&&3|3|2|0&&3|4|2|0&&3|5|2|0&&2|6|2|0&&2|7|2|0
+create_database=6
+drop_database=7
+session=5
+Session=4
+db_file=1
+samplePython.Assignment5PM.phonebookMenu.phonebook.__init__=2
+sqlite_engine=3

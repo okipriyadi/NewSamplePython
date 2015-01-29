@@ -1,0 +1,13 @@
+INSTUPsamplePython.database.sqlAlchemy.intro_alchemy
+/home/kyi/newSamplePython/SamplePython/samplePython/database/sqlAlchemy/intro_alchemy.py
+INFOS:&&3|1|2|0&&3|3|2|0&&1|4|2|0&&3|5|2|4&&3|6|2|4&&3|7|2|4&&3|8|2|4&&3|9|2|4&&2|10|2|4
+__repr__=10
+id=6
+User=4
+__tablename__=5
+Base=3
+samplePython.database.sqlAlchemy.intro_alchemy=2
+engine=1
+name=7
+password=9
+fullname=8

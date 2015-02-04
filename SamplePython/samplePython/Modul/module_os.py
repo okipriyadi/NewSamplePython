@@ -1,6 +1,9 @@
 import os
 
-print "\menghasilkan alamat direktori kerja saat ini"
+print "Menghasilkan path"
+print "ini path : ", os.path.dirname(os.path.realpath(__file__))
+
+print "\nmenghasilkan alamat direktori kerja saat ini"
 print os.getcwd()
 
 print "\nmenghasilkan file dan folder apa saja yang ada dalam parametr"

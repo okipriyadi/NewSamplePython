@@ -16,7 +16,13 @@ class Base:
     def relable(self, widget):
         self.label1.set_text("ubah nama")
     
-    #Coba lihat widget disini
+    def combo_text(self, widget):
+        self.text1.set_text(widget.get_active_text())
+    
+    #menambahkan list combo box
+    def add_combo(self, widget):
+        self.combo.append_text(self.text1.get_text())
+        
     def textbox(self, widget):
         self.window.set_title(widget.get_text())
         
@@ -35,12 +41,21 @@ class Base:
         self.button4 = gtk.Button("relable")
         self.button4.connect("clicked", self.relable)
         
+        self.button5 =gtk.Button("add to Combo box")
+        self.button5.connect("clicked", self.add_combo)
+        
         self.label1 = gtk.Label("disini dituliskan label")
         
         self.text1 = gtk.Entry()  
         self.text1.connect("changed", self.textbox)
         
-        
+        #membuat combo box
+        self.combo = gtk.combo_box_entry_new_text()
+        self.combo.connect("changed", self.combo_text)
+        self.combo.append_text("Ini tulisan")
+        self.combo.append_text("Opsi 1")
+        self.combo.append_text("Opsi 2")
+        self.combo.append_text("Opsi 3")
         
         self.box1 = gtk.HBox()       
         self.box1.pack_start(self.button1)
@@ -49,12 +64,16 @@ class Base:
         
         self.box1.pack_start(self.button4)
         
+        #add new Box
+        self.box3 = gtk.HBox()
+        self.box3.pack_start(self.text1)
+        self.box3.pack_start(self.button5)
         
-        #menambahkan container baru            
         self.box2 =gtk.VBox()
         self.box2.pack_start(self.box1)
         self.box2.pack_start(self.label1)
-        self.box2.pack_start(self.text1)
+        self.box2.pack_start(self.box3)
+        self.box2.pack_start(self.combo)
         
         
         self.window.add(self.box2)

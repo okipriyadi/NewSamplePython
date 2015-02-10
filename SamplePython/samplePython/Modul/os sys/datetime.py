@@ -3,7 +3,7 @@
 import datetime
 import time
 
-sekarang = datetime.now()
+sekarang = datetime.today()
 
 """
 tanggal = sekarang.date()

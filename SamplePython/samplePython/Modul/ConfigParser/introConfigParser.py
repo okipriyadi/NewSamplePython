@@ -2,13 +2,13 @@ import ConfigParser
 
 
 Config = ConfigParser.ConfigParser() #atau bisa juga dengan perintah Config = ConfigParser.RawConfigParser()
-print Config
+print "ConfigParser.ConfigParser()", Config
 """Explanation: We first import the configparser, 
    tell it to read the file, and get a listing of the sections. 
    Sections are listed in square brackets []."""
-print Config.read("tommorow.ini")
+print "Config.read() : ",Config.read("tommorow.ini")
 #print section dalam dokumen
-print Config.sections()
+print "Config.section():",Config.sections()
 
 #Config.option untuk mendapatkan key
 #Config.get("parametersection", key)

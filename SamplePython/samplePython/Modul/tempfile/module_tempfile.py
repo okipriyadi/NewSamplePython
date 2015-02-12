@@ -1,5 +1,6 @@
 
-from tempfile import TemporaryFile
+from tempfile import TemporaryFile, gettempdir
+import tempfile
 t = TemporaryFile()
 data = 'A simple string of text.'
 
@@ -8,3 +9,4 @@ t.write(data)
 t.seek(0)
 print(t.read())
 
+print tempfile.gettempdir()

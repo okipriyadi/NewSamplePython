@@ -11,6 +11,8 @@ print os.listdir(os.getcwd())
 
 print "\nmembuat direktori baru"
 os.mkdir("folderBaru")
+#atau bisa juga menggunakan
+#os.makedirs("folderLain")
 
 print "\nmengubahnama direktori baru"
 os.rename("folderBaru", "newFolder")

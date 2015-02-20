@@ -7,7 +7,7 @@ print __file__
 print "\nini path beserta nama filenya: "
 print os.path.realpath(__file__)
 
-print "\nini hanya direktori kerjanya saja? "
+print "\nini hanya direktori kerjanya saja tanpa disertai filenya "
 c = os.path.dirname(os.path.realpath(__file__))
 print c
 

@@ -4,6 +4,11 @@ print "List dengan index berupa kata kunci"
 bahasa = {"arab":"Ana", "indonesia":"saya","sunda":"kuring", "jawa":"kulo"}
 print bahasa["jawa"]
 print bahasa["sunda"]
+print "loop"
+for a,v in bahasa.iteritems():
+    print a
+    print v , "\n======="
+    
 
 print "memperoleh daftar kunci & Nilai"
 print bahasa.keys()

@@ -1,4 +1,3 @@
-
 from tempfile import TemporaryFile, gettempdir
 import tempfile
 t = TemporaryFile()

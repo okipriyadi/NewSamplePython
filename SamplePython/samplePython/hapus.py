@@ -1,30 +1,33 @@
-import threading
+import urllib
+import urllib2
+import json
+import logging
+import ConfigParser
 
-def do_this():
-    global x
-    
-    print "this is first thread!"
-    while (x<300):
-        x+=1
-    print x
-    
-    
-def do_after():
-    global x
-    print "this is second thread!"
-    while (x<600):
-        x+=1
-    print x
-    
-def main():
-    global x
-    x= 0 
-     
-    our_thread = threading.Thread(target=do_this(), name = "Hiji")
-    our_thread.start()
-    
-    our_next_thread = threading.Thread(target=do_after(), name="dua")
-    our_next_thread.start()
-    
-if (__name__ == "__main__"):
-    main()
+params = urllib.urlencode({'name':'DDT-SAV'})
+print params
+
+api_path = 'http://203.142.20.178:4080/master/api/get/file/fdcu/manifest/?name=PA-MDCS'
+
+print 'getFDCUManifest api: '
+print api_path
+auth_man = urllib2.HTTPPasswordMgrWithDefaultRealm()
+auth_man.add_password(None, api_path, 'paadmin', 'paadmin')
+
+auth_handler = urllib2.HTTPBasicAuthHandler(auth_man)
+rest_opener = urllib2.build_opener(auth_handler)
+urllib2.install_opener(rest_opener)
+
+
+
+res = urllib2.urlopen(api_path,timeout=20).read()
+#convert response to dictionary format
+#tricky, json.loads called twice to make response = dict
+#fdcumanifest_data = json.loads(json.loads(res))
+print res
+#print type(res)
+berkas = open("temp.ini","w")
+berkas.writelines(res)
+
+
+

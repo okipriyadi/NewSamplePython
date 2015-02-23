@@ -19,11 +19,18 @@ urllib2.install_opener(rest_opener)
 
 
 res = urllib2.urlopen(api_path,timeout=20).read()
-print res
-print type(res)
+#print res
+#print type(res)
 #convert response to dictionary format
 #tricky, json.loads called twice to make response = dict
+print res
+fdcumanifest_data2 = json.loads(res)
+print type(fdcumanifest_data2)
+print fdcumanifest_data2
 fdcumanifest_data = json.loads(json.loads(res))
 
+print type(fdcumanifest_data)
 print fdcumanifest_data
 logging.info(fdcumanifest_data)
+
+

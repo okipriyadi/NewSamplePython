@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import logging
 
 #Level logging
@@ -24,3 +25,10 @@ def main():
         logging.critical(str(e))
         
 main()
+
+"""
+    #Untuk membuat format sesuai dengan waktu bawaan komputer
+    logging.Formatter.converter = time.gmtime
+    log_level = logging.getLevelName(self.config.get("general", "log_level"))
+        log_format = '%(asctime)s:%(levelname)s:%(filename)s:%(lineno)s:%(message)s'
+"""

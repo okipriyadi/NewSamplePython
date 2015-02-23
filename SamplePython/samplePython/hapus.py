@@ -28,6 +28,25 @@ print res
 #print type(res)
 berkas = open("temp.ini","w")
 berkas.writelines(res)
+berkas.close()
+
+Config = ConfigParser.ConfigParser()
+Config.read("temp.ini")
+dict1 = {}
+section = "general"
+options = Config.options(section)
+for option in options:
+    try:
+        print "option/key : ", option
+        dict1[option] = Config.get(section, option)
+        print "value : ", dict1[option] 
+        if dict1[option] == -1:
+            DebugPrint("skip: %s" % option)
+    except:
+        print("exception on %s!" % option)
+        dict1[option] = None
+b = json.dumps(dict1)
+print b
 
 
 

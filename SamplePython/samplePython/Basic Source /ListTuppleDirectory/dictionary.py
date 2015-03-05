@@ -4,6 +4,11 @@ print "List dengan index berupa kata kunci"
 bahasa = {"arab":"Ana", "indonesia":"saya","sunda":"kuring", "jawa":"kulo"}
 print bahasa["jawa"]
 print bahasa["sunda"]
+print "loop"
+for a,v in bahasa.iteritems():
+    print a
+    print v , "\n======="
+    
 
 print "memperoleh daftar kunci & Nilai"
 print bahasa.keys()
@@ -23,6 +28,13 @@ bahasa.update({"sunda":"Abdi"})
 print bahasa
 bahasa.update({"jerman":"ich"})
 print bahasa
+print "mengubah nama key"
+bahasa['sundah'] = bahasa.pop('sunda')
+print bahasa
+
+print "mendelete salah satu key dan valuenya"
+del(bahasa['jawa'])
+print "delete bahasa jawa:", bahasa
 
 print "Menyalin Dictionary"
 bahasaCopy = bahasa

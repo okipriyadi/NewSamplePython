@@ -17,16 +17,10 @@ rest_opener = urllib2.build_opener(auth_handler)
 urllib2.install_opener(rest_opener)
 
 res = urllib2.urlopen(api_path,timeout=20).read()
+
 print res
 print type(res)
-#convert response to dictionary format
-#tricky, json.loads called twice to make response = dict
+
 bush = json.loads(res)
 print type(bush)
 #print bush
-fdcumanifest_data = json.loads(json.loads(res))
-
-print type(fdcumanifest_data)
-logging.info(fdcumanifest_data)
-
-

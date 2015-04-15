@@ -1,12 +1,14 @@
 print "============================Membuat Berkas"
 berkas = open("negara.txt","w+")
 """
-kode pada open():
+kode akses pada open():
 r = berkas hanya dapat dibaca. berkas yang dibuka harus sudah ada
 w = berkas hanya dapat ditulis, jika blm ada berkas akan diciptakan, kalau berkas sudah ada isinya akan dikosongkan '
 a = berkas bisa ditambah. data yang pernah terekam di file tidak akan dikosongkan, operasi yang bisa dilakaukan hanya penambahan data, jika berkas belum ada, berkas akan diciptakan
 r+= operasi baca tulis. berkas harus sudah ada
-w+= operasi baca tulis, isi akan dikosongkan terlebih dahulu, jika berkas tidak ada, berkas akan diciptakan  
+w+= operasi baca tulis, isi akan dikosongkan terlebih dahulu, jika berkas tidak ada, berkas akan diciptakan
+Untuk mengakses file binari, kita harus menambahkan huruf 'b' pada mode akses normal 
+(wb, rb, ab).
 """
 berkas.write("Indonesia \n")
 berkas.write("Cina \n")

@@ -48,7 +48,7 @@ def validate_sha1sum_str(sumval, ftosum):
         return False
 pass
 
-"""
+
 file_to_sum = "AWP_CAI_0.1.0_3.db"
 ftosum = "/globalrepo/"+ file_to_sum 
 sum_nya = sha1sum(ftosum)
@@ -57,16 +57,7 @@ writesumfile = "/home/kyi/"+file_to_sum+".sum"
 fs = open(writesumfile, "w")    
 sumval = fs.writelines(sum_nya)
 fs.close()
-"""
-a = "8337e33bf4f24f5dda24e039e30b18de949a54fd"
-ftosum_1 = "/home/kyi/DDT-SAV.manifest"
-b = sha1sum(ftosum_1)
-print "sum original =", b 
- 
-ftosum = "/home/kyi/DDT-SAV.manifest.tmp"
-print "sum original_dec =", sha1sum(ftosum)
 
 
-print sha1sum( "/tmp/ddt/globalrepo/manifest/CAI/CND-001.manifest") 
 
 

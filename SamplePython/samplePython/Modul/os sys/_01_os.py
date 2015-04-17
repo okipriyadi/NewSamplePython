@@ -27,7 +27,7 @@ print "===================== os.path.basename ====================="
 for path in [ '/one/two/three', '/one/two/three/', '/', '.', '']:
     print '%15s : %s' % (path, os.path.basename(path))
     
-print "===================== os.path.diname ====================="
+print "===================== os.path.dirame ====================="
 for path in [ '/one/two/three', '/one/two/three/', '/', '.', '']:
     print '%15s : %s' % (path, os.path.dirname(path))
     

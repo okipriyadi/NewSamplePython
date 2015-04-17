@@ -5,9 +5,9 @@ def visit(arg, dirname, names):
     print dirname, arg
     for name in names:
         if os.path.isdir(dirname):
-            print ' %s/' % name
+            print 'direktory = %s/' % name
         else:
-            print ' %s' % name
+            print 'non direktory =  %s' % name
     print
 if not os.path.exists('example'):
     os.mkdir('example')

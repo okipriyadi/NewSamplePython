@@ -67,7 +67,7 @@ print "===========================Membaca keseluruhan halaman"
 berkas = open("kota.txt")
 baris = berkas.readline()
 #buang newline di akhir String
-baris = baris[:-1]
+#baris = baris[:-1]
 while baris:
     print baris
     baris = berkas.readline()

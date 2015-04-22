@@ -31,6 +31,15 @@ imaps    = 993
 pop3     = 110
 pop3s    = 995
 
+There are five different server classes defined in SocketServer . 
+1. BaseServer
+   defines the API and is not intended to be instantiated and used directly.
+2. TCPServer 
+   uses TCP/IP sockets to communicate. 
+3. UDPServer uses datagram sockets.
+4. UnixStreamServer and 
+5. UnixDatagramServer 
+   use UNIX-domain sockets and are only available on UNIX platforms.
 
 Ada dua golongan socket di Unix yang paling umum dipakai yaitu:
 1. Socket Lokal atau AF_UNIX

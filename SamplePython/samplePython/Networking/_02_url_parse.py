@@ -27,6 +27,7 @@ for url in [ 'http://www.python.org',
                 'pop3s://pop.example.com',
                 ]:
     parsed_url = urlparse.urlparse(url)
+    print "urlparse.urlparse(url) =", parsed_url
     port = socket.getservbyname(parsed_url.scheme)
     print '%6s : %s' % (parsed_url.scheme, port)
     

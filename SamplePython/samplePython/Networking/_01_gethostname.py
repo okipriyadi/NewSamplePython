@@ -4,34 +4,21 @@ To reverse the service port lookup, use getservbyport().
 
 socket class = for handling the actual data channel, and also includes functions for network-related tasks, 
 such as converting a servers name to an address and formatting data to be sent across the network
-
-Sockets have two primary properties controlling the way they send data: 
-1. the address family => controls the OSI network layer protocol used, 
-2. the socket type => controls the transport layer protocol
-
-Python supports three address families. 
-1. AF_INET , is used for IPv4 Internet addressing.
-2. AF_INET6 is used for IPv6 Internet addressing.
-3. AF_UNIX is the address family for UNIX Domain Sockets (UDS)
-
-The socket type is usually either :
-1. SOCK_DGRAM for user datagram protocol (UDP)
-2. SOCK_STREAM for transmission control protocol (TCP)
 """
+
 import socket
-"""
-Use gethostbyname() to consult the operating system hostname resolution API
-and convert the name of a server to its numerical address.
-"""
-print socket.gethostname()
-print socket.gethostbyname(socket.gethostname())
-print "============================================"
 
-for host in [ 'kyi77', 'www', 'www.python.org', 'nosuchname' ]:
-    try:
-        print '%s : %s' % (host, socket.gethostbyname(host))
-    except socket.error, msg:
-        print '%s : %s' % (host, msg)
+"""socket.gethostname() = Return a string containing the hostname \
+of the machine where the Python interpreter is currently executing."""
+print "socket.gethostname() =", socket.gethostname() 
+
+"""socket.gethostbyname(hostname) = socket.gethostbyname(hostname)
+Translate a host name to IPv4 address format."""
+print "socket.gethostbyname(hostname) = ", socket.gethostbyname(socket.gethostname())
+try:
+    print "socket.gethostbyname(www.google.com) = ", socket.gethostbyname("www.google.com")
+except socket.error as msg:
+    print 'ERROR:', msg
 print "============================================"
 
 """

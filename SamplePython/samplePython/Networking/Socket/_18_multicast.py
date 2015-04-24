@@ -45,7 +45,6 @@ sock.settimeout(0.2)
 # local network segment.
 ttl = struct.pack('b', 1)
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
-
 #The rest of the sender looks like the UDP echo client, except that it expects multiple responses 
 #so uses a loop to call recvfrom() until it times out.
 

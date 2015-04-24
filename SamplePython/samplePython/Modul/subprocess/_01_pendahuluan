@@ -1,0 +1,19 @@
+subprocess provides an API for creating and communicating with secondary
+processes. It is especially good for running programs that produce or consume text,
+since the API supports passing data back and forth through the standard input and output
+channels of the new process.
+
+The subprocess module provides a consistent way to create and work with
+additional processes. It offers a higher-level interface than some of the other modu-
+les available in the standard libary, and it is intended to replace functions such as
+os.system() , os.spawnv() , the variations of popen() in the os and popen2
+modules, as well as the commands() module. To make it easier to compare
+subprocess with those other modules, many of the examples in this section re-create
+the ones used for os and popen2 .
+The subprocess module defines one class, Popen , and a few wrapper functions
+that use that class. The constructor for Popen takes arguments to set up the new pro-
+cess so the parent can communicate with it via pipes. It provides all the functionality
+of the other modules and functions it replaces, and more. The API is consistent for all
+uses, and many of the extra steps of overhead needed (such as closing extra file descrip-
+tors and ensuring the pipes are closed) are “built in” instead of being handled by the
+application code separately

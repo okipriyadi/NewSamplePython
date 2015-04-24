@@ -20,7 +20,7 @@ The socket type is usually either :
 4. SOCK_RDM
 5. SOCK_SECPAKET
 
-standard port:
+standard port/protocol:
 http     = 80
 https    = 443
 ftp      = 21

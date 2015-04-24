@@ -1,21 +1,28 @@
 import socket
 import sys
+import time
+
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Connect the socket to the port where the server is listening
-server_address = ('localhost', 8000)
+server_address = ('localhost', 10000)
 print >>sys.stderr, 'connecting to %s port %s' % server_address
 sock.connect(server_address)
-#After the connection is established, data can be sent through the socket with sendall() and received with recv() , just as in the server.
+time.sleep(1)
+messages = [ 'Part one of the message.',
+             'Part two of the message.',
+             'Part three of the message.',
+           ]
+amount_expected = len(''.join(messages))
 try:
     # Send data
-    message = 'This is the message. It will be repeated.'
-    print >>sys.stderr, 'sending "%s"' % message
-    sock.sendall(message)
+    for message in messages:
+        print >>sys.stderr, 'sending "%s"' % message
+        sock.sendall(message)
+        time.sleep(1.5)
+    
     # Look for the response
     amount_received = 0
-    amount_expected = len(message)
-    
     while amount_received < amount_expected:
         data = sock.recv(16)
         amount_received += len(data)

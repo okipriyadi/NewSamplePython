@@ -16,4 +16,4 @@ import subprocess
 print 'read'
 proc= subprocess.Popen(['echo','"to_stdout"'], stdout=subprocess.PIPE,)
 stdout_value = proc.communicate()[0]
-print "\t stdout :", repr(stdout_value)
+print "stdout :", stdout_value

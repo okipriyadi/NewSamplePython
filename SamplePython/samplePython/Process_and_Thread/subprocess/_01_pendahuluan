@@ -17,3 +17,5 @@ of the other modules and functions it replaces, and more. The API is consistent 
 uses, and many of the extra steps of overhead needed (such as closing extra file descrip-
 tors and ensuring the pipes are closed) are “built in” instead of being handled by the
 application code separately
+
+gunakan  ps ax |grep [nama program]  untuk melihat process yang berjalan atas nama program tersebut

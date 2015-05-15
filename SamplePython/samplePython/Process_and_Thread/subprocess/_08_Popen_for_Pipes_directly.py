@@ -11,7 +11,6 @@ One-Way Communication with a Process
 To run a process and read all its output, set the stdout value to PIPE and call
 communicate() .
 """
-
 import subprocess
 print 'read'
 proc= subprocess.Popen(['echo','"to_stdout"'], stdout=subprocess.PIPE,)

@@ -1,1 +1,1 @@
-starting
+print "test"

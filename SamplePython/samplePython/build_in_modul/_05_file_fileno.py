@@ -1,5 +1,5 @@
-"""fileno menghasilkan integer dari dile description yang digunakan untuk mengimplementasikan 
-request ke I?O operation dari sistem operasi
+"""fileno menghasilkan integer dari file description yang digunakan untuk mengimplementasikan 
+request ke I/O operation dari sistem operasi
 """
 
 #Open file

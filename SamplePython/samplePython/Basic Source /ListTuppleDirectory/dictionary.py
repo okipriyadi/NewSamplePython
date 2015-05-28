@@ -50,6 +50,11 @@ print "Menghapus data"
 del(bahasa["jerman"])
 print bahasa
 
+print "Menghapus data cara ke 2"
+bahasa.pop("sunda", None)
+print bahasa
+
+
 print "menghapus semua data"
 bahasa.clear()
 print bahasa

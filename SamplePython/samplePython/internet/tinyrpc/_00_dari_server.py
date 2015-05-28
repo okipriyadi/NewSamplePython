@@ -1,5 +1,6 @@
 from tinyrpc.protocols.jsonrpc import JSONRPCProtocol
 
+
 def event_pesawat_subscribe():
     print "event-pesawat"
 
@@ -11,7 +12,7 @@ methods = {"flight-event-subscribe"     :  event_pesawat_subscribe,
            }
 #ini diibaratkan RPC yang masuk dari client
 data_dari_client = '{"jsonrpc": "2.0", "method": "flight-event-subscribe", "id": 4}'
-
+data_dari_client_berparam = '{"params": {"id": 1}, "jsonrpc": "2.0", "method": "authenticate", "id": 1}'
 """
 setelah client mengirim rpc, maka server menangkap rpc, karna client mengirim dalam bentuk string, 
 maka kita kembalikan kedalam bentuk objek rpc, jadi
@@ -28,3 +29,8 @@ ini_adalah_handler = methods[request.method]
 ini_adalah_handler()
 ini_respond = request.respond("Ini jawaban") #seharusnya disimpan di fungsi pemanggil cuman karna ini mah contoh biarkan saja lah
 print ini_respond.serialize()
+
+#Untuk mengakses data berparam
+request_berparam = ini_adalah_instance.parse_request(data_dari_client_berparam)
+print "request_berparam.method = ", request_berparam.method
+print "request_berparam.kwargs['id'] = ", request_berparam.kwargs['id']

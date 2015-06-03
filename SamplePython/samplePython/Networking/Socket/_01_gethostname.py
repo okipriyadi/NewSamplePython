@@ -16,7 +16,7 @@ print "socket.gethostname() =", socket.gethostname()
 Translate a host name to IPv4 address format."""
 print "socket.gethostbyname(hostname) = ", socket.gethostbyname(socket.gethostname())
 try:
-    print "socket.gethostbyname(www.google.com) = ", socket.gethostbyname("www.google.com")
+    print "socket.gethostbyname(www.google.com) = ", socket.gethostbyname("http://git.palocal.net")
 except socket.error as msg:
     print 'ERROR:', msg
 print "============================================"

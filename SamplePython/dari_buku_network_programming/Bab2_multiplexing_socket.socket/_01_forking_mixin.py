@@ -68,6 +68,7 @@ class ForkedClient():
 class ForkingServerRequestHandler(SocketServer.BaseRequestHandler):
     def handle(self):
         # Send the echo back to the client
+        print "handle waiting"
         data = self.request.recv(BUF_SIZE)
         current_process_id = os.getpid()
         response = '%s: %s' % (current_process_id, data)

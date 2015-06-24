@@ -1,0 +1,65 @@
+CSCI_NAME = spawner
+MAJOR_NUM = 0
+MINOR_NUM = 1
+REV_NUM = 1
+target=spawner
+
+
+#uname -m = x86_64
+BUILD = x86_64
+#cd ~;pwd=/home/kyi
+STAGING_DIR=/home/kyi/staging
+if $(home) = KOSONG
+	CROSS_COMPILE= KOSONG
+	INCLUDE_DIR=/usr/include/
+	INCLUDE_LIB=/usr/lib/i386-linux-gnu/
+	ROOT_PATH=
+	CXX = gcc
+	CC  = gcc
+	AS  = as
+	STAGING_DIR_LIB=/home/kyi/staging/usr/lib
+	STAGING_DIR_INCLUDE=/home/kyi/staging/usr/include	
+	TARGET = native
+	TARGET_ARCH = i386
+else ifeq($host, armel)
+	......
+     ifeq($host, armhf)
+	......
+     ifeq ($(host),amd64)
+     
+PREFIX=KOSONG
+VERSION = 0.1.1
+PackageName = $pawner-spawner_0.1.1_i386
+CHMOD_MODE=g+w   (give write permission to the group)
+INCLUDE=-I./ -I/home/kyi/staging/usr/include 
+	     -ISTAGING_DIR_LIB=/home/kyi/staging/usr/lib 
+	     -I/usr/lib/i386-linux-gnu/dbus-1.0/include 
+	     -I/usr/lib/i386-linux-gnu/dbus-1.0/include/ 
+	     -I/usr/lib/i386-linux-gnu/glib-2.0/include 
+	     -I/usr/include/glib-2.0 
+	     -I/usr/include/glib-2.0/gio 
+	     -I/usr/include/glib-2.0/glib 
+	     -I/usr/include/glib-2.0/gobject 
+	     -I/usr/include/dbus-1.0 
+	     -I./inc/stap_data_engine 
+	     -I./inc/stap_net_handler 
+	     -I./inc/uCos-LIB/inc 
+	     -I./common/inc 
+	     -I./drv_aid
+DEFINE_SYMBOL= KOSONG
+LIB_PATHS= KOSONG
+LIBS+=-lpthread -ljansson -lbit -ldrv_aid -lrt -lm -lgps -ldbus-1 -lglib-2.0 -ldbus-glib-1 -lgobject-2.0 -lgio-2.0
+LD_FLAGS=  -L/usr/lib/i386-linux-gnu/ -L/home/kyi/staging/usr/lib
+CFLAGS= -O0 -g3 -Wall -c -fmessage-length=0 -funwind-tables -rdynamic
+
+
+PREFIX_LOCAL_LIB=/usr/local/lib
+PREFIX_INCLUDE=/include
+PREFIX_BIN=/usr/local/bin
+
+
+RANLIB = ranlib
+PWD=/home/kyi
+PackageDir=/home/kyi/spawner-spawner_0.1.1_i386
+
+

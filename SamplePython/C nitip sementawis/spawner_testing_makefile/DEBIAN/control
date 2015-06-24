@@ -1,0 +1,8 @@
+Package: <PACKAGE>
+Version: <VERSION>
+Section: ffp2 
+Priority: important 
+Architecture: <ARCH>
+Depends: 
+Maintainer: oki priyadi <oki.priyadi@pacificavionis.net>
+Description: spawner

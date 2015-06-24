@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+if [ "$1" =  "remove" ]; then
+   	if [ -h /usr/share/doc/<PACKAGE-NAME> ]; then
+	    rm -f /usr/share/doc/<PACKAGE-NAME>
+	fi
+	if [ -x /etc/init.d/<PACKAGE-NAME> ]; then
+		if [ -x /usr/sbin/invoke-rc.d ]; then
+			invoke-rc.d <PACKAGE-NAME> stop
+		else
+			/etc/init.d/<PACKAGE-NAME> stop
+		fi
+	fi
+fi
+
+exit 0

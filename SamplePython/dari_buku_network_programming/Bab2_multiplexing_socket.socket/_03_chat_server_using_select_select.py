@@ -103,7 +103,6 @@ class ChatServer(object):
                 readable, writeable, exceptional = select.select(inputs, self.outputs, [])
             except select.error, e:
                 break
-            
             for sock in readable:
                 if sock == self.server:
                     # handle the server socket
@@ -161,8 +160,7 @@ class ChatClient(object):
         self.port = port
         
         # Initial prompt
-        self.prompt='[' + '@'.join((name, socket.gethostname().
-        split('.')[0])) + ']> '
+        self.prompt='[' + '@'.join((name, socket.gethostname().split('.')[0])) + ']> '
         
         # Connect to server at port
         try:

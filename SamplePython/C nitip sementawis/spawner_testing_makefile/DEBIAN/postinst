@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+if [ -x /etc/init.d/<PACKAGE-NAME> ]; then
+    update-rc.d <PACKAGE-NAME> defaults >/dev/null
+    if [ -x /usr/sbin/invoke-rc.d ]; then
+        invoke-rc.d <PACKAGE-NAME> restart
+    else
+        /etc/init.d/<PACKAGE-NAME> restart
+    fi
+fi
+
+
+
+
+

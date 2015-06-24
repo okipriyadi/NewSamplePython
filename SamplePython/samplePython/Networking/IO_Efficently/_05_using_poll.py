@@ -1,3 +1,9 @@
+"""
+fungsi poll() mempunyai fitur yang hampir sama dengan select(), tapi lebih efisien. 
+Kekurangannya poll() tidak bisa digunakan di sistem operasi window.  
+
+"""
+
 import select
 import Queue
 import sys 
@@ -33,11 +39,11 @@ POLLIN        Input Ready
 POLLPRI       Priority Input Ready
 POLLOUT       Able to receive output
 POLLERR       Error
-POLLHUP        Channel Closed
+POLLHUP       Channel Closed
 POLLNVAL      Channel not Open
 
-The echo server will be setting up some sockets just for reading and others to be
-read from or written to. The appropriate combinations of flags are saved to the local
+The echo server menyeting sockets hanya untuk reading ATAU
+read-write. The appropriate combinations of flags are saved to the local
 variables READ_ONLY and READ_WRITE .
 """
 #Commonly used flag sets 
@@ -48,15 +54,15 @@ READ_ONLY = (select.POLLIN |
              )
 READ_WRITE = READ_ONLY | select.POLLOUT
 
-#The server socket is registered so that any incoming connections or data triggers an event.
+#The server socket diregistrasi jadi setiap ada koneksi yang masuk maka akan men-triggers sebuah event.
 # Set up the poller
 poller = select.poll()
 poller.register(server, READ_ONLY)
 
 """
-Since poll() returns a list of tuples containing the file descriptor for the socket
-and the event flag, a mapping from file descriptor numbers to objects is needed to
-retrieve the socket to read or write from it.
+poll() mer-returns sebuah tupples yang berisi file descriptor untuk socket
+dan juga event flag. Mapping dari file descriptor numbers ke objects 
+dibutuhkan untuk mendapatkan socket untuk read atau write.
 """
 # Map file descriptors to socket objects
 fd_to_socket = { server.fileno(): server,}
@@ -106,7 +112,7 @@ while True:
                 """
                 if data:
                     # A readable client socket has data
-                    print >>sys.stderr, ’ received "%s" from %s’ % \
+                    print >>sys.stderr, ' received "%s" from %s' % \
                     (data, s.getpeername())
                     message_queues[s].put(data)
                     # Add output channel for response

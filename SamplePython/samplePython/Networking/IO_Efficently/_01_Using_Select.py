@@ -108,7 +108,7 @@ while inputs:
             
             else:
                 # Interpret empty result as closed connection
-                print >>sys.stderr, ' closing', client_address
+                print >>sys.stderr, ' closing', client_address 
                 # Stop listening for input on the connection
                 if s in outputs:
                     outputs.remove(s)

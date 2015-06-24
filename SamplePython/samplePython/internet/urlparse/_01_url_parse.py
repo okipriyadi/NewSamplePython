@@ -1,44 +1,17 @@
 """
-The urlparse module manipulates URL strings, splitting and combining their components.
-There are two client-side APIs for accessing web resources. 
-1. urllib
-2. urllib2 
-urllib2 is easier to extend with new protocols and the urllib2. 
-Request provides a way to add custom headers to outgoing requests.
+urlparse module memaniulasi URL, men-split dan mengkombinasikan komponen2nya.
 
-HTTP POST requests are usually 'form encoded' with urllib . Binary data sent
-through a POST should be encoded with base64 first, to comply with the message format standard.
+Urlparse menyediakan fungsi untuk memecah URL menjadi bagian-bagian tertentu yang sesuai 
+dengan ketentuan-ketentuan RFC
 
-To create a custom web server with Python, without requiring any external frame-
-works, use BaseHTTPServer as a starting point. It handles the HTTP protocol, so
-the only customization needed is the application code for responding to the incoming
-requests.
-Session state in the server can be managed through cookies created and parsed by
-the Cookie module. Full support for expiration, path, domain, and other cookie settings
-makes it easy to configure the session.
-
-The uuid module is used for generating identifiers for resources that need unique
-values. UUIDs are good for automatically generating Uniform Resource Name (URN) values, 
-where the name of the resource needs to be unique but does not need to convey
-any meaning.
-
-Python's standard library includes support for two web-based remote procedure-
-call mechanisms. The JavaScript Object Notation (JSON) encoding scheme used in
-AJAX communication is implemented in json . It works equally well in the client or the
-server. Complete XML-RPC client and server libraries are also included in xmlrpclib
-and SimpleXMLRPCServer , respectively.
+nilai return dari fungsi urlparse() adalah sebuah objek berupa tuple dengan 6 elemen 
 """
 
 from urlparse import urlparse
-"""
-The return value from the urlparse() function is an object that acts like a tuple
-with six elements.
-"""
 url = 'http://netloc/path;param?query=arg#frag'
 parsed = urlparse(url)
 print "parsed = ", parsed
-
-print "============================================"
+print "\n============================================"
 url = 'http://user:pwd@NetLoc:80/path;param?query=arg#frag'
 parsed = urlparse(url)
 print 'scheme :', parsed.scheme
@@ -63,7 +36,7 @@ of six, and there is no params attribute.
 from urlparse import urlsplit
 url = 'http://user:pwd@NetLoc:80/p1;param/p2;param?query=arg#frag'
 parsed = urlsplit(url)
-print parsed
+print "using urlsplit=", parsed
 print 'scheme :', parsed.scheme
 print 'netloc :',parsed.netloc
 print 'path:',parsed.path

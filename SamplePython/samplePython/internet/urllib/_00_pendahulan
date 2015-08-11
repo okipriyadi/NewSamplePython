@@ -1,0 +1,4 @@
+The urllib module provides a simple interface for network resource access. It also
+includes functions for encoding and quoting arguments to be passed over HTTP to a
+server.
+

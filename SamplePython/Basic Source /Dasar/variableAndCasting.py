@@ -14,3 +14,6 @@ f = "9"
 #akan menghasilkan error karna string gak bisa ditambah denga INTEGER
 
 print int(f)+3
+d = [type(c)]
+d= str(d)
+print d, type(d), d[0]

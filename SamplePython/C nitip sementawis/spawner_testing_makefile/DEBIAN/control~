@@ -1,0 +1,8 @@
+Package: <PACKAGE>
+Version: <VERSION>
+Section: ffp2 
+Priority: important 
+Architecture: <ARCH>
+Depends: libdbus-glib-1-2, libdbus-1-3, libglib2.0-0, libgps20
+Maintainer: oki priyadi <oki.priyadi@pacificavionis.net>
+Description: spawner

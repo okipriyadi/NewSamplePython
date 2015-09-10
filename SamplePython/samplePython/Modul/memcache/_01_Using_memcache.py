@@ -1,4 +1,9 @@
 """
+kesimpuan sementara saya, memcache digunakan untuk menyimpan sebuah value di memori cache 
+sehingga program lain bisa mengambil value tersebut dengan cara mencari key yang telah ditetapkan
+
+coba lihat value di file ini bisa didapatkan oleh file _02_test.py
+
 It's fairly simple. You write values using keys and expiry times. You get values using keys. 
 You can expire keys from the system. Most clients follow the same rules. 
 You can read the generic instructions and best practices on the memcached homepage.
@@ -14,11 +19,11 @@ print "value 1", value
 
 mc.set("another_key", 3)
 value = mc.get("another_key")
-print "value 1", value
+print "value 2", value
 
 mc.delete("another_key")
 value = mc.get("another_key")
-print "value 1", value
+print "value 3", value
 
 """
 mc.set("key", "1")   # note that the key used for incr/decr must be a string.

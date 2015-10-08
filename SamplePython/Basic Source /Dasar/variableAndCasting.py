@@ -17,3 +17,15 @@ print int(f)+3
 d = [type(c)]
 d= str(d)
 print d, type(d), d[0]
+
+
+print "\nMengkonversi dari dictionary menjadi objek"
+class DBStruct:
+    def __init__(self, **entries):
+        self.__dict__.update(entries)
+
+A = {'A':'SDASD','B':'DASDSA','C':'WERWR','D':'ZXCZC'}
+dict_konversi = DBStruct(**A)
+print dict_konversi
+print dict_konversi.B
+print dict_konversi.D

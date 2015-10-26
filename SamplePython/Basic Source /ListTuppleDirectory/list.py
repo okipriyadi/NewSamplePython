@@ -49,3 +49,13 @@ print iniList
 print "mengurutkan Elemen dalam list"
 iniList.sort()
 print iniList
+
+print "mendelete elemen tertentu dalam list"
+iniList.pop(1) #parameternya adalah index
+print iniList
+
+
+print "mendelete elemen tertentu dalam list"
+iniList[:]=[]
+print iniList
+

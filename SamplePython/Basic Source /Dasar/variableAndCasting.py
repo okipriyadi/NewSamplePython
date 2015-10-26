@@ -17,3 +17,10 @@ print int(f)+3
 d = [type(c)]
 d= str(d)
 print d, type(d), d[0]
+
+
+print "Angka dibelakang koma"
+x = "12.33423423423424"
+print x
+y = float("{0:.3f}".format(float(x)))
+print type(y)

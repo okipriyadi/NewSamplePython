@@ -24,3 +24,15 @@ x = "12.33423423423424"
 print x
 y = float("{0:.3f}".format(float(x)))
 print type(y)
+
+
+print "\nMengkonversi dari dictionary menjadi objek"
+class DBStruct:
+    def __init__(self, **entries):
+        self.__dict__.update(entries)
+
+A = {'A':'SDASD','B':'DASDSA','C':'WERWR','D':'ZXCZC'}
+dict_konversi = DBStruct(**A)
+print dict_konversi
+print dict_konversi.B
+print dict_konversi.D

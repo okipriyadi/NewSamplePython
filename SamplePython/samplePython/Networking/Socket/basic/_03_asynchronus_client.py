@@ -1,6 +1,10 @@
 # This is the asynchronous Get Poetry Now! client.
 import datetime, errno, optparse, select, socket
 
+def format_address(address):
+    host, port = address
+    return '%s:%s' % (host or '127.0.0.1', port)
+
 def main():
     #Connect ke server 1
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,8 +21,15 @@ def main():
     sock3.connect(('127.0.0.1', 10003))
     sock3.setblocking(0)
 
-        rlist, _, _ = select.select(sockets, [], [])
+    poems = {"sock":"", "sock2":"", "sock3":""}
+    sock2task = {"sock":"1", "sock2":"2", "sock3":"3"}
+    sockets = [sock, sock2. sock3]
 
+    # we go around this loop until we've gotten all the poetry
+    # from all the sockets. This is the 'reactor loop'.
+
+    while sockets :
+        rlist, _, _ = select.select(sockets, [], [])
         # rlist is the list of sockets with data ready to read
 
         for sock in rlist:
@@ -57,15 +68,10 @@ def main():
 
             poems[sock] += data
 
-
-    
-    
-    elapsed = datetime.datetime.now() - start
-
     for i, sock in enumerate(sockets):
         print 'Task %d: %d bytes of poetry' % (i + 1, len(poems[sock]))
 
-    print 'Got %d poems in %s' % (len(addresses), elapsed)
+
 
 
 if __name__ == '__main__':

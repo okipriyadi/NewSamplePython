@@ -1,6 +1,7 @@
 #enumerate memberian angka otomatis ada list
 a = ['a', 'b', 'c', 'd']
 b = enumerate(a)
+print "b = ", b
 for c in b:
     print c
 

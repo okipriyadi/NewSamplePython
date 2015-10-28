@@ -1,6 +1,6 @@
 """
 We would like to run this script thrice: once for the chat server and twice for two chat clients.
-For the server, we pass –name=server and port=8800 . For client1 , we change the name
+For the server, we pass -name=server and port=8800 . For client1 , we change the name
 argument --name=client1 and for client2 , we put --name=client2 . Then from the
 client1 value prompt we send the message "Hello from client 1" , which is printed in
 the prompt of the client2 . Similarly, we send "hello from client 2 " from the prompt
@@ -74,8 +74,7 @@ class ChatServer(object):
         running = True
         while running:
             try:
-                readable, writeable, exceptional = \
-                select.select(inputs, self.outputs, [])
+                readable, writeable, exceptional = select.select(inputs, self.outputs, [])
             except select.error, e:
                 break
             for sock in readable:
@@ -138,20 +137,20 @@ class ChatClient(object):
         # Initial prompt
         self.prompt='[' + '@'.join((name, socket.gethostname().split('.')[0])) + ']> '
         # Connect to server at port
-    try:
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.connect((host, self.port))
-        print "Now connected to chat server@ port %d" % self.port
-        self.connected = True
-        # Send my name...
-        send(self.sock,'NAME: ' + self.name)
-        data = receive(self.sock)
-        # Contains client address, set it
-        addr = data.split('CLIENT: ')[1]
-        self.prompt = '[' + '@'.join((self.name, addr)) + ']> '
-    except socket.error, e:
-        print "Failed to connect to chat server @ port %d" % self.port
-        sys.exit(1)
+        try:
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.sock.connect((host, self.port))
+            print "Now connected to chat server@ port %d" % self.port
+            self.connected = True
+            # Send my name...
+            send(self.sock,'NAME: ' + self.name)
+            data = receive(self.sock)
+            # Contains client address, set it
+            addr = data.split('CLIENT: ')[1]
+            self.prompt = '[' + '@'.join((self.name, addr)) + ']> '
+        except socket.error, e:
+            print "Failed to connect to chat server @ port %d" % self.port
+            sys.exit(1)
 
     def run(self):
         """ Chat client main loop """
@@ -164,7 +163,8 @@ class ChatClient(object):
                 for sock in readable:
                     if sock == 0:
                         data = sys.stdin.readline().strip()
-                        if data: send(self.sock, data)
+                        if data: 
+                            send(self.sock, data)
                     elif sock == self.sock:
                         data = receive(self.sock)
                         if not data:

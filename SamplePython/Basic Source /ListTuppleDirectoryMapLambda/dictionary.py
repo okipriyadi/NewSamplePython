@@ -83,3 +83,7 @@ print "\nmenghapus semua data"
 bahasa.clear()
 print bahasa
 
+print "\nmembat dictionary kosong dengan kunci list"
+d = ["aa","bb","cc"]
+poems = dict.fromkeys(d, '') # socket -> accumulated poem
+print poems

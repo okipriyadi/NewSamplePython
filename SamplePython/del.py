@@ -1,43 +1,40 @@
-"""
-callLater akan dieksekusi tepat setelah jangka waktu yang diberikan pada parameter pertama dalam contoh ini 1 detik       
+from copy import deepcopy
+from samplePython.asd import AircraftMsg, ThirdParty, Aircraft, Certificate, AircraftNode 
+import time 
+_arg_in = deepcopy(Aircraft.select(AircraftMsg.retry_count, Aircraft.tailnum,
+                             Aircraft.id.alias('aircraft_id'),  # @UndefinedVariable
+                             AircraftNode.id.alias('ac_node_id'), AircraftNode.imei,  # @UndefinedVariable
+                             AircraftMsg.ts_received, AircraftMsg.msg_id, AircraftMsg.payload).join(AircraftNode).join(AircraftMsg).where((AircraftMsg.id == 2)).limit(1).dicts().first())  # @UndefinedVariable
+_arg_out = deepcopy(Certificate.select(Certificate.active.alias('certificate_active'), Certificate.not_before, Certificate.not_after, Certificate.commonname, # @UndefinedVariable
+                                       Certificate.id.alias('certificate_id'), ThirdParty.id.alias('thirdparty_id'), ThirdParty.active.alias('thirdparty_active'), ThirdParty.sor_retry_delay.alias('retry_delay'), ThirdParty.sor_retry_times.alias('retry_times'), ThirdParty.sor_timeout.alias('timeout')).join(ThirdParty).join(AircraftMsg).where(AircraftMsg.id == 2).limit(1).dicts().first())  # @UndefinedVariable
 
- With callLater the callback is the second argument and the first argument is the number of seconds in the future you would like your callback to run. You can use a floating point number to specify a fractional number of seconds, too.
 
- And Twisted uses timeouts to make sure any "timed callbacks" registered with callLater get called at the right time. Or rather, at approximately the right time. If another callback takes a really long time to execute, a timed callback may be delayed past its schedule.
-"""
-from twisted.internet import reactor
+print _arg_in
+print "==================================="
+print _arg_out
 
-status = 1
-def stop2():
-    print "stop", status
-    
-    if status == 0:
-        print "why"
-        reactor.stop()
+time.sleep(5)
+_arg_in2 = deepcopy(Aircraft.select(AircraftMsg.retry_count, Aircraft.tailnum,
+                             Aircraft.id.alias('aircraft_id'),  # @UndefinedVariable
+                             AircraftNode.id.alias('ac_node_id'), AircraftNode.imei,  # @UndefinedVariable
+                             AircraftMsg.ts_received, AircraftMsg.msg_id, AircraftMsg.payload).join(AircraftNode).join(AircraftMsg).where((AircraftMsg.id == 2)).limit(1).dicts().first())  # @UndefinedVariable
+_arg_out2 = deepcopy(Certificate.select(Certificate.active.alias('certificate_active'), Certificate.not_before, Certificate.not_after, Certificate.commonname, # @UndefinedVariable
+                                       Certificate.id.alias('certificate_id'), ThirdParty.id.alias('thirdparty_id'), ThirdParty.active.alias('thirdparty_active'), ThirdParty.sor_retry_delay.alias('retry_delay'), ThirdParty.sor_retry_times.alias('retry_times'), ThirdParty.sor_timeout.alias('timeout')).join(ThirdParty).join(AircraftMsg).where(AircraftMsg.id == 2).limit(1).dicts().first())  # @UndefinedVariable
 
-class Countdown(object):
- 
-    counter = 5
-    def count(self):
-        global status 
-        status = 9
-        print "count status," , status
-        if self.counter == 0:
-            status = 0
-            reactor.callLater(1, stop2)
-            #reactor.stop()
-            pass
-        else:
-            print self.counter, '...'
-            self.counter -= 1
-            reactor.callLater(1, self.count)
- 
- 
-reactor.callWhenRunning(Countdown().count)
-reactor.callLater(4, Countdown().count)
-reactor.callLater(7, Countdown().count)
-reactor.callLater(9, Countdown().count)
- 
-print 'Start!'
-reactor.run()
-print 'Stop!'
+print _arg_in2
+print "==================================="
+print _arg_out2
+
+time.sleep(5)
+_arg_in3 = deepcopy(Aircraft.select(AircraftMsg.retry_count, Aircraft.tailnum,
+                             Aircraft.id.alias('aircraft_id'),  # @UndefinedVariable
+                             AircraftNode.id.alias('ac_node_id'), AircraftNode.imei,  # @UndefinedVariable
+                             AircraftMsg.ts_received, AircraftMsg.msg_id, AircraftMsg.payload).join(AircraftNode).join(AircraftMsg).where((AircraftMsg.id == 2)).limit(1).dicts().first())  # @UndefinedVariable
+_arg_out3 = deepcopy(Certificate.select(Certificate.active.alias('certificate_active'), Certificate.not_before, Certificate.not_after, Certificate.commonname, # @UndefinedVariable
+                                       Certificate.id.alias('certificate_id'), ThirdParty.id.alias('thirdparty_id'), ThirdParty.active.alias('thirdparty_active'), ThirdParty.sor_retry_delay.alias('retry_delay'), ThirdParty.sor_retry_times.alias('retry_times'), ThirdParty.sor_timeout.alias('timeout')).join(ThirdParty).join(AircraftMsg).where(AircraftMsg.id == 2).limit(1).dicts().first())  # @UndefinedVariable
+
+print _arg_in3
+print "==================================="
+print _arg_out3
+
+time.sleep(5)

@@ -1,0 +1,7 @@
+{% extends "bootstrap/base.html" %}
+{% block head %}
+	<!-- super digunakan agar block yg dimaksud tidak teroverride --> 
+	{{ super() }}
+	<link rel="shortcut icon" href="{{ url_for('static', filename = 'download.jpg') }} "type="image/x-icon">
+	<link rel="icon" href="{{ url_for('static', filename = 'download.jpg') }}" type="image/x-icon">
+{% endblock %}

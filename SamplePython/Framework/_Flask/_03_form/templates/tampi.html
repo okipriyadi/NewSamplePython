@@ -1,9 +1,7 @@
-tes
+Hallo {% if name %} {{ name }} {% endif %} 
+
 <form method="POST" action='tampi'>
 	{{ form.name.label }} {{ form.name() }}
 	{{ form.submit() }}
 </form>
 
-{% if name %}
-	{{ name }}
-{% endif %}

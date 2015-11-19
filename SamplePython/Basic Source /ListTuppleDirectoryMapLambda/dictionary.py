@@ -1,13 +1,19 @@
 print "--------------------------------Dictionary----------------------------"
 
-print "Mengakses nilai dict"
+print "Mengakses nilai dict jika key tidak ada maka akan menghasilkan error"
 bahasa = {"arab":"Ana", "indonesia":"saya","sunda":"kuring", "jawa":"kulo"}
 print bahasa["jawa"]
 print bahasa["sunda"]
+try:
+    print bahasa["jerman"]
+except Exception, e:
+    print "menghasilkan error karna key/kunci", e, "tidak ada" 
 
-print "\nMengakses nilai dict Versi 2"
+#lebih Aman karna tidak menghasilkan error jika key tidak tersedia
+print "\nMengakses nilai dict Versi 2, jika key tidak ada maka menghasilkan None"
 print bahasa.get('jawa')
 print bahasa.get('jerman')
+
 
 print "\nMengakases keseluruhan KEY & NILAI dengan menggunakan loop for "
 for a,v in bahasa.iteritems():

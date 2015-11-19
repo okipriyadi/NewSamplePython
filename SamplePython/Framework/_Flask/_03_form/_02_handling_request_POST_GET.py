@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField
 from wtforms.validators import Required
@@ -21,7 +21,7 @@ def iniform():
 def tampi():
     name = None
     form = NameForm()
-    if form.validate_on_submit():
+    if request.method =='POST':
         name = form.name.data
         form.name.data = ''
     return render_template('tampi.html', form=form, name=name)

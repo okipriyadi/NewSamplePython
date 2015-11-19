@@ -4,7 +4,7 @@ membuat rpc
 1. buat instance dari JSONRPCProtocol
 2. tambahkan method create_request
 """
-from _smbc import SERVER
+
 ini_instance = JSONRPCProtocol()
 request = ini_instance.create_request('flight-event-subscribe')#bisa juga menambahkan parameter misal request = self.rpc.create_request('authenticate', {'id' : self.client_id})
 

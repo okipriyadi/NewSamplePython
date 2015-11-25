@@ -43,15 +43,23 @@ def main():
     # This may be used as a "top 5 users highscore table"
     # Note that a limit of 0 is equivalent to no limit.
     import copy
-    users = dbh.users.find({"username":"okipriyadi07"})
-    new_users= copy.deepcopy(users)
+    user = dbh.users.find_one({"username":"okipriyadi07"})
+    new_user= copy.deepcopy(user)
     # modify the copy to change the email address
-    for new_user in new_users:
-        new_user["email"] = "oki7777@example2.com"
+    print new_user 
+    new_user["email"] = "oki99@example2.com"
+    print new_user
+    
+    #lihat yg masih dalam database
+    old_user = dbh.users.find_one({"_id":new_user["_id"]})
+    print "sebelum diupdate"
+    print old_user
     # run the update query
     # replace the matched document with the contents of new_user_doc
-    dbh.users.update({"username":"okipriyadi07"}, new_user, safe=True)
- 
+    dbh.users.update({"_id":new_user["_id"]}, new_user, safe=True)
+    print "setelah diudate"
+    old_user = dbh.users.find_one({"_id":new_user["_id"]})
+    print old_user
         
 if __name__ == "__main__":
     main()

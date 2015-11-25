@@ -1,7 +1,20 @@
-Hallo {% if name %} {{ name }} {% endif %} 
+Hallo {% if name %} {{ name }} {% endif %}  rururu
 
-<form method="POST" action='tampi'>
+<form method="POST" action='/'>
 	{{ form.name.label }} {{ form.name() }}
 	{{ form.submit() }}
+	
 </form>
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Flasky{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+</div>
+{{ wtf.quick_form(form) }}
+{% endblock %}
 

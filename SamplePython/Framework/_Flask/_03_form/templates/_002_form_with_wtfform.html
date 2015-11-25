@@ -1,0 +1,11 @@
+<form method='post'>
+{% for field in form %}
+	{{ field.label }}
+	{{ field }}
+	{{ field.flags.required }}
+	<br>
+	
+{% endfor %}
+</form>
+
+

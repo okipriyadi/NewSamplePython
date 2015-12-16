@@ -1,0 +1,19 @@
+he basic syntax of SELECT statement with WHERE clause is as follows:
+
+SELECT column1, column2, columnN
+FROM table_name
+WHERE [search_condition]
+
+
+
+AND OPERATOR
+SELECT column1, column2, columnN
+FROM table_name
+WHERE [condition1] AND [condition2]...AND [conditionN];
+
+
+OR OPERATOR
+SELECT column1, column2, columnN
+FROM table_name 
+WHERE [condition1] OR [condition2]...OR [conditionN]
+

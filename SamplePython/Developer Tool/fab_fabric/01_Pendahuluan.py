@@ -30,20 +30,26 @@ More specifically, Fabric is:
 2. A library of subroutines (built on top of a lower-level library) to make executing shell commands over SSH easy and Pythonic.
 
 
-Defnisi tugas administrasi dalam Fabric ditulis dalam sebuah script python, dalam satu folder umumnya diberi nama fabfile.py dan python script tersebut dapat dieksekusi dengan library Fabric yang diinstall secara global dalam Os, cukup dengan menjalankan perintah didalam sebuah folder yang memiliki file fabfile.py tersebut:
+Defnisi tugas administrasi dalam Fabric ditulis dalam sebuah script python, dalam satu folder umumnya
+diberi nama fabfile.py dan python script tersebut dapat dieksekusi dengan library Fabric 
+yang diinstall secara global dalam Os, cukup dengan menjalankan perintah didalam sebuah 
+folder yang memiliki file fabfile.py tersebut:
 ==========================================
 $fab -l
 ==========================================
 
-Dengan opsi -l tersebut maka akan ditampilkan daftar dari seluruh definisi pekerjaaan yang tertulis dalam script python tersebut. 
+Dengan opsi -l tersebut maka akan ditampilkan daftar dari seluruh definisi pekerjaaan 
+yang tertulis dalam script python tersebut. 
 Bagaimana cara memasang Fabric?
 
-Pada os berbasis Ubuntu yang telah memiliki Python, kita bisa melakukan instalasi Fabric dengan menggunakan aptitude
+Pada os berbasis Ubuntu yang telah memiliki Python, kita bisa melakukan instalasi 
+Fabric dengan menggunakan aptitude
 ==========================================
 $sudo aptitude install fabric
 ==========================================
 
-Selain itu, Fabric juga dapat diinstall menggunakan Python Package Manager PIP, cara ini dapat dijalankan diberbagai os Linux maupun OSX selama pip telah berfungsi dengan benar.
+Selain itu, Fabric juga dapat diinstall menggunakan Python Package Manager PIP, 
+cara ini dapat dijalankan diberbagai os Linux maupun OSX selama pip telah berfungsi dengan benar.
 ==========================================
 $pip install fabric
 ==========================================

@@ -1,0 +1,33 @@
+The PostgreSQL ALTER TABLE command is used to add, delete or modify columns in an existing table.
+You would also use ALTER TABLE command to add and drop various constraints on an existing table .
+
+The basic syntax of ALTER TABLE to ADD a NEW COLUMN in an existing table is as follows:
+ALTER TABLE table_name ADD column_name datatype;
+
+The basic syntax of ALTER TABLE to DROP COLUMN in an existing table is as follows:
+ALTER TABLE table_name DROP COLUMN column_name;
+
+The basic syntax of ALTER TABLE to change the DATA TYPE of a column in a table is as follows:
+ALTER TABLE table_name MODIFY COLUMN column_name datatype;
+
+The basic syntax of ALTER TABLE to add a NOT NULL constraint to a column in a table is as follows:
+ALTER TABLE table_name MODIFY column_name datatype NOT NULL;
+
+The basic syntax of ALTER TABLE to ADD UNIQUE CONSTRAINT to a table is as follows:
+ALTER TABLE table_name ADD CONSTRAINT MyUniqueConstraint UNIQUE(column1, column2...);
+
+The basic syntax of ALTER TABLE to ADD CHECK CONSTRAINT to a table is as follows:
+ALTER TABLE table_name ADD CONSTRAINT MyUniqueConstraint CHECK (CONDITION);
+
+The basic syntax of ALTER TABLE to ADD PRIMARY KEY constraint to a table is as follows:
+ALTER TABLE table_name ADD CONSTRAINT MyPrimaryKey PRIMARY KEY (column1, column2...);
+
+The basic syntax of ALTER TABLE to DROP CONSTRAINT from a table is as follows:
+ALTER TABLE table_name DROP CONSTRAINT MyUniqueConstraint;
+If you're using MySQL, the code is as follows:
+ALTER TABLE table_name DROP INDEX MyUniqueConstraint;
+
+The basic syntax of ALTER TABLE to DROP PRIMARY KEY constraint from a table is as follows:
+ALTER TABLE table_name DROP CONSTRAINT MyPrimaryKey;
+If you're using MySQL, the code is as follows:
+ALTER TABLE table_name DROP PRIMARY KEY;

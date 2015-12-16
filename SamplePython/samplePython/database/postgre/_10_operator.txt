@@ -1,0 +1,41 @@
+
+
+Operator 	Description 														Example
++ 			Addition - Adds values on either side of the operator 				a + b will give 5 ***ket a= 2 b =3
+- 			Subtraction - Subtracts right hand operand from left hand operand 	a - b will give -1
+* 			Multiplication - Multiplies values on either side of the operator 	a * b will give 6
+/ 			Division - Divides left hand operand by right hand operand 			b / a will give 2
+% 			Modulus - Divides left hand operand by right hand operand and 
+			returns remainder 													b % a will give 1
+^ 			Exponentiation - This gives the exponent value of the right 
+			hand operand 														a ^ b will give 8
+|/ 			square root 														|/ 25.0 will give 5
+||/ 		Cube root 															||/ 27.0 will give 3
+!/ 			Factorial 															5 ! will give 120
+!! 			factorial (prefix operator) 										!! 5 will give 120
+Operator komparasi
+= 			Checks if the values of two operands are equal or not, 
+			if yes then condition becomes true. 								(a = b) is not true.
+!= 			Checks if the values of two operands are equal or not, 
+			if values are not equal then condition becomes true. 				(a != b) is true.
+<> 			Checks if the values of two operands are equal or not, 
+			if values are not equal then condition becomes true. 				(a <> b) is true.
+> 			Checks if the value of left operand is greater than the value of 
+			right operand, if yes then condition becomes true. 					(a > b) is not true.
+< 			Checks if the value of left operand is less than the value of 
+			right operand, if yes then condition becomes true. 					(a < b) is true.
+>= 			Checks if the value of left operand is greater than or equal to 
+			the value of right operand, if yes then condition becomes true. 	(a >= b) is not true.
+<= 			Checks if the value of left operand is less than or equal to 
+			the value of right operand, if yes then condition becomes true. 	(a <= b) is true.
+
+
+
+ex:
+select12%5;
+
+hasilnya:
+?column?
+----------
+2
+(1 row)

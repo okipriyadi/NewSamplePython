@@ -46,14 +46,31 @@ db.log.find().sort( { _id: 1 } )
 1 untuk ascending
 -1 untuk descending
 
+
+contoh kita akan mencari di kolom message yang mengandung kata PA-003 :       *****(kalau di sql rumusnya seperti ini : select * from users where name like '%m%')
+==========================================
+db.log.find({"msg" : /.*PA-003.*/})
+==========================================
+
+
+
+
+contoh lain :
+=============================================================
+db.users.insert({name: 'paulo'})
+db.users.insert({name: 'patric'})
+db.users.insert({name: 'pedro'})
+
+db.users.find({name: /a/})  ###like '%a%'
+out: paulo, patric
+
+db.users.find({name: /^pa/}) ###like 'pa%' 
+out: paulo, patric
+
+db.users.find({name: /ro$/}) ###like '%ro'
+out: pedro
+=============================================================
 """
-
-
-
-
-
-
-
 
 
 

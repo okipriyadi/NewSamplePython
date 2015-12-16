@@ -1,0 +1,23 @@
+Basic syntax of INSERT INTO statement is as follows.
+=======================================================================================+
+INSERT INTO TABLE_NAME (column1, column2, column3,...columnN)] VALUES (value1, value2, value3,...valueN);
+=======================================================================================+
+
+You may not need to specify the column(s) name in the SQL query if you are adding values for all the columns of
+the table. But make sure the order of the values is in the same order as the columns in the table. The SQL INSERT
+INTO syntax would be as follows:
+=======================================================================================+
+INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
+=======================================================================================+
+
+eg:
+INSERT INTO COMPANY (ID,	NAME,	AGE,	ADDRESS,		SALARY,		JOIN_DATE) 
+			VALUES  (1,		'Paul',	32,		'California',	20000.00,	'2001-07-13');
+			
+
+insert multiple row 
+INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY,JOIN_DATE) 
+			VALUES  (4,'Mark',25,'Rich-Mond ',65000.00,'2007-12- 13'),
+					(5,'David',27,'Texas',85000.00,'2007-12-13')
+			
+			

@@ -37,11 +37,11 @@ $fab kosongkan_tmp install_nginx
 
 Fungsi-fungsi penting dalam Fabric untuk memulai membuat tugas administrasi penting:
 
-run (fabric.operations.run)
-sudo (fabric.operations.sudo)
-local (fabric.operations.local)
-get (fabric.operations.get)
-put (fabric.operations.put)
-prompt (fabric.operations.prompt)
-reboot (fabric.operations.reboot)
+run     (fabric.operations.run)
+sudo    (fabric.operations.sudo)
+local   (fabric.operations.local)
+get     (fabric.operations.get)
+put     (fabric.operations.put)
+prompt  (fabric.operations.prompt)
+reboot  (fabric.operations.reboot)
 """ 

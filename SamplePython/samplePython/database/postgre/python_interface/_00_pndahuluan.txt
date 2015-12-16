@@ -1,0 +1,49 @@
+T he PostgreSQL can be integrated with Python using psycopg2 module. sycopg2 is a PostgreSQL
+database adapter for the Python programming language. psycopg2 was written with the aim of being very small
+and fast, and stable as a rock. You do not need to install this module separately because its being shipped by
+default along with Python version 2.5.x onwards. If you do not have it installed on your machine then you can use
+yum command to install it as follows:
+====================================================================================+
+$yum install python-psycopg2
+====================================================================================+
+To use psycopg2 module, you must first create a Connection object that represents the database and then
+optionally you can create cursor object which will help you in executing all the SQL statements.
+
+Following are important psycopg2 module routines, which can suffice your requirement to work with PostgreSQL
+database from your Python program. If you are looking for a more sophisticated application, then you can look into
+Python psycopg2 module's official documentation.
+S.N.	API & Description
+1. 		psycopg2.connect(database="testdb", user="postgres", password="cohondob", host="127.0.0.1", port="5432")
+		This API opens a connection to the PostgreSQL database. If database is opened successfully, it returns a connection object.
+2.		connection.cursor()
+	 	This routine creates a cursor which will be used throughout of your database programming with Python.
+3.		cursor.execute(sql [, optional parameters])
+		This routine executes an SQL statement. The SQL statement may be parameterized (i.e., placeholders
+		instead of SQL literals). The psycopg2 module supports placeholder using %s sign
+		For example:cursor.execute("insert into people values (%s, %s)", (who, age))
+4. 		cursor.executemany(sql, seq_of_parameters)
+		This routine executes an SQL command against all parameter sequences or mappings found in the
+		sequence sql.
+5.		curosr.callproc(procname[, parameters])
+		This routine executes a stored database procedure with the given name. The sequence of parameters must
+		contain one entry for each argument that the procedure expects.
+		cursor.rowcount
+6.		This read-only attribute which returns the total number of database rows that have been modified, inserted,
+		or deleted by the last last execute*().
+7.		connection.commit()
+		This method commits the current transaction. If you don't call this method, 
+		anything you did since the last call to commit() is not visible from other database connections.
+8. 		connection.rollback()
+		This method rolls back any changes to the database since the last call to commit().
+9. 		connection.close()
+		This method closes the database connection. Note that this does not automatically call commit(). If you just
+		close your database connection without calling commit() first, your changes will be lost!
+10.		cursor.fetchone()
+		This method fetches the next row of a query result set, returning a single sequence, or None when no more
+		data is available.
+11.		cursor.fetchmany([size=cursor.arraysize])
+		This routine fetches the next set of rows of a query result, returning a list. An empty list is returned when no
+		more rows are available. The method tries to fetch as many rows as indicated by the size parameter.
+12. 	cursor.fetchall()
+		This routine fetches all (remaining) rows of a query result, returning a list. An empty list is returned when no
+		rows are available.

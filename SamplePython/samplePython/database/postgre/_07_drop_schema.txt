@@ -1,0 +1,9 @@
+To drop a schema if it's empty (all objects in it have been dropped), then use:
+=======================================================+
+DROP SCHEMA myschema;
+=======================================================+
+
+To drop a schema including all contained objects, use:
+=======================================================+
+DROP SCHEMA myschema CASCADE;
+=======================================================+

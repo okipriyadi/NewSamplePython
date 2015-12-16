@@ -4,10 +4,10 @@ We will use the save() and create() methods to add and update people's records.
 """
 from _01_Membuat_definisi_model import Person, Pet, db
 from datetime import date
-from aifc import data
 from peewee import *
 
 uncle_bob = Person(name='Bob', birthday=date(1960, 1, 15), is_relative=True)
+print uncle_bob
 uncle_bob.save() # bob is now stored in the database
 
 #When you call save(), the number of rows modified is returned.
@@ -21,7 +21,7 @@ herb = Person.create(name='Herb', birthday=date(1950, 5, 5), is_relative=False)
 
 """
 To update a row, modify the model instance and call save() 
-to persist the changes. Here we will change Grandma’s name and then save the changes 
+to persist the changes. Here we will change Grandma's name and then save the changes 
 in the database:
 """
 grandma.name = 'Grandma L.'
@@ -46,7 +46,7 @@ The return value of delete_instance() is the number of rows removed from the dat
 
 """
 change owner
-Uncle Bob decides that too many animals have been dying at Herb’s house, so he adopts Fido:
+Uncle Bob decides that too many animals have been dying at Herb's house, so he adopts Fido:
 """
 herb_fido.owner = uncle_bob
 herb_fido.save()
@@ -68,7 +68,7 @@ print grandma;
 
 """
 Lists of records
-Let’s list all the people in the database:
+Let's list all the people in the database:
 """
 for person in Person.select():
     print person.name, person.is_relative
@@ -80,7 +80,7 @@ for pet in query:
 """
 There is a big problem with the previous query: because we are accessing pet.owner.name 
 and we did not select this value in our original query, 
-peewee will have to perform an additional query to retrieve the pet’s owner. 
+peewee will have to perform an additional query to retrieve the pet's owner. 
 This behavior is referred to as N+1 and it should generally be avoided.
 
 We can avoid the extra queries by selecting both Pet and Person, and adding a join.
@@ -93,29 +93,29 @@ query = (Pet
 for pet in query:
     print pet.name, pet.owner.name
     
-#Let’s get all the pets owned by Bob:
+#Let's get all the pets owned by Bob:
 for pet in Pet.select().join(Person).where(Person.name == 'Bob'):
     print pet.name
     
-#We can do another cool thing here to get bob’s pets. Since we already have an object to represent Bob, we can do this instead:
+#We can do another cool thing here to get bob's pets. Since we already have an object to represent Bob, we can do this instead:
 for pet in Pet.select().where(Pet.owner == uncle_bob):
     print pet.name
     
-#Let’s make sure these are sorted alphabetically by adding an order_by() clause:
+#Let's make sure these are sorted alphabetically by adding an order_by() clause:
 for pet in Pet.select().where(Pet.owner == uncle_bob).order_by(Pet.name):
     print pet.name
     
-#Let’s list all the people now, youngest to oldest:
+#Let's list all the people now, youngest to oldest:
 for person in Person.select().order_by(Person.birthday.desc()):
     print person.name, person.birthday
     
-#Now let’s list all the people and some info about their pets:
+#Now let's list all the people and some info about their pets:
 for person in Person.select():
     print person.name, person.pets.count(), 'pets'
     for pet in person.pets:
         print '    ', pet.name, pet.animal_type
         
-#Once again we’ve run into a classic example of N+1 query behavior. We can avoid this by performing a JOIN and aggregating the records:
+#Once again we've run into a classic example of N+1 query behavior. We can avoid this by performing a JOIN and aggregating the records:
 subquery = Pet.select(fn.COUNT(Pet.id)).where(Pet.owner == Person.id)
 query = (Person
          .select(Person, Pet, subquery.alias('pet_count'))
@@ -130,7 +130,7 @@ for person in query.aggregate_rows():  # Note the `aggregate_rows()` call.
 """
 Even though we created the subquery separately, only one query is actually executed.
 
-Finally, let’s do a complicated one. Let’s get all the people whose birthday was either:
+Finally, let's do a complicated one. Let's get all the people whose birthday was either:
 
 before 1940 (grandma)
 after 1959 (bob)
@@ -151,7 +151,7 @@ query = (Person
 for person in query:
     print person.name, person.birthday
     
-#Now let’s do the opposite. People whose birthday is between 1940 and 1960:
+#Now let's do the opposite. People whose birthday is between 1940 and 1960:
 
 query = (Person
          .select()
@@ -166,6 +166,6 @@ for person in Person.select().where(expression):
     print person.name
     
     
-#We’re done with our database, let’s close the connection:
+#We're done with our database, let's close the connection:
 
 db.close()

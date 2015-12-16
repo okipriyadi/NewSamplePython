@@ -1,0 +1,7 @@
+SELECT column-list
+FROM table_name
+[WHERE condition]
+[ORDER BY column1, column2,.. columnN][ASC | DESC];
+
+ex:
+SELECT * FROM COMPANY ORDER BY NAME, SALARY ASC;

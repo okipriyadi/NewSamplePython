@@ -1,0 +1,39 @@
+Ada dua cara:
+1. menggunakan drop   	(harus masuk ke superuser postgres)
+2. menggunakan dropdb	(cukup di user linux biasa)
+
+
+
+1. USING DROP
+***It can only be executed by the database owner. This command cannot be executed while you
+or anyone else is connected to the target database (connect to postgres or any other database to issue this
+command).
+=========================================================
+DROP DATABASE [ IF EXISTS ] dbname
+eg : DROP DATABASE
+=========================================================
+
+Parameter 		Description
+IF EXISTS 		Do not throw an error if the database does not exist. A notice is issued in this case.
+dbname 			The name of the database to remove.
+
+
+2. USING DROPDB
+***The user, who executes this command must be a database superuser or the owner of the database ***
+=========================================================
+dropdb [option...] dbname
+eg : dropdb -h localhost -p 5432 -U postgress testdb
+=========================================================
+
+Option 			Description
+-e 				Shows the commands being sent to the server.
+-i		 		Issues a verification prompt before doing anything destructive.
+-V 				Print the dropdb version and exit.
+--if-exists 	Do not throw an error if the database does not exist. A notice is issued in this case.
+--help 			Show help about dropdb command-line arguments and exit.
+-h host 		Specifies the host name of the machine on which the server is running.
+-p port 		Specifies the TCP port or the local UNIX domain socket file extension on which the server is listening for connections.
+-U username 	User name to connect as.
+-w 				Never issue a password prompt.
+-W 				Force dropdb to prompt for a password before connecting to a database.
+--maintenance-db=dbname 	Specifies the name of the database to connect to in order to drop the target database.

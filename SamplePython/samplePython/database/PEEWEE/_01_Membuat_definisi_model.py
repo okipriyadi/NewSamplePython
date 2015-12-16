@@ -23,7 +23,8 @@ class Person(Model):
         database = db # This model uses the "people.db" database.
         
 """
-Note that we named our model Person instead of People. This is a convention you should follow - even though the table will contain multiple people, we always name the class using the singular form.
+Note that we named our model Person instead of People. This is a convention you should follow - 
+even though the table will contain multiple people, we always name the class using the singular form.
 """
 
 #membuat relasi
@@ -38,7 +39,8 @@ class Pet(Model):
 
     class Meta:
         database = db # this model uses the "people.db" database
-        
+   
+     
 """
 Now that we have our models, let's connect to the database. 
 Although it's not necessary to open the connection explicitly, 

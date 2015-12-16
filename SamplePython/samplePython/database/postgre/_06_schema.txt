@@ -1,0 +1,30 @@
+SCHEMA
+Schemas are analogous to directories at the operating system level, except that
+schemas cannot be nested (tidak bersarang). 
+
+Advantages of using a Schema
+- It allows many users to use one database without interfering with each other.
+- It organizes database objects into logical groups to make them more manageable.
+- Third-party applications can be put into separate schemas so they do not collide(bertabrakan) 
+  with the names of other objects.
+
+
+====================================================================
+CREATE SCHEMA name;
+eg: CREATE SCHEMA inischema;
+====================================================================
+
+Now, let us create a table in the above schema as follows:
+create table myschema.company(
+ID		INT				NOT NULL,
+NAME 	VARCHAR (20)	NOT NULL,
+AGE 	INT				NOT NULL,
+ADDRESS CHAR (25),
+SALARY	DECIMAL (18,2),
+PRIMARY KEY (ID)
+);
+That will create an empty table. 
+You can verify the table created with the command below:
+====================================================================
+testdb=#select*from myschema.company;
+====================================================================

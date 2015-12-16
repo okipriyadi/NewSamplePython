@@ -1,0 +1,209 @@
+Interacting with PostgreSQL: psql
+
+psql is an interactive terminal that comes with PostgreSQL. With it you can enter and run SQL queries 
+and get any results in the console. You can also create stored procedures, run complete SQL scripts, 
+do database maintenance and much much more. For most PostgreSQL users, this is the only interface 
+they need and use with PostgreSQL. psql allows you to connect to one database only hosted either 
+locally or remotely. Let's suppose that that PostgreSQL is running locally (perhaps you ssh'd to a 
+remote server to get to PostgreSQL but no matter). To run psql we need to supply a database name using 
+the -d option.
+================================================================
+psql -d testdb
+================================================================
+
+psql is going to complain here. Who are you? It needs to authenticate you. 
+For this we use the -U [for "U"ser] option. This will then prompt for a password, 
+at least the first time. You can also force it prompt for a password using the -W or --password option:
+================================================================
+localhost:~ postgresuser$ psql -d postgres -U postgresuser --password
+Password for user postgresuser: 
+psql (9.0.1)
+Type "help" for help.
+
+postgres=# 
+================================================================
+
+(The "postgres=#" here is the command prompt. Yours might look different depending on how PostgreSQL 
+was set up.) You have to supply a database name to connect to. However, what if we don't know which 
+databases exist? In an earlier post we mentioned the special database "postgres". 
+(There are others but these are more for administrators). We can always connect to that postgres 
+database, list the databases, decide which we want and then switch to connecting to one of those.
+
+Now we have started the terminal, let's list the databases. We do that using one of psql 
+"meta-commands". These are very useful, terse commands for doing common tasks. 
+To list databases we simply type \l [that is ell for "l"ist]
+
+postgres=# \l
+                              List of databases
+   Name    |  Owner   | Encoding  | Collation | Ctype |   Access privileges   
+-----------+----------+-----------+-----------+-------+-----------------------
+ postgres  | postgres | SQL_ASCII | C         | C     | 
+ template0 | postgres | SQL_ASCII | C         | C     | =c/postgres          +
+           |          |           |           |       | postgres=CTc/postgres
+ template1 | postgres | SQL_ASCII | C         | C     | =c/postgres          +
+           |          |           |           |       | postgres=CTc/postgres
+ testdb    | postgres | SQL_ASCII | C         | C     | 
+(4 rows)
+
+Here we can see four databases: postgres, template0, template1 and testdb. 
+
+Let's create a new database: testdb2. To do that, we run a SQL query. Type the following and hit enter:
+================================================================
+postgres=# create database testdb2;
+CREATE DATABASE
+================================================================
+Important: make sure that you add the semicolon to the end of the statement. If you don't PostgreSQL 
+doesn't know that you are finished and sits there waiting.
+
+Let's double check by relisting the databases:
+
+postgres=# \l
+                                List of databases
+   Name    |    Owner     | Encoding  | Collation | Ctype |   Access privileges   
+-----------+--------------+-----------+-----------+-------+-----------------------
+ postgres  | postgres     | SQL_ASCII | C         | C     | 
+ template0 | postgres     | SQL_ASCII | C         | C     | =c/postgres          +
+           |              |           |           |       | postgres=CTc/postgres
+ template1 | postgres     | SQL_ASCII | C         | C     | =c/postgres          +
+           |              |           |           |       | postgres=CTc/postgres
+ testdb    | postgres     | SQL_ASCII | C         | C     | 
+ testdb2   | postgresuser | SQL_ASCII | C         | C     | 
+(5 rows)
+
+OK, let's connect to that database. We do that using the \c [for "c"onnect] meta-command. 
+================================================================
+postgres=# \c testdb2
+================================================================
+You are now connected to database "testdb2".
+For meta-commands you do not need to semicolon.
+We should have a clean, empty database. We can check that by listing the tables with the \d 
+[for, who knows? It means relations] meta-command. 
+================================================================
+testdb2=# \d
+================================================================
+No relations found.
+
+Let's create a table. Type the following:
+================================================================
+testdb2=# create table mytable (name varchar, value int);
+================================================================
+and let's list the tables again. 
+
+testdb2=# \d
+List of relations
+ Schema | Name | Type | Owner 
+--------+---------+-------+--------------
+ public | mytable | table | postgresuser
+(1 row)
+
+How about entering some data:
+================================================================
+testdb2=# insert into mytable values('Joe',0);
+================================================================
+
+and let's select the data:
+
+testdb2=# select * from mytable;
+ name | value 
+------+-------
+  Joe | 0
+ Jane | 1
+(2 rows)
+
+Now we are cruising. We have created a database and a table, inserted some data and selected it.
+
+Typing each command by hand is all very well but what if we have a set of commands that we want 
+to run often? We can run a complete script in psql in two ways: 
+1. \i  [for "i"nteractive?] or 
+2. psql -f. 
+
+First, let's create a simple script. Quit psql and get back to the operating system. 
+Do that with the \q [for "q"uit] or by CTRL+D.
+Use your favorite text editor and type in the following and save it as myscript.sql:
+
+create table presidents (firstname varchar, lastname varchar);
+insert into presidents values('George','Washington');
+insert into presidents values('John','Adams');
+insert into presidents values('Thomas','Jefferson');
+
+Now hop back into psql. We can then run this script with \i:
+================================================================
+testdb2=# \i ./myscript.sql
+================================================================
+hasilnya:
+CREATE TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+testdb2=# \d
+             List of relations
+ Schema |    Name    | Type  |    Owner     
+--------+------------+-------+--------------
+ public | mytable    | table | postgresuser
+ public | presidents | table | postgresuser
+(2 rows)
+
+testdb2=# select * from presidents;
+ firstname |  lastname  
+-----------+------------
+ George    | Washington
+ John      | Adams
+ Thomas    | Jefferson
+(3 rows)
+
+OK, let's drop the table then quit:
+================================================================
+testdb2=# drop table presidents;
+hasilnya:
+DROP TABLE
+================================================================
+testdb2=# \q
+
+Now let's run this from the operating system command line:
+================================================================
+localhost:~ postgresuser$ psql -d testdb2 -f myscript.sql 
+================================================================
+hasilnya:
+CREATE TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+
+(The operating system stored my username and password so I didn't need to use -U.)
+This did the same thing as \i from within the terminal. Again, if you hop back into psql, 
+do a select * from presidents; you will see the data.
+
+Let's finish with a final psql trick. \d should show you that you have mytable and presidents. 
+\d and most meta-commands support a wildcard operator. That is, if we do \d pre* it is saying give 
+me all the tables starting with "pre". In this case it only finds one and shows the complete schema.
+
+testdb2=# \d pres*
+         Table "public.presidents"
+  Column   |       Type        | Modifiers 
+-----------+-------------------+-----------
+ firstname | character varying | 
+ lastname  | character varying | 
+
+Try it with \d p*. How many tables would you expect? It turns out the answer is lots.
+ If you run this you will see a lot of tables that start with "pg_". 
+ These are special "system catalogs" that store information about the database, 
+ such as the names of tables and fields, lists of users, current activity on the databases and so on. 
+ They are normally hidden which is why you don't see them with a plain \d. 
+
+I mentioned that one can connect remotely to PostgreSQL. 
+This means that you have psql installed on your local machine but are interacting 
+with PostgreSQL on some other machine. To do this simply use the -h [hostname] option when starting psql.
+
+To finish off let's summarize what we have learned. psql is an interactive terminal. 
+When starting it, it can take various arguments: 
+-d 		for the database (required), 
+-f 		for a script to run, 
+-h 		for the host, 
+-U 		for the username and 
+-w or --password for the password. 
+Once in the terminal we can use various meta-commands: 	
+\l 		to list the databases, 
+\d 		to list the tables or relations, 
+\i 		to run a script, 
+\c 		to connect to a different database, 
+\q 		to quit. .

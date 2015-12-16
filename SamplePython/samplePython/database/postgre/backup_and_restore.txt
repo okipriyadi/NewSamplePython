@@ -1,0 +1,70 @@
+Salah satu cara mekanisme membackup database PostgreSQL adalah dengan menjalankan skrip pg_dump atau pg_dumpall 
+yang menghasil file SQL dump.
+
+Ada beberapa keuntungan backup data dengan perintah pg_dump, yaitu :
+
+1. Fleksibel dan luwes karena tersedia beberapa cakupan backup seperti seluruh database, 
+   database tertentu atau table tertentu
+2. Relatif mudah digunakan yaitu karena hanya menggunakan skrip pg_dump atau pg_dumpall
+3. Tidak perlu mematikan server untuk menjalankan perintah backup ini
+   Selama proses backup, proses yang terjadi pada database dapat tetap berjalan seperti sedia kala 
+   karena proses backup tidak melakukan penguncian (lock) table.
+
+Namun ada beberapa kekurangan dalam proses dengan skrip pg_dump ini, antara lain :
+
+1. Jika data pada database sudah cukup besar, proses backup akan memakan waktu yang cukup lama
+2. Tidak dapat secara praktis digunakan untuk mengembalikan (restore) data ke posisi tertentu
+
+
+BACKUP SELURUH DATABASE
+Perintah berikut adalah membackup seluruh database ke dalam file backup_all.dump
+==================================================================================+
+$ pg_dumpall -U postgres -f backup_all.dump
+==================================================================================+
+Secara default proses backup dengan pg_dumpall adalah menghasil skrip SQL dengan statement COPY, 
+Statement ini lebih ringkas dibandingkan dengan statemen INSERT.  
+jika file dump yang dihasilkan ingin dalam SQL statement INSERT maka jalankan dengan menambahkan opsi -d 
+pada perintah backup, seperti contoh berikut
+==================================================================================+
+$ pg_dumpall -d - U postgres -f backup_all.dump
+==================================================================================+
+
+
+BACKUP DATABASE TERTENTU
+
+Gunakan skrip pg_dump untuk backup database tertentu, misal database pustaka yang akan di backup 
+dengan format SQL statementnya adalah INSERT dan file dumpnya pustaka.dump, berikut perintahnya
+==================================================================================+
+$ pg_dump -U {user-name} {source_db} -f {dumpfilename.sql}
+$ pg_dump -U kyi hmmdb -f hmmdb.sql
+==================================================================================+
+
+Anda juga dapat membuat file dump dimana untuk menyimpan ulang (restore) harus menggunakan skrip 
+pg_restore, yaitu dengan menggunakan opsi -F ( huruf F besar)
+==================================================================================+
+$ pg_dump -U postgres -F -f pustaka.dump pustaka
+==================================================================================+
+
+
+
+BACKUP TABLE TERTENTU DALAM SEBUAH DATABASE
+Untuk membackup hanya sebuah table pada database gunakan opsi -t sebelum nama table, berikut contoh 
+backup table penerbit pada database pustaka
+==================================================================================+
+$ pg_dump -d -U postgres -t buku -f backup_table_buku.dump pustaka
+==================================================================================+
+
+
+
+RESTORE DATABASE
+
+Berikut perintah simpan ulang hanya backup database pustaka ke database baru pustaka2
+==================================================================================+
+$ createdb pustaka2 -U postgres
+$ psql -U postgres pustaka2 -f pustaka.dump
+==================================================================================+
+
+Berikut contoh simpan ulang jika format dump harus merestore dengan skrip pg_restore
+==================================================================================+
+$ pg_restore -U postgres -C -d pustaka2 -f pustaka.dump
+==================================================================================+

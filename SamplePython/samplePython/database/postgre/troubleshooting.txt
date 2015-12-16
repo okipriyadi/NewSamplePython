@@ -1,0 +1,37 @@
+=====================================================================+
+1. Cannot connect to postgres from remote host 
+
+Q:
+I have a database server (192.168.1.50) running postgres. I have created a database named "testdb" and a user "testuser" with password "testuserpw".
+Locally, I can connect to the db using:
+
+psql -d testdb -U testuser
+When I issue the command from another host (192.168.1.60):
+
+psql -h 192.168.1.50 -d testdb -U testuser
+I have the error:
+
+psql: could not connect to server: Connection refused
+Is the server running on host "192.168.1.50" and accepting
+TCP/IP connections on port 5432?
+Any idea ?
+
+
+Answer:
+Check the setting of listen_addresses in your postgresql.conf file. Many distributions make it default to 127.0.0.1, i.e. listen only to connections coming in from localhost. It should be set to '*' to listen for connections on all interfaces.
+
+If you are still having trouble, use lsof to see what network sockets the postgres process is listening on.
+
+=====================================================================+
+
+2. related to question no 1. error: no pg_hba.conf entry for host
+
+Q:
+BI connect('database=chaosLRdb;host=192.168.0.1;port=5433','postgres',...) failed: FATAL: no pg_hba.conf entry for host "192.168.0.1", user "postgres", database "chaosLRdb", SSL off
+
+Answer: 
+edit file pg_hba.conf di /etc/postgre/pg_hba.conf
+tambahkan line:
+
+host    all        all         IPyangakanmengakses/32        trust 
+

@@ -1,0 +1,187 @@
+[2015-12-28 13:58:16,127: DEBUG/MainProcess] | Worker: Preparing bootsteps.
+[2015-12-28 13:58:16,129: DEBUG/MainProcess] | Worker: Building graph...
+[2015-12-28 13:58:16,129: DEBUG/MainProcess] | Worker: New boot order: {Timer, Hub, Queues (intra), Pool, Autoreloader, StateDB, Autoscaler, Beat, Consumer}
+[2015-12-28 13:58:16,134: DEBUG/MainProcess] | Consumer: Preparing bootsteps.
+[2015-12-28 13:58:16,134: DEBUG/MainProcess] | Consumer: Building graph...
+[2015-12-28 13:58:16,137: DEBUG/MainProcess] | Consumer: New boot order: {Connection, Events, Mingle, Tasks, Control, Heart, Agent, Gossip, event loop}
+[2015-12-28 13:58:16,138: WARNING/MainProcess] /home/kyi/.local/lib/python2.7/site-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+[2015-12-28 13:58:16,139: DEBUG/MainProcess] | Worker: Starting Hub
+[2015-12-28 13:58:16,140: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 13:58:16,140: DEBUG/MainProcess] | Worker: Starting Pool
+[2015-12-28 13:58:16,145: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 13:58:16,146: DEBUG/MainProcess] | Worker: Starting Consumer
+[2015-12-28 13:58:16,146: DEBUG/MainProcess] | Consumer: Starting Connection
+[2015-12-28 13:58:16,159: DEBUG/MainProcess] Start from server, version: 0.9, properties: {u'information': u'Licensed under the MPL.  See http://www.rabbitmq.com/', u'product': u'RabbitMQ', u'copyright': u'Copyright (C) 2007-2014 GoPivotal, Inc.', u'capabilities': {u'exchange_exchange_bindings': True, u'connection.blocked': True, u'authentication_failure_close': True, u'basic.nack': True, u'per_consumer_qos': True, u'consumer_priorities': True, u'consumer_cancel_notify': True, u'publisher_confirms': True}, u'cluster_name': u'rabbit@kyi77', u'platform': u'Erlang/OTP', u'version': u'3.4.3'}, mechanisms: [u'AMQPLAIN', u'PLAIN'], locales: [u'en_US']
+[2015-12-28 13:58:16,161: DEBUG/MainProcess] Open OK!
+[2015-12-28 13:58:16,162: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2015-12-28 13:58:16,163: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 13:58:16,163: DEBUG/MainProcess] | Consumer: Starting Events
+[2015-12-28 13:58:16,172: DEBUG/MainProcess] Start from server, version: 0.9, properties: {u'information': u'Licensed under the MPL.  See http://www.rabbitmq.com/', u'product': u'RabbitMQ', u'copyright': u'Copyright (C) 2007-2014 GoPivotal, Inc.', u'capabilities': {u'exchange_exchange_bindings': True, u'connection.blocked': True, u'authentication_failure_close': True, u'basic.nack': True, u'per_consumer_qos': True, u'consumer_priorities': True, u'consumer_cancel_notify': True, u'publisher_confirms': True}, u'cluster_name': u'rabbit@kyi77', u'platform': u'Erlang/OTP', u'version': u'3.4.3'}, mechanisms: [u'AMQPLAIN', u'PLAIN'], locales: [u'en_US']
+[2015-12-28 13:58:16,173: DEBUG/MainProcess] Open OK!
+[2015-12-28 13:58:16,174: DEBUG/MainProcess] using channel_id: 1
+[2015-12-28 13:58:16,175: DEBUG/MainProcess] Channel open
+[2015-12-28 13:58:16,175: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 13:58:16,175: DEBUG/MainProcess] | Consumer: Starting Mingle
+[2015-12-28 13:58:16,175: INFO/MainProcess] mingle: searching for neighbors
+[2015-12-28 13:58:16,176: DEBUG/MainProcess] using channel_id: 1
+[2015-12-28 13:58:16,177: DEBUG/MainProcess] Channel open
+[2015-12-28 13:58:17,185: INFO/MainProcess] mingle: all alone
+[2015-12-28 13:58:17,185: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 13:58:17,185: DEBUG/MainProcess] | Consumer: Starting Tasks
+[2015-12-28 13:58:17,190: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 13:58:17,190: DEBUG/MainProcess] | Consumer: Starting Control
+[2015-12-28 13:58:17,190: DEBUG/MainProcess] using channel_id: 2
+[2015-12-28 13:58:17,191: DEBUG/MainProcess] Channel open
+[2015-12-28 13:58:17,194: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 13:58:17,194: DEBUG/MainProcess] | Consumer: Starting Heart
+[2015-12-28 13:58:17,195: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 13:58:17,195: DEBUG/MainProcess] | Consumer: Starting Gossip
+[2015-12-28 13:58:17,196: DEBUG/MainProcess] using channel_id: 3
+[2015-12-28 13:58:17,196: DEBUG/MainProcess] Channel open
+[2015-12-28 13:58:17,199: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 13:58:17,200: DEBUG/MainProcess] | Consumer: Starting event loop
+[2015-12-28 13:58:17,200: WARNING/MainProcess] celery@kyi77 ready.
+[2015-12-28 13:58:17,200: DEBUG/MainProcess] | Worker: Hub.register Pool...
+[2015-12-28 13:58:17,201: DEBUG/MainProcess] basic.qos: prefetch_count->16
+[2015-12-28 13:58:17,201: INFO/MainProcess] Received task: framework.email.email_tasks.send_email[051130dd-c324-4d59-9808-391af3483959]
+[2015-12-28 13:58:17,202: DEBUG/MainProcess] TaskPool: Apply <function _fast_trace_task at 0x7fb9ccbd4c08> (args:('framework.email.email_tasks.send_email', '051130dd-c324-4d59-9808-391af3483959', ('', 'all your smtp are belong to us', 'somebody set up us the bomb'), {}, {'utc': True, u'is_eager': False, 'chord': None, u'group': None, 'args': ('', 'all your smtp are belong to us', 'somebody set up us the bomb'), 'retries': 0, u'delivery_info': {u'priority': 0, u'redelivered': False, u'routing_key': u'celery', u'exchange': u'celery'}, 'expires': None, u'hostname': 'celery@kyi77', 'task': 'framework.email.email_tasks.send_email', 'callbacks': None, u'correlation_id': u'051130dd-c324-4d59-9808-391af3483959', 'errbacks': None, 'timelimit': (None, None), 'taskset': None, 'kwargs': {}, 'eta': None, u'reply_to': u'9c67762d-086c-304a-be21-a85e22281930', 'id': '051130dd-c324-4d59-9808-391af3483959', u'headers': {}}) kwargs:{})
+[2015-12-28 13:58:17,203: DEBUG/MainProcess] Task accepted: framework.email.email_tasks.send_email[051130dd-c324-4d59-9808-391af3483959] pid:11870
+[2015-12-28 13:58:17,203: INFO/Worker-2] framework.email.email_tasks.send_email[051130dd-c324-4d59-9808-391af3483959]: Sending email from: 'hairycode-noreply@hairycode.org', to: ''
+[2015-12-28 14:02:32,019: DEBUG/Worker-2] Start from server, version: 0.9, properties: {u'information': u'Licensed under the MPL.  See http://www.rabbitmq.com/', u'product': u'RabbitMQ', u'copyright': u'Copyright (C) 2007-2014 GoPivotal, Inc.', u'capabilities': {u'exchange_exchange_bindings': True, u'connection.blocked': True, u'authentication_failure_close': True, u'basic.nack': True, u'per_consumer_qos': True, u'consumer_priorities': True, u'consumer_cancel_notify': True, u'publisher_confirms': True}, u'cluster_name': u'rabbit@kyi77', u'platform': u'Erlang/OTP', u'version': u'3.4.3'}, mechanisms: [u'AMQPLAIN', u'PLAIN'], locales: [u'en_US']
+[2015-12-28 14:02:32,021: DEBUG/Worker-2] Open OK!
+[2015-12-28 14:02:32,021: DEBUG/Worker-2] using channel_id: 1
+[2015-12-28 14:02:32,023: DEBUG/Worker-2] Channel open
+[2015-12-28 14:02:32,028: ERROR/MainProcess] Task framework.email.email_tasks.send_email[051130dd-c324-4d59-9808-391af3483959] raised unexpected: error(110, 'Connection timed out')
+Traceback (most recent call last):
+  File "/home/kyi/.local/lib/python2.7/site-packages/celery/app/trace.py", line 240, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/home/kyi/.local/lib/python2.7/site-packages/celery/app/trace.py", line 438, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/home/kyi/Twisted/NewSamplePython/SamplePython/Framework/Celery/example_in_real_project/project/framework/email/email_tasks.py", line 39, in send_email
+    s = smtplib.SMTP('mail.hairycode.org')
+  File "/usr/lib/python2.7/smtplib.py", line 256, in __init__
+    (code, msg) = self.connect(host, port)
+  File "/usr/lib/python2.7/smtplib.py", line 316, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+  File "/usr/lib/python2.7/smtplib.py", line 291, in _get_socket
+    return socket.create_connection((host, port), timeout)
+  File "/usr/lib/python2.7/socket.py", line 575, in create_connection
+    raise err
+error: [Errno 110] Connection timed out
+[2015-12-28 14:23:09,321: DEBUG/MainProcess] | Worker: Closing Hub...
+[2015-12-28 14:23:09,321: DEBUG/MainProcess] | Worker: Closing Pool...
+[2015-12-28 14:23:09,321: DEBUG/MainProcess] | Worker: Closing Consumer...
+[2015-12-28 14:23:09,322: DEBUG/MainProcess] | Worker: Stopping Consumer...
+[2015-12-28 14:23:09,322: DEBUG/MainProcess] | Consumer: Closing Connection...
+[2015-12-28 14:23:09,322: DEBUG/MainProcess] | Consumer: Closing Events...
+[2015-12-28 14:23:09,322: DEBUG/MainProcess] | Consumer: Closing Mingle...
+[2015-12-28 14:23:09,323: DEBUG/MainProcess] | Consumer: Closing Tasks...
+[2015-12-28 14:23:09,323: DEBUG/MainProcess] | Consumer: Closing Control...
+[2015-12-28 14:23:09,323: DEBUG/MainProcess] | Consumer: Closing Heart...
+[2015-12-28 14:23:09,323: DEBUG/MainProcess] | Consumer: Closing Gossip...
+[2015-12-28 14:23:09,323: DEBUG/MainProcess] | Consumer: Closing event loop...
+[2015-12-28 14:23:09,324: DEBUG/MainProcess] | Consumer: Stopping event loop...
+[2015-12-28 14:23:09,324: DEBUG/MainProcess] | Consumer: Stopping Gossip...sks are mostly I/O-bound then you can try to increase it, experimentation has shown that adding more than twice the number of CPU’s is rarely effective, and likely to degrade performance instead.
+[2015-12-28 14:23:09,329: DEBUG/MainProcess] Closed channel #3
+[2015-12-28 14:23:09,330: DEBUG/MainProcess] | Consumer: Stopping Heart...
+[2015-12-28 14:23:09,331: DEBUG/MainProcess] | Consumer: Stopping Control...
+[2015-12-28 14:23:09,335: DEBUG/MainProcess] Closed channel #2
+[2015-12-28 14:23:09,336: DEBUG/MainProcess] | Consumer: Stopping Tasks...
+[2015-12-28 14:23:09,336: DEBUG/MainProcess] Cancelling task consumer...
+[2015-12-28 14:23:09,337: DEBUG/MainProcess] | Consumer: Stopping Mingle...
+[2015-12-28 14:23:09,338: DEBUG/MainProcess] | Consumer: Stopping Events...
+[2015-12-28 14:23:09,338: DEBUG/MainProcess] | Consumer: Stopping Connection...
+[2015-12-28 14:23:09,338: DEBUG/MainProcess] | Worker: Stopping Pool...
+[2015-12-28 14:23:10,344: DEBUG/MainProcess] | Worker: Stopping Hub...
+[2015-12-28 14:23:10,344: DEBUG/MainProcess] | Consumer: Shutdown Gossip...
+[2015-12-28 14:23:10,345: DEBUG/MainProcess] | Consumer: Shutdown Heart...
+[2015-12-28 14:23:10,345: DEBUG/MainProcess] | Consumer: Shutdown Control...
+[2015-12-28 14:23:10,346: DEBUG/MainProcess] | Consumer: Shutdown Tasks...
+[2015-12-28 14:23:10,346: DEBUG/MainProcess] Cancelling task consumer...
+[2015-12-28 14:23:10,346: DEBUG/MainProcess] Closing consumer channel...
+[2015-12-28 14:23:10,346: DEBUG/MainProcess] | Consumer: Shutdown Events...
+[2015-12-28 14:23:10,347: DEBUG/MainProcess] Closed channel #1
+[2015-12-28 14:23:10,349: DEBUG/MainProcess] | Consumer: Shutdown Connection...
+[2015-12-28 14:23:10,350: DEBUG/MainProcess] Closed channel #1
+[2015-12-28 14:23:10,351: DEBUG/MainProcess] removing tasks from inqueue until task handler finished
+[2015-12-28 14:23:17,703: DEBUG/MainProcess] | Worker: Preparing bootsteps.
+[2015-12-28 14:23:17,705: DEBUG/MainProcess] | Worker: Building graph...
+[2015-12-28 14:23:17,706: DEBUG/MainProcess] | Worker: New boot order: {Timer, Hub, Queues (intra), Pool, Autoreloader, StateDB, Beat, Autoscaler, Consumer}
+[2015-12-28 14:23:17,710: DEBUG/MainProcess] | Consumer: Preparing bootsteps.
+[2015-12-28 14:23:17,710: DEBUG/MainProcess] | Consumer: Building graph...
+[2015-12-28 14:23:17,714: DEBUG/MainProcess] | Consumer: New boot order: {Connection, Events, Mingle, Gossip, Tasks, Control, Heart, Agent, event loop}
+[2015-12-28 14:23:17,715: WARNING/MainProcess] /home/kyi/.local/lib/python2.7/site-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+[2015-12-28 14:23:17,716: DEBUG/MainProcess] | Worker: Starting Hub
+[2015-12-28 14:23:17,716: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 14:23:17,716: DEBUG/MainProcess] | Worker: Starting Pool
+[2015-12-28 14:23:17,725: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 14:23:17,726: DEBUG/MainProcess] | Worker: Starting Consumer
+[2015-12-28 14:23:17,726: DEBUG/MainProcess] | Consumer: Starting Connection
+[2015-12-28 14:23:17,744: DEBUG/MainProcess] Start from server, version: 0.9, properties: {u'information': u'Licensed under the MPL.  See http://www.rabbitmq.com/', u'product': u'RabbitMQ', u'copyright': u'Copyright (C) 2007-2014 GoPivotal, Inc.', u'capabilities': {u'exchange_exchange_bindings': True, u'connection.blocked': True, u'authentication_failure_close': True, u'basic.nack': True, u'per_consumer_qos': True, u'consumer_priorities': True, u'consumer_cancel_notify': True, u'publisher_confirms': True}, u'cluster_name': u'rabbit@kyi77', u'platform': u'Erlang/OTP', u'version': u'3.4.3'}, mechanisms: [u'AMQPLAIN', u'PLAIN'], locales: [u'en_US']
+[2015-12-28 14:23:17,745: DEBUG/MainProcess] Open OK!
+[2015-12-28 14:23:17,745: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2015-12-28 14:23:17,746: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 14:23:17,746: DEBUG/MainProcess] | Consumer: Starting Events
+[2015-12-28 14:23:17,755: DEBUG/MainProcess] Start from server, version: 0.9, properties: {u'information': u'Licensed under the MPL.  See http://www.rabbitmq.com/', u'product': u'RabbitMQ', u'copyright': u'Copyright (C) 2007-2014 GoPivotal, Inc.', u'capabilities': {u'exchange_exchange_bindings': True, u'connection.blocked': True, u'authentication_failure_close': True, u'basic.nack': True, u'per_consumer_qos': True, u'consumer_priorities': True, u'consumer_cancel_notify': True, u'publisher_confirms': True}, u'cluster_name': u'rabbit@kyi77', u'platform': u'Erlang/OTP', u'version': u'3.4.3'}, mechanisms: [u'AMQPLAIN', u'PLAIN'], locales: [u'en_US']
+[2015-12-28 14:23:17,755: DEBUG/MainProcess] Open OK!
+[2015-12-28 14:23:17,756: DEBUG/MainProcess] using channel_id: 1
+[2015-12-28 14:23:17,757: DEBUG/MainProcess] Channel open
+[2015-12-28 14:23:17,757: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 14:23:17,757: DEBUG/MainProcess] | Consumer: Starting Mingle
+[2015-12-28 14:23:17,758: INFO/MainProcess] mingle: searching for neighbors
+[2015-12-28 14:23:17,758: DEBUG/MainProcess] using channel_id: 1
+[2015-12-28 14:23:17,759: DEBUG/MainProcess] Channel open
+[2015-12-28 14:23:18,769: INFO/MainProcess] mingle: all alone
+[2015-12-28 14:23:18,769: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 14:23:18,769: DEBUG/MainProcess] | Consumer: Starting Gossip
+[2015-12-28 14:23:18,770: DEBUG/MainProcess] using channel_id: 2
+[2015-12-28 14:23:18,771: DEBUG/MainProcess] Channel open
+[2015-12-28 14:23:18,778: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 14:23:18,778: DEBUG/MainProcess] | Consumer: Starting Tasks
+[2015-12-28 14:23:18,786: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 14:23:18,786: DEBUG/MainProcess] | Consumer: Starting Control
+[2015-12-28 14:23:18,787: DEBUG/MainProcess] using channel_id: 3
+[2015-12-28 14:23:18,788: DEBUG/MainProcess] Channel open
+[2015-12-28 14:23:18,791: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 14:23:18,791: DEBUG/MainProcess] | Consumer: Starting Heart
+[2015-12-28 14:23:18,792: DEBUG/MainProcess] ^-- substep ok
+[2015-12-28 14:23:18,793: DEBUG/MainProcess] | Consumer: Starting event loop
+[2015-12-28 14:23:18,793: WARNING/MainProcess] celery@kyi77 ready.
+[2015-12-28 14:23:18,794: DEBUG/MainProcess] | Worker: Hub.register Pool...
+[2015-12-28 14:23:18,794: DEBUG/MainProcess] basic.qos: prefetch_count->24

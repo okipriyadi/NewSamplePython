@@ -26,5 +26,6 @@ the queue it should be sent to and so on:
 """
 add.apply_async((2, 2), queue='lopri', countdown=10)
 """
-In the above example the task will be sent to a queue named lopri and the task will execute, at the earliest, 10 seconds after the message was sent.
+In the above example the task will be sent to a queue named lopri and the task will execute, 
+at the earliest, 10 seconds after the message was sent.
 """

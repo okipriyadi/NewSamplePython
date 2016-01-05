@@ -1,11 +1,8 @@
-import re
-value = "TCV123asd"
-
-number_only = re.search(r'[0-9]+', value).group()
-if number_only[0] == "0":
-    print ">>>>>1"
-    value = re.search(r'[A-z]+', value).group() + number_only[1:]
-else:
-    value = re.search(r'[A-z]+', value).group() + number_only
-    print ">>>>>2"
-print value
+from ConfigParser import SafeConfigParser
+cfg_parser = SafeConfigParser()
+cfg_parser.add_section('certificate')
+cfg_parser.set('certificate', 'commonname', "Saya")
+cfg_parser.set('certificate', 'not_before', "87")
+cfg_parser.set('certificate', 'not_after', "2100")
+cfg_parser.set('certificate', 'digest', "12345")
+cfg_parser.write("disavedisini.ini")

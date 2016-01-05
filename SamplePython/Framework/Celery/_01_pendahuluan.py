@@ -5,7 +5,12 @@ langkah-langkah
 3. Starting the worker and calling tasks.
 4. Keeping track of tasks as they transition through different states, and inspecting return values.
 
-kita asumsikan bahwa broker dan celery sudah diiinstal
+kita asumsikan bahwa broker dan celery sudah diiinstal (pip install celery). Dan broker sudah dijalnkan. untuk contoh ini 
+kita menggunakan broker rabbitmq, untuk menjalankannya bisa menggunakan
+
+$ rabbitmq-server
+# or you can start in the background with
+$ rabbitmq-server -detached 
 maka kita akan membuat first task
 
 Langkah pertama dalam membuat task adalah buat instance nya, 
@@ -41,7 +46,7 @@ RUNNING CELERY
 You now run the worker by executing our program with the worker argument:
 buka console baru masuk ke folder dimana file ini berada coba ketik
 =================================================
-$ celery -A _01_pendhuluan worker --loglevel=info
+$ celery -A _01_pendahuluan worker --loglevel=info
 =================================================
 
 """

@@ -42,4 +42,5 @@ def prepare_deploy():
     local("git add -p && git commit")
     local("git push")
     
-#The code itself is straightforward: import a Fabric API function, local, and use it to run and interact with local shell commands. The rest of Fabric’s API is similar – it’s all just Python.
+#The code itself is straightforward: import a Fabric API function, local, and use it to run and interact with 
+#local shell commands. The rest of Fabric’s API is similar – it’s all just Python.

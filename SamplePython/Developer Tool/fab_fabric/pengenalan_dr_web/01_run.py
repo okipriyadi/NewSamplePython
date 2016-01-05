@@ -1,7 +1,7 @@
 """
 Ini adalah command untuk komputer yang di remote
 mirip dengan penggunaan ssh biasa. 
-kita nanti diminta untuk memasikan nama@ipremote
+kita nanti diminta untuk memastikan nama@ipremote
 kemudian password komputer remote
 
 run (fabric.operations.run)

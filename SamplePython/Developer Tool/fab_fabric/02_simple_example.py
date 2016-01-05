@@ -2,27 +2,30 @@
 
 from fabric.api import *  
 env.hosts = [  
-             'server1.domainmu.com',  
-             'server2.domainmu.com'  
+             '172.16.191.21'  
              ]
 
-env.user   = 'userbisasudo'  
+env.user   = 'kyi555'  
 
+def tambah_folder():
+    run("sudo mkdir /tmp/saya")
+    
 def kosongkan_tmp():  
     """ Hapus semua isi /tmp """
     run("sudo rm -rf /tmp/*")
+
 
 def install_nginx():  
     """Install nginx dari default repo"""
     run("sudo aptitude install -y nginx")
     
 """
-Dengan script fabfile.py diatas, terdapat 2 tugas yang akan terlihat dalam 
+Dengan script fabfile.py diatas, terdapat 3 tugas yang akan terlihat dalam 
 daftar Fabric ketika dijalankan command fab -l. 
 Untuk menjalankan salah satu dari tugas dalam script tersebut adalah fab nama_tugas
 
 =====================================
-$fab install_nginx
+$fab tambah_folder
 =====================================
 
 bisa juga
@@ -30,9 +33,14 @@ bisa juga
 $fab kosongkan_tmp
 =====================================
 
-atau keduanya sekaligus
 =====================================
-$fab kosongkan_tmp install_nginx 
+$fab install_nginx
+=====================================
+
+
+atau ketiganya sekaligus
+=====================================
+$fab kosongkan_tmp tambah_folder install_nginx 
 =====================================
 
 Fungsi-fungsi penting dalam Fabric untuk memulai membuat tugas administrasi penting:

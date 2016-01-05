@@ -1,9 +1,14 @@
 """
-The struct module includes functions for converting between strings of bytes and native Python data types such as numbers and strings.
+The struct module includes functions for converting between strings of bytes and native Python data types 
+such as numbers and strings.
 
-Structs support packing data into strings, and unpacking data from strings using format specifiers made up of characters representing the type of the data and optional count and endian-ness indicators. For complete details, refer to the standard library documentation.
+Structs support packing data into strings, and unpacking data from strings using format specifiers 
+made up of characters representing the type of the data and optional count and endian-ness indicators. 
+For complete details, refer to the standard library documentation.
 
-In this example, the format specifier calls for an integer or long value, a two character string, and a floating point number. The spaces between the format specifiers are included here for clarity, and are ignored when the format is compiled.
+In this example, the format specifier calls for an integer or long value, a two character string, 
+and a floating point number. The spaces between the format specifiers are included here for clarity, 
+and are ignored when the format is compiled.
 """
 
 import struct

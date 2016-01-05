@@ -1,0 +1,4 @@
+Type_data			Ukuran(byte) 	Rentang
+integer 			4 				-2147483648 - 2147483649
+long int			
+float				8				

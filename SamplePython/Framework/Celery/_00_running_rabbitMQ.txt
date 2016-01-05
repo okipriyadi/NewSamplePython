@@ -1,0 +1,27 @@
+Once installed, starting the server is as simple as:
+
+    $ rabbitmq-server
+    # or you can start in the background with
+    $ rabbitmq-server -detached
+=========================================================================
+You can ensure it’s running the background by inspecting your processes
+
+    $ ps aux | grep rabbit --color
+    
+Which should yield three things:
+
+    1. A very, very long output (this is the rabbitmq-server we just launched)
+    2. The RabbitMQ daemon always running silently  (yang /../erts-5.10.1/bin/epmd -daemon”)
+    3. And, the grep command you just executed“ (35327 1.2 0.0 2432768 596 s000 S+ 2:25PM 0:00.00 grep rabbit –color”)
+
+Note: If you see one or more additional of the “long” processes running you will run into issues. 
+If this is the case stop all RabbitMQ servers
+
+    $ rabbitmqctl stop
+
+and start over. I will provide an example of what can go wrong if there are multiple brokers or Celery daemons running at once.
+=========================================================================
+And you can stop it with:
+
+    $ rabbitmqctl stop
+    

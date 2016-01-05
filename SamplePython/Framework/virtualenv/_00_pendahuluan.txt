@@ -1,0 +1,9 @@
+With virtualenv you can create an isolated Python environment. It's not much of a need
+in the beginning, but it's a lifesaver for dependency management (for example, if one of
+your web applications requires one version of the library and another application, due
+to some legacy or compatibility issues, requires another version of the same library, or if
+changes made in one library or application break the rest of the applications).
+Virtualenv can be used to avoid such problematic situations. It will create its own
+environment so that it will not mess with your global settings. It usually creates its
+own directories and shared libraries to make virtualenv work without any external
+interference. 

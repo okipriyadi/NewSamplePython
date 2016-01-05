@@ -1,0 +1,142 @@
+An understanding of PYTHONPATH is key when developing new Python modules, or installing third-partypackages 
+and eggs. This article gives an overview of PYTHONPATH and the way Python imports modules.
+Something I've heard a few times from developers coming to Python from languages such as PHP, is that module importing and 
+thePYTHONPATH is a bit of a mystery. I remember understanding PYTHONPATH when I learned Python since I'd done 
+a bit of Java at university (and PYTHONPATH is conceptually the same as Java's CLASSPATH), but several flavours 
+of import confused me. This post covers both; first we'll talk about the import statement, 
+and then we'll cover PYTHONPATH.
+
+Understanding import and from ... import ...
+Python has two forms of import statement. They look something like this:
+	1. import z3c.form.form
+	2. from z3c.form import form
+Python is all about binding (or assigning) names to values, and the primary purpose of the import statement 
+is to bind names to modules. The key difference between the two forms above is what names are made available. 
+The first form lets you reference 'z3c.form.form' in your code; 
+the latter lets you reference 'form' directly. Let's examine the first case:
+===================================================================================
+>>> import z3c.form.form
+>>> z3c.form.form
+<module 'z3c.form.form' from '/eggs/z3c.form-1.9.0-py2.5.egg/z3c/form/form.pyc'>
+>>> form
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'form' is not defined
+===================================================================================
+Contrast this with the second case:
+===================================================================================
+>>> from z3c.form import form
+>>> z3c.form.form
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'z3c' is not defined
+>>> form
+<module 'z3c.form.form' from '/eggs/z3c.form-1.9.0-py2.5.egg/z3c/form/form.pyc'>
+===================================================================================
+The only difference between the two cases is the name which is available after the import. 
+(OK, that's a bit of a lie, but we'll gloss over that for now). The rule of thumb is that you will always 
+refer to the bit after the 'import' in following code; so, when you say 'import z3c.form.form' you'll be able 
+to refer to 'z3c.form.form', and when you say 'from z3c.form import form' you'll simply be able to refer to 'form'.
+In both cases, what you are actually dealing with when you actually use that name (be that 'z3c.form.form' or just 'form') 
+is exactly the same - in this case, the 'form.pyc' module from the z3c.form package.
+
+
+PYTHONPATH
+So how does PYTHONPATH fit into this?
+PYTHONPATH is an environment variable, much like PATH. You can get a list of environment variables 
+on UNIX-like operating systems by running the 'env' command. It's available in the Properties of My Computer 
+in Windows. PYTHONPATH is similar to PATH in another way, in that it defines a search path. However, 
+unlike PATH (which tells the operating system which directories to look for executable files in), 
+PYTHONPATH is used by the Python interpreter to find out where to look for modules to import.
+
+This is probably best demonstrated with an example. Let's create a file called hello.py in a directory ~/pymodules:
+==================================================================================
+	#hello.py
+	def print_hello():
+	    print 'hello!'
+==================================================================================
+jika saya berada dalam folder pymodules maka saya secara langsung bisa mengimport modulnya langsung
+==================================================================================
+	$ python
+	>>> import hello
+	>>> hello.print_hello()
+	hello!
+==================================================================================
+However, this doesn't work if I'm not in that pymodules directory:
+==================================================================================
+	$ cd
+	$ python
+	>>> import hello
+	Traceback (most recent call last):
+	  File "<stdin>", line 1, in <module>
+	ImportError: No module named hello
+==================================================================================
+To fix this, we need to tell Python to look in our new pymodules directory for libraries. 
+We do this by setting the PYTHONPATH variable:
+==================================================================================
+	$ cd
+	$ export PYTHONPATH=$PYTHONPATH:~/pymodules 
+	$ python
+	>>> import hello
+	>>> hello.print_hello()
+	hello!
+==================================================================================
+The magic is in that 'export' line, which is appending the path '/Users/dan/pymodules' 
+to the environment variable with key PYTHONPATH. Note how we append, to avoid completely 
+overwriting any existing values. 
+
+
+Special cases and examining the search path
+There are a few of 'special cases' to be aware of when thinking about where Python modules may be imported from. 
+The first is that the Python installation's site-packages directory will always be placed on the search path 
+automatically. Secondly, as we saw in the first 'hello' example, the current module's directory is placed 
+on the search path, allowing relative imports (more on this shortly). Finally, the current directory is also 
+placed on the search path.
+
+This begs the obvious question: how can you definitively find out where Python is looking for modules? 
+Well, like this:
+
+Relative Imports
+There's one final type of import that we haven't considered yet: the relative import. 
+untuk menggunaan relatif import cukup mudah, hanya tinggal menambahkan __init__.py
+coba lihat ini stuktur folder dan file berikut:
+
+pymodules
+   | p
+   	 | __init__.py
+	 | m1.py
+	 | m2.py
+
+pada file m1.py masukan perintah import m2
+
+Well, we've gone back to our pymodules directory (which is now on the PYTHONPATH, 
+so we can import things directly from it). We've created a package called 'p' by creating a directory 
+of that name and adding an __init__.py, making that directory importable. We've then created two modules 
+in that 'p' package, called m1 and m2. Now - look at the following session:
+================================================================================+
+$ cd /tmp
+$ python
+>>> import m1
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ImportError: No module named m1
+>>> import m2
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ImportError: No module named m2
+>>> import p.m1
+>>> 
+================================================================================+
+Firstly, we demonstrate that just typing 'import m1' and 'import m2' don't work. 
+This is expected: they're not on the PYTHONPATH. 'import p.m1' does work, though; again, this is expected, 
+since p's parent directory, pymodules, is on the PYTHONPATH.
+
+
+
+Managing PYTHONPATH
+Not too long ago, that was pretty much all there was to know. To use a third-party package, you'd download it and either install it in your Python's site-packages directory (as that's already on the PYTHONPATH), or you'd create a new directory for it to live in, and add that directory to your PYTHONPATH in a wrapper script, or in your ~/.bash_profile. As we've demonstrated, this still works just fine.
+
+The problem with that approach, however, is that it affects every Python program you run. They'll all get the same (probably large)PYTHONPATH, and the chance of them accidentally importing code from an unexpected location rises. Unfun debugging sessions ensue.
+
+A better approach these days is to use virtualenv. As discussed in previous articles, a virtualenv isolates gives you a place toinstall packages without interfering with the main Python install; refer to those articles for more information on installing and using virtualenv. 
+That about wraps up this look at imports and PYTHONPATH. As ever, more information on all this can be found in the officialPython documentation.

@@ -8,13 +8,15 @@ messages. The backend is specified via the backend argument to Celery,
 (or via the CELERY_RESULT_BACKEND setting if you choose to use a configuration module):
 
 app = Celery('tasks', backend='rpc://', broker='amqp://')
-Or if you want to use Redis as the result backend, but still use RabbitMQ as the message broker (a popular combination):
+Or if you want to use Redis as the result backend, but still use RabbitMQ as the message broker 
+(a popular combination):
 
 app = Celery('tasks', backend='redis://localhost', broker='amqp://')
 
 Now with the result backend configured, let's call the task again. 
 This time you'll hold on to the AsyncResult instance returned when you call a task:
-The ready()  method returns whether the task has finished processing or not: False Lihat di (_3b_ calling and keeping)  
+The ready()  method returns whether the task has finished processing or not: 
+False Lihat di (_3b_ calling and keeping)  
 """
 from celery import Celery
 app = Celery('_03_keeping_result', backend='rpc://', broker='amqp://')
@@ -27,7 +29,7 @@ def add(x, y):
 Jalankan dengan cara:
 =================================================
 $ celery -A _03_keeping_result worker --loglevel=info
-$ celery -A _01_pendhuluan worker --loglevel=info
+$ celery -A _01_pendahuluan worker --loglevel=info
 =================================================
 
 """

@@ -1,7 +1,5 @@
-from tinyrpc.protocols.jsonrpc import JSONRPCProtocol
-jsonprotocol = JSONRPCProtocol()
-params = {        'Payload'     : "sjdkja",
-                  'Ack'         : True,
-                  'TailNum'     : 'PA-101'}
-request = JSONRPCProtocol().create_request('check_alive')
-print request.serialize()
+from random import randint
+max_32 = (2 ** 32 - 1)
+print max_32
+a = randint(0, 9)
+print a

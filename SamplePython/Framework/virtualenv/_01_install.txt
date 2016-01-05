@@ -1,0 +1,3 @@
+di linux menggunakan pip:
+	$ [sudo] pip install virtualenv
+

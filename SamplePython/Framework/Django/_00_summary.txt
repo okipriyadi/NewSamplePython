@@ -1,0 +1,115 @@
+langkah-langkah membuat project dengan django
+1. buat project 
+=========================================
+   $django-admin startproject [nama_project] .
+   
+   #don't forget to add the period (or dot) . at the end:
+=========================================
+2. masuk kedalam project, buat aplikasi 
+=========================================	
+   $manage.py startapp [nama_aplikasi]
+=========================================
+3. beritahu django bahwa ada aplikasi baru, edit settings.py
+   find the INSTALLED_APPS tuple near the bottom.Add your app in dotted module form to that tuple
+=========================================
+INSTALLED_APPS = (
+ 	'django.contrib.admin',     	#default dari django
+    'django.contrib.auth',			#default dari django
+    'django.contrib.contenttypes',	#default dari django
+    'django.contrib.sessions',		#default dari django
+    'django.contrib.messages',		#default dari django
+    'django.contrib.staticfiles',	#default dari django
+    'nama_aplikasi1',				#nama aplikasi yg kita buat
+    'nama_aplikasi2',				#nama aplikasi yg kita buat
+)
+=========================================
+4. buat model di model.py di setiap aplikasi
+=========================================
+	ex:
+	from django.db import models
+	# Create your models here.
+	
+	class BlogPost(models.Model):
+		title = models.CharField(max_length=150)
+		body = models.TextField()
+		timestamp = models.DateTimeField()
+
+=========================================
+5. edit setting.py agar django mengenali database apa yang kita pakai, (tidak semua komponen dibawah ini harus disi, hanya yang diperlukan saja)
+=========================================
+	DATABASE_ENGINE = "mysql"
+	DATABASE_NAME = "djangodb"
+	DATABASE_HOST = "localhost"
+	DATABASE_USER = "paul"
+	DATABASE_PASSWORD = "pony" # secret!
+	#DATABASE_PORT = #jika port yg digunakan database tidak standar maka variabel ini harus diisi 
+	"""
+	contoh utk menggunakan sqlite
+	DATABASE_ENGINE = 'sqlite3'
+	DATABASE_NAME = r'C:\py\django\db\django.db'
+	"""
+=========================================
+6. create database   (Every time you add a new application to your project, you should run the syncdb
+   command to make sure the tables it needs have been created in your database)
+=========================================
+	./manage.py syncdb
+=========================================
+7. jika dibutuhkan, nyalakan django admin, dengan menambahkannya di setting.py (optional)
+   pastikan 'django.contrib.auth' &'django.contrib.admin' ada pada installed_apps.
+   jika belum ada maka haru ditambahkan dan jangan lupa untuk kembali melakukan syncdb
+=========================================
+	INSTALLED_APPS = (
+ 		'django.contrib.admin',     	#default dari django
+	    'django.contrib.auth',			#default dari django
+	    'django.contrib.contenttypes',	#default dari django
+	    'django.contrib.sessions',		#default dari django
+	    'django.contrib.messages',		#default dari django
+	    'django.contrib.staticfiles',	#default dari django
+	    'nama_aplikasi1',				#nama aplikasi yg kita buat
+	    'nama_aplikasi2',				#nama aplikasi yg kita buat
+		)
+=========================================
+8. Berikan Url agar user bisa mengakses halaman yang dituju. Edit urls.py
+=========================================
+(r'^admin/', include('django.contrib.admin.urls')),
+=========================================
+9. Jika dibutuhkan beritahu models mana saja yang harus ditampilkan di halaman admin, untuk melakukannya import 
+   admin application kedalam file models.py semua applikasi serta tambahkan sebuah baris untuk meregistrasikannya
+   pada bagian bawah model
+=========================================
+	contoh:
+	from django.db import models
+	from django.contrib import admin
+	
+	class BlogPost(models.Model):
+		title = models.CharField(max_length=150)
+		body = models.TextField()
+		timestamp = models.DateTimeField()
+	
+	admin.site.register(BlogPost)
+=========================================
+10. Jalankan server
+=========================================
+	manage.py runserver
+=========================================
+* untuk masuk ke admin, masuk ke browser tuliskan alamat http://127.0.0.1:8000/admin/
+he three most common causes for “My app doesn’t show up in the admin,” problems are
+1) forgetting to register your model class with admin.site.register (di file models.py setiap aplikasi), 
+2) errors in the app’s models.py , and 
+3) forgetting to add the app to the INSTALLED_APPS tuple in your settings.py file.
+
+* agar tampilan admin menampilkan apa yang kita tulis maka edit pada file models.py, tambahkan line list_display dan registrasikan ke admin:
+=================================================================
+	from django.db import models
+	from django.contrib import admin
+	class BlogPost(models.Model):
+		title = models.CharField(max_length=150)
+		body = models.TextField()
+		timestamp = models.DateTimeField()
+	
+	class BlogPostAdmin(admin.ModelAdmin):
+		list_display = ('title', 'timestamp')
+	
+	admin.site.register(BlogPost, BlogPostAdmin)
+=================================================================
+IgG in the database, but the message sent by the pack danu ENTIRE message has not been received on aircraft 

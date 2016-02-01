@@ -86,4 +86,10 @@ preferred username, email, and password. If, on the other hand, the database is
 misconfigured, an error message will be printed to help you troubleshoot the issue.
 With this done, we are ready to launch our application.
 
+untuk menjalankannya gunakan perintah
+=============================================================================================
+python manage.py runserver
+=============================================================================================
+
+
 """

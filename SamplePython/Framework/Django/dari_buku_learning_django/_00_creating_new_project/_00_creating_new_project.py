@@ -40,6 +40,27 @@ how to enter the database settings.
 between the URLs and Python functions that handle them. This file is one
 of Django's powerful features, and we will see how to utilize it in the
 next chapter.
+
+
+untuk menjalankannya gunakan perintah
+=============================================================================================
+python manage.py runserver
+=============================================================================================
+Next, open your browser and navigate to this URL: http://localhost:8000/
+As you may have noticed, the web server runs on port 8000 by default. If you want to
+change the port, you can specify it on the command line using the following command:
+=============================================================================================
+$ python manage.py runserver <port number>
+=============================================================================================
+Also, the development server is only accessible from the local machine by default. If
+you want to access the development server from another machine on your network,
+use the following command line arguments:
+=============================================================================================
+$ python manage.py runserver 0.0.0.0:<port number>
+=============================================================================================
+
+
+
 """
 
 

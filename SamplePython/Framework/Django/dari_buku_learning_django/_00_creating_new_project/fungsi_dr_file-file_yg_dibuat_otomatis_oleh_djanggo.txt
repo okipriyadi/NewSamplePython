@@ -1,0 +1,31 @@
+1. django_bookmarks (the outer folder): This folder is the project folder. Contrary to the earlier project 
+   structure in which the whole project was kept in a single folder, the new Django project structure 
+   somehow hints that every project is an application inside Django. This means that you can import other 
+   third party applications on the same level as the Django project. This folder also contains the manage.py file,
+   which include all the project management settings.
+2. manage.py : This is utility script is used to manage our project. You can think of it as your project's 
+   version of django-admin.py . Actually, both django-admin.py and manage.py share the same backend code.
+3. django_booksmakrs (the inner folder):
+4. __init__.py : Django projects are Python packages, and this file is required to tell Python that this 
+   folder is to be treated as a package. A package in Python's terminology is a collection of modules, and 
+   they are used to group similar files together and prevent naming conflicts.
+5. settings.py : This is the main configuration file for your Django project. In it, you can specify a variety 
+   of options, including database settings, site language(s), what Django features need to be enabled, and so on. 
+   Various sections of this file will be explained as we progress with building our application during t
+   he following chapters. By default, the database is configured to use SQLite Database, which is advisable 
+   to use for testing purposes. Here, we will only see how to enter the database in the settings file; 
+   it also contains the basic setting configuration, and with slight modification in the manage.py file, 
+   it can be moved to another folder, such as config or conf. To make every other third-party application 
+   a part of the project, we need to register it in the settings.py file. INSTALLED_APPS is a variable that 
+   contains all the entries about the installed application. As the project grows, it becomes difficult to 
+   manage; therefore, there are three logical partitions for the INSTALLED_APPS variable, as follows:   
+   a. DEFAULT_APPS 		: This parameter contains the default Django installed applications (such as the admin)
+   b. THIRD_PARTY_APPS 	: This parameter contains other application like SocialAuth used for social authentication
+   c. LOCAL_APPS : This parameter contains the applications that are created by you
+6. url.py : This is another configuration file. You can think of it as a mapping between URLs and the Django 
+   view functions that handle them. This file is one of Django's more powerful features, and we will see how 
+   to utilize it in the next chapter. 
+   
+When we start writing code for our application, we will create new files inside the project's folder. 
+So, the folder also serves as a container for our code. Now that you have a general idea of the structure of 
+a Django project.

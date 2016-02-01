@@ -1,0 +1,92 @@
+Bootstrap is a complete frontend framework, and it's beyond the scope of this book
+to familiarize you with each and every aspect of it. What you must be wondering
+is why we would discuss Bootstrap in Django book. You are being told about a
+frontend framework. The idea here is to help you build a web application that you
+can directly use in production, and which you will be deploying to clouds such as
+AWS and Heroku. You need your project to be of a production grade once you finish
+this book. Thus, by keeping Bootstrap as simple as possible, you can still build a
+great-looking Django web application.
+There are many ways to lay out your web pages based on the permutation and
+combination. To help you to get an understanding of that, we will take a look at a
+few examples.
+Wire-framing is the first step in the web development, which means it has to deal
+with the location of the content on the page. If you already know the basics of web
+designing, this section will make much more sense to you. If not, first do some reading
+to get a basic idea of web development. Look up the difference between div and span ,
+and then everything will make sense to you. You can learn more from here: https://
+developer.mozilla.org/en-US/Learn/HTML . Bootstrap basic page wire-framing is
+divided into rows and columns; each column is further divided into 12 sections. With
+these subsections, you can use the permutation to get your layout designed.
+When we see a website from a developer's perspective, the first thing we notice is
+the wire-frame being used. For example, when you visit www.facebook.com , you see
+your news feed in the center of the page and other important links (such as links to
+messages, pages, and groups) on the left-hand side of the page. On the right-hand
+side, you see your friends who are available to chat.
+The same layout can be imagined in Bootstrap as 2-8-2. The column for the left-hand
+side links will be a "2 column", the news feed will be an "8 column", and the chat
+section will be a "2 column". This is a basic wire-frame.
+Remember the sum always has to be 12, as a live fluid grid
+system in Bootstrap works on 12-grid column principle for
+better and flexible layout.
+Now, Bootstrap is not just for making a web page responsive–it has many other
+components to make web page look better and cleaner.
+To use Bootstrap with Django, there are two ways:
+•	 The Django way: pip install django-bootstrap3
+•	 The Manual way: Downloading the Bootstrap resources(http://getbootstrap.com) and copying them to a static location
+
+
+The Django way
+If you want to install Bootstrap using a command, then you have to append the
+INSTALLED_APPS variable from the settings.py file with bootstrap3 .
+Here is a sample Django template using this method for a simple HTML form:
+{% load bootstrap3 %}
+{%# simple HTML form #%}
+<form action="action_url">
+{% csrf_token %}
+{% bootstrap_form sample_form %}
+{% buttons %}
+<button type="submit" class="btn btn-primary">
+{% bootstrap_icon "heart" %} SUBMIT
+</button>
+{% endbuttons %}
+</form>
+
+
+Manual installation of Bootstrap
+This method is recommended for beginners, but once you are confident, you can
+make shortcuts by following the command method.
+Here we will learn the basic inclusion for the project files, and the rest will be
+covered in the upcoming chapters. Once you have downloaded the Bootstrap from
+the online source ( http://getbootstrap.com ), the unzipped folder structure looks
+something like this:
+|-- css
+| |-- bootstrap.css
+| |-- bootstrap.css.map
+| |-- bootstrap.min.css
+| |-- bootstrap-theme.css
+| |-- bootstrap-theme.css.map
+| `-- bootstrap-theme.min.css
+|-- fonts
+| |-- glyphicons-halflings-regular.eot
+| |-- glyphicons-halflings-regular.svg
+| |-- glyphicons-halflings-regular.ttf
+| `-- glyphicons-halflings-regular.woff
+`-- js
+|-- bootstrap.js
+`-- bootstrap.min.js
+There are two types of local file conventions used in Django: one is "Static" and
+another is "media". Static files refers to the assets of your project, such as CSS,
+JavaScript, and so on. Media files are represented by uploaded files in the project,
+mainly consisting of images, video for display or download, and so on.
+Adding static files to your project can be done by adding following lines to the setting.py file:
+===========================================================================
+STATICFILES_DIRS = (
+			# put absolute path here as string not relative path.
+			# forward slash to be used even in windows.
+			os.path.join(os.path.dirname(__file__),
+						'static',
+						),
+)
+===========================================================================
+Now, all you have to do is to create a folder "static" inside your project directory and copy
+all the Bootstrap resources.

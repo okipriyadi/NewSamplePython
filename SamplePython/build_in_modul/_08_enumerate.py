@@ -1,4 +1,4 @@
-#enumerate memberian angka otomatis ada list
+#enumerate memberian angka otomatis pada list
 a = ['a', 'b', 'c', 'd']
 b = enumerate(a)
 print "b = ", b

@@ -91,5 +91,5 @@ print bahasa
 
 print "\nmembat dictionary kosong dengan kunci list"
 d = ["aa","bb","cc"]
-poems = dict.fromkeys(d, '') # socket -> accumulated poem
+poems = dict.fromkeys(d, '') 
 print poems

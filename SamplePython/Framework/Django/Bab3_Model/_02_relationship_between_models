@@ -1,0 +1,10 @@
+The capability to define relationships between model objects is, naturally, one of the
+strongest selling points for using relational databases (as evidenced by the name itself—
+relational) and is also an area where ORMs sometimes tend to differ from one another.
+
+Django’s current implementation is fairly database-centric, making sure the relations are
+defined at the database level and not just at the application level. However, because SQL
+only provides for one explicit form of relation—the foreign key—it is necessary to add
+some layering to provide more complex relationships.We examine the foreign key first
+and then move to how it can serve as a building block for the other relationship types.
+

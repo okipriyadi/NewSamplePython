@@ -1,0 +1,24 @@
+REQUEST(USER)  <-------> PROCESS ----------------->RESPONSE
+HTTP           <-------> PROCESS ------------------RESPONSE 
+
+The concept of a request encapsulates the first part of the process—the client asking
+the server for a given document.The heart of a request is the URL—the “path” to the
+document being requested—but it can be further parameterized via a number of meth-
+ods, enabling a single location or URL to exhibit multiple behaviors.
+A response consists primarily of a body—usually the text of a Web page—and accompanying headers with extra 
+information about the data in question, such as when it was
+last updated, how long it should be cached locally, its content type, and so forth. Other,
+non-HTML content included in a response could be plain text, images, documents (PDF,
+Word, Excel, and so on), audio clips, and so forth.
+
+Django represents both requests and responses as relatively simple Python objects with
+attributes for the varying pieces of data and methods for more complex operations.
+
+Connecting the pieces together, the HTTP requests that come in are forwarded by the
+Web server to Django, which accepts them starting at the request middleware layer.They
+are then dispatched based on URLconf patterns to the appropriate view, which performs
+the core part of the work required, using models and/or templates as necessary to create
+the response.The response then goes through one more layer of middleware that per-
+forms any final processing before returning the HTTP response back to the Web server to
+forward on to the user. Make sense?
+

@@ -17,7 +17,43 @@ To tell Django this new app is part of your project, you need to edit settings.p
 
 1. Open your settings file in your editor and find the INSTALLED_APPS tuple near the bottom.
 2. Add your app in dotted module form to that tuple in a line that looks like this 
-   (note the trailing comma): 'mysite.blog',
+   (note the trailing comma): 
+   INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    '
+    ]
+==============================================================+   
+   namaproyek.namaaplikasi
+   eg: 'mysite.blog',
+   lengkapnya menjadi:
+   INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'mysite.appsaya'
+    ]
+    
+    atau jika tidak berfungsi coba hilangkan namaproyeknya(langsung nama aplikasinya)
+    INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'appsaya'
+    ]
+==============================================================+
+
+Ketika kita menggunakan 'migrate', django akan melihat SETIAP model.py di SETIAP INSTALLED_APPS 
 
 Django uses INSTALLED_APPS to determine the configuration of various parts of the
 system, including the automatic admin application and the testing framework.

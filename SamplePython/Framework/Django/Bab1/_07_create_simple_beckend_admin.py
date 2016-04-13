@@ -13,20 +13,30 @@ settings.py file.
     
 Now that the app is set up, all we need to do is give it a URL so we can get to it.You
 should have noticed these two lines in your automatically generated urls.py .
-
+=====================================================+
 # Uncomment this for admin:
 # (r'^admin/', include('django.contrib.admin.urls')),
-
+=====================================================+
 Remove the # character from the second line (and you can remove the first, comment-
 only line at the same time) and save the file.You’ve told Django to load up the default
 admin site, which is a special object used by the contrib admin application.
 
 Finally, your applications need to tell Django which models should show up for editing
 in the admin screens.To do so, you simply need to define the default admin site men-
-tioned previously and register your BlogPost model with it. Open the
-sitesaya/blog/models.py file, make sure the admin application is imported, and then add
-a line registering your model at the bottom.
+tioned previously and register your BlogPost model with it. OPEN the
+sitesaya/blog/models.py file, MAKE SURE the admin application is IMPORTED, and then ADD
+a line REGISTERING your model at the bottom.
+=====================================================+
+from django.db import models
+from django.contrib import admin     # <----------------pastikan ini ada
 
+class BlogPost(models.Model):
+    title = models.CharField(max_length=150)
+    body = models.TextField()
+    timestamp = models.DateTimeField()
+
+admin.site.register(BlogPost)        # <----------------tambahkan baris ini untuk meregistrasikanya
+=====================================================+
 Trying Out the admin
 Now that we’ve set up our Django site with the admin app and registered our model with
 it, we can take it for a spin. Issue the manage.py runserver command again. Now, go to
@@ -36,6 +46,11 @@ screen.
 
 Type the “superuser” name and password you created earlier when create a database table . 
 Once you’ve logged in, you see the admin home page
+
+JIKA BELUM PUNYA SUPER USER, KITA BISA MEMBUATNYA DENGAN CARA(note : command is only available if 'django.contrib.auth' is in your INSTALLED_APPS)
+=================================================================
+    ./manage.py createsuperuser
+=================================================================
 
 Tip
 The three most common causes for “My app doesn’t show up in the admin,” problems are

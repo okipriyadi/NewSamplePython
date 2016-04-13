@@ -1,0 +1,29 @@
+Using Multiple patterns Objects
+One trick commonly used by Django developers is that of refactoring their URLconfs
+into multiple patterns calls per URL file, at least for files which have a nontrivial num-
+ber of entries.This is possible because the return type of patterns is an internal Django
+object type that can be appended to as if it were a list or other container type.As such, it’s
+easy to concatenate multiple such objects together, and thus it’s possible and desirable to
+segregate them based on the prefix string. Here’s a semi-abstract example representing a
+top-level URL tying together multiple apps.
+=====================================================================++
+from django.conf.urls.defaults import *
+urlpatterns = patterns(‘myproject.blog.views’,
+url(r’^$’, ‘index’),
+url(r’^blog/new/$’, ‘new_post’),
+url(r’^blog/topics/(?P<topic_name>\w+)/new/$’, ‘new_post’),
+)
+urlpatterns += patterns(‘myproject.guestbook.views’,
+url(r’^guestbook/$’, ‘index’),
+url(r’^guestbook/add/$’, ‘new_entry’),
+)
+urlpatterns += patterns(‘myproject.catalog.views’,
+url(r’^catalog/$’, ‘index’),
+)
+=====================================================================++
+Note the use of the += operator for the second and third calls to patterns . By the end
+of the file, urlpatterns contains a conglomerate of all six defined URLs, each with their
+own distinct mappings thanks to the different prefix arguments. Of course, astute readers
+notice this still isn’t the height of refactoring.The “blog,” “guestbook” and “catalog”
+sections of the URL definitions are themselves slightly repetitive. Next, we cover how to
+streamline even further by including other URLconfs.

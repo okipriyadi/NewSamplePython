@@ -1,0 +1,23 @@
+Timestamp Formatting Via a Template Filter
+That timestamp is handy, but its ISO8601 format is a little nerdy. Let’s humanize it a bit
+by using a cool feature of the Django template system: filters.
+Because this is a presentation detail, not a data structure or business logic detail, the
+appropriate place for it is in the template. Open your archive.html file and change the
+“post.timestamp” line to
+==========================================================++
+<p>{{ post.timestamp|date }}</p>
+==========================================================++
+To apply a filter to a variable, you simply tack it on to the end of the variable name—
+inside the curly brackets—using a vertical bar, or “pipe,” character. Reload your blog
+home page. Now your dates appear in a more liberal-arts-friendly form (“July 7 “).
+If the default style of the date filter isn’t to your liking, you can pass it an argument
+using strftime -type formatting. However, rather than using the conversion codes from
+Python’s time module, it uses the same formatting directives as PHP’s date function. For
+example, if you want to display the day of the week but omit the year, change the line to
+pass an argument to the date filter.
+==========================================================++
+<p>{{ post.timestamp|date:"l, F jS" }}</p>
+==========================================================++
+This particular format string gives you dates in the style “Friday, July 6th.” Make sure
+you don’t leave any space on either side of that colon—the Django template engine is
+particular about this.

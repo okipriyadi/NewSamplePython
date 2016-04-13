@@ -1,0 +1,31 @@
+The final piece of the Web development puzzle is how to present or format the informa-
+tion requested and/or returned via HTTP and queried from the SQL database.Typically,
+this is done in HTML (HyperText Markup Language) or its newer, more XML-like
+cousin XHTML, along with the sister languages of JavaScript for dynamic browser-side
+functionality and CSS (Cascading Style Sheets) for visual styling. 
+
+Newer applications also use JSON (a “light” data format) or XML to enable dynamic content.
+To work with data being presented, most Web frameworks provide a template language, which blends 
+raw HTML tags with a programming-like syntax for looping over collections of objects, 
+performing logic operations, and other constructs that enable the dynamic behavior desired.
+A simple example could be an otherwise static HTML document with a piece of logic that says 
+to display the username of the currently logged-in user or to display a “Login” link 
+if the user is not yet logged in.
+
+Some templating systems attempt to be fully XHTML compliant, implementing their
+programming-like commands as HTML attributes or tags, so the resultant document can
+be parsed as normal HTML. Others emulate regular programming languages more
+closely, sometimes with an “alternative tag” syntax where the programming constructs are
+surrounded with special characters for ease of reading and parsing. Django’s template lan-
+guage is one of the latter.
+
+Putting It All Together
+While organizing the Web into the three components outlined previously, one important
+aspect has been omitted: how they interact with one another. How does a Web applica-
+tion know to execute a SQL query based on a request, and how does it know what tem-
+plate to use when rendering the result?
+The answer depends partly on the tools used: Each Web framework or language can
+approach things in a different way. However, there are generally more similarities than
+there are differences, and although the next two sections outline Django’s own approach,
+many of these concepts can be found in other frameworks as well.
+

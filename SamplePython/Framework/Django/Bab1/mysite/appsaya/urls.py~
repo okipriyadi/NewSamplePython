@@ -1,0 +1,8 @@
+from django.conf.urls import patterns, url, include
+from mysite.appsaya.views import archive
+
+urlpatterns = patterns('',
+			url(r'^$', archive),
+			)
+
+

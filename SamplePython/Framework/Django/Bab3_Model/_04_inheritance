@@ -1,0 +1,23 @@
+Model Inheritance
+------------------
+A relatively new feature in Django’s ORM at the time of this writing is that of model
+inheritance. In addition to foreign key and other relationships between otherwise distinct
+model classes, it’s possible to define models which inherit from one another in the same
+way that normal, non-ORM Python classes do. (Some examples of which can be found in
+Chapter 1,“Practical Python for Django.”)
+
+For example, the previous SmithBook class could be defined not as its own stand-alone
+class that just happens to have the same two fields as the Book class, but as an explicit sub-
+class of Book .The benefits are hopefully obvious—the subclass can then add or override
+only the fields that differentiate it from its parent, instead of replicating the entire defini-
+tion of the other class.
+
+Our simplistic Book example doesn’t make this sound too exciting, but consider a more
+realistic model with a dozen or more attributes and a handful of complex methods, and
+suddenly inheritance becomes a compelling way to adhere to Don’t Repeat Yourself
+(DRY). Do note, however, that composition—the use of ForeignKey or
+OneToOneField —is still a viable alternative! Which technique you use is entirely up to
+you and depends a lot on your planned model setup.
+Django currently provides two different approaches to inheritance, each with its own
+pluses and minuses: abstract base classes and multi-table inheritance.
+

@@ -1,0 +1,55 @@
+coba ls -al untuk melihat list direktory dan file beserta atributnya
+maka akan ditampilkan semisal berikut ini
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+-rw------- 1 root root 1565 Jul 19 02:10 ini_file.txt
+drw------- 1 root root 1565 Jul 19 02:10 ini_folder
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-rw-------			: Hak ases, minus diawal menandakan bahwa dia adalah sebuah file
+drw-------			: Hak ases, d diawal menandakan bahwa dia adalh sebuah folder 
+
+root yang pertama	: adalah user pemilik file ini
+root yang kedua 	: adalah group pemilik file ini
+
+
+ada beberapa macam user:
+1. user aplikasi contohnya: sshd, ntp, ftp, dll
+2. user pengguna: user yang biasa kita ketahui
+3. user root
+
+1 user bisa memiliki lebih dari 1 group
+
+Aturan Permission
+1. satu file HANYA dimiliki oleh satu user dan satu group
+2. user pemilik file memiliki hak untuk mengatur permission file yang bersangkutan
+3. setiap file hak aksesnya dimiliki oleh user pemilik,group pemilik dan other
+4. other adalah user lain selain user pemilik maupun group pemilik
+5. Masing-masing user,group, dan other memiliki hak akses untuk 
+	a. read(r) 
+	b. write(w)  
+	c. execute(x) 
+	*execute = (bisa mengeksekusi file jika file itu adalah script atau jika folder maka folder itu bisa dibuka)
+	contoh format rwxrwxrwx
+	a. rwx pertama adalah USER
+	b. rwx kedua adalah GROUP
+	c. rwx ketiga adalah OTHER
+6. Nilai OKTAL dari rwx:
+	a. r = 4
+	b. w = 2
+	c. x = 1
+	d. - = 0
+7. Nilai OKTAL lengkap dari rwx dari MASING2 blok UGO(USER GROUP OTHER):
+	a. rwx = 7
+	b. rw- = 6
+	c. r-x = 5
+	d. r-- = 4
+	e. -wx = 3
+	f. -w- = 2
+	g. --x = 1
+	h. --- = 0
+8. Nilai OKTAL lengkap dari rwx dari SEMUA blok UGO(USER GROUP OTHER):
+	a. rwxrwxrwx = rwx(7)rwx(7)rwx(7) = 777         ==>
+	b. rwxr-xr-x = rwx(7)r-x(5)r-x(6) = 755			==>
+	c. rwx------ = rwx(7)---(7)---(7) = 700 		==>
+	d. dll

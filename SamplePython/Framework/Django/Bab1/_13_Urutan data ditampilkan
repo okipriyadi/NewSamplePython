@@ -1,0 +1,21 @@
+You should have noticed your blog posts are not being presented in traditional reverse-
+chronological order. It’s easy for us to tell Django to do that; in fact, we have a choice as
+to where we want to tell it to do so.We can add a default ordering to our model, or we
+can add it to the BlogPost.objects.all() query in our view code. In this case the
+model is a better location because we most often want posts ordered reverse chronologi-
+cally. If we set our preferred ordering in the model, any part of Django that accesses our
+data uses that ordering.
+
+To set default ordering for your MODEL, give it an INNER CLASS called Meta and set the
+ordering attribute in that class.
+
+=======================================================+
+	class Meta:
+	ordering = ('-timestamp',)
+=======================================================+
+
+NOTE:
+Don’t omit the trailing comma inside the parentheses! It makes this a single-item tuple,
+rather than just a parenthesized string. Django expects a tuple here; you’re allowed to spec-
+ify as many fields for ordering as you want. If you added 'title' after the comma, and you
+had two posts titled “A” and “B” with the same timestamp, post “A” would come first.

@@ -9,6 +9,7 @@ django-admin.py is in your PATH so it can be executed from the command line.
 To create the project directory for your blog project, issue this django-admin.py
 command:
 
+cd into a directory where you’d like to store your code,
 =======================================================
     django-admin.py startproject mysite
 =======================================================    
@@ -26,3 +27,4 @@ startproject command akan membuat minimal 3 file berikut.
                         URL patterns to actions your applications perform. URLconfs are an 
                         exciting and powerful feature of Django.
 """
+

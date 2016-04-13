@@ -1,0 +1,4 @@
+masuk ke dalam folder dimana virtualenv tersimpan kemudian ketikan:
+============================
+	source bin/activate
+============================

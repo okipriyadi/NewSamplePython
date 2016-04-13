@@ -1,0 +1,6 @@
+1. sudo groupadd samba
+2. sudo visudo
+   ubah/tambahkan menjadi  :
+   %kyi    ALL=(ALL) /bin/mount,/bin/umount,/sbin/mount.cifs,/sbin/umount.cifs
+3. mkdir ~/mnt
+4. sudo mount -t cifs //192.168.1.5/Berbagi/Projects/E-Catalogue ~/mnt -o username=samb_user,noexec

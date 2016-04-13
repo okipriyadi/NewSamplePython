@@ -1,0 +1,24 @@
+A common concept in relational database definition is that of a primary key, which is a
+field guaranteed to be unique across an entire table (or in Django ORM terms across an
+entire model).These primary keys are typically auto-incrementing integers because such
+a field is a simple and effective method of ensuring that each row in the table has a
+unique value.
+They’re also useful as reference points for relationships between models (which are cov-
+ered in the next few sections)—if a given Book object has an ID number of 5 and is guar-
+anteed to be the only Book with that ID number, a reference to “book #5” is
+unambiguous.
+Because this type of primary key is fairly ubiquitous, Django automatically makes one
+for you unless you specify otherwise.All models without an explicit primary key field are
+given an id attribute, which is a Django AutoField (an auto-incrementing integer).
+AutoField s behave just as normal integers, and their underlying database column type
+varies depending on your database backend.
+For those wanting more control over primary keys, simply make sure you specify
+primary_key=True for one of your model fields, and that field becomes the primary key
+for the table in place of id (which is omitted in such circumstances).This means the
+field’s values must be completely unique, so specifying it for a string field such as a name
+or other identifier cannot be a good idea unless you’re 110 percent certain you never, ever
+have duplicates!
+
+Speaking of duplicates, we’ll also mention there’s a similar argument that can be
+applied to just about any field in your model: unique=True .This enforces uniqueness for
+the field in question without making that field the primary key.

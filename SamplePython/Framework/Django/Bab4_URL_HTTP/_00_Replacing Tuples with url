@@ -1,0 +1,42 @@
+A relatively late addition to Django’s URL dispatching mechanism is the url method,
+which is designed to replace the tuples outlined previously while remaining nearly identi-
+cal in structure. It takes the same three “arguments”
+1. a regex, 
+2. a view string/function, 
+3. and optional argument dict—and adds another optional, 
+
+named argument: name .
+name is simply a string, which should be unique among all your URLs; then, you can use it elsewhere
+to refer back to this specific URL.
+
+Let’s rewrite the previous example using url .
+=====================================================================================
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns(‘myproject.myapp.views’,
+					    url(r’^$’, ‘index’, name=’index’),
+  						url(r’^archives/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/$’, 
+  						    ‘archive’, name=’archive’),
+						)
+=====================================================================================
+
+As you can see, it’s a simple drop-in replacement for the older tuple syntax. Because it’s
+an actual function and not just a tuple, it enforces what used to be merely a convention.
+The first two arguments are required and have no name, although the argument dict is
+now an optional named argument, kwargs , along with the new optional named argu-
+ment, "name".
+
+Note
+kwargs and name are named arguments instead of positional ones to support the fact they
+are both optional. You can specify neither of them, either of them, or both without running
+into problems. Positional arguments (or the use of tuples) would make such a setup far
+more difficult.
+
+We’re presenting this url approach after the tuple-based syntax because it’s newer; even
+by the time you read this, there are still likely to be more Django URLconfs out in the
+wild utilizing tuples than using url . However, we strongly encourage you to use url in
+your own code; we have endeavored to set a good example by using it in the rest of this
+book because it offers more power and flexibility than the tuple approach.
+Finally, see the example applications in Part III,“Django Applications by Example,” for
+more information on the name argument and how it can be used to reference back to
+your URLs from other parts of the code.

@@ -1,0 +1,78 @@
+Abstract Base Classes
+=======================
+The approach of using abstract base classes is, to put it simply,“Python-only” inheri-
+tance—it enables you to refactor your Python model definitions such that common fields
+and methods are inherited from base classes. However, at a database and query level, the
+base classes don’t exist, and their fields are replicated in the database tables for the children.
+This sounds like a violation of DRY, but is actually desirable in scenarios where you
+don’t want an extra database table for the base class—such as when your underlying
+
+database is legacy or otherwise being used by another application. It’s also just a neater
+way to express refactoring of class definitions without implying an actual object hierarchy.
+Let’s re-examine (and flesh out) the Book and SmithBook model hierarchy, using
+abstract base classes.
+=========================================================
+class Author(models.Model):
+	name = models.CharField(max_length=100)
+
+class Book(models.Model):
+	title = models.CharField(max_length=100)
+	genre = models.CharField(max_length=100)
+	num_pages = models.IntegerField()
+	authors = models.ManyToManyField(Author)
+
+	def __unicode__(self):
+		return self.title
+
+	class Meta:
+		abstract = True
+
+class SmithBook(Book):
+	authors = models.ManyToManyField(Author, limit_choices_to={
+									'name__endswith': 'Smith'
+									})
+=========================================================
+The key is the abstract = True setting in the Meta inner class of Book —it signifies
+that Book is an abstract base class and only exists to provide its attributes to the actual
+model classes which subclass it. Note SmithBook only redefines the authors field to pro-
+vide its limit_choices_to option—because it inherits from Book instead of the usual
+models.Model , the resulting database layout has columns for title , genre , and
+num_pages , as well as a many-to-many lookup table for authors .The Python-level class
+also has a __unicode__ method defined as returning the title field, just as Book does.
+In other words, when created in the database, as well as when utilized for object cre-
+ation, ORM querying, and so forth, SmithBook behaves exactly as if it were the following
+definition:
+=========================================================
+class SmithBook(models.Model):
+	title = models.CharField(max_length=100)
+	genre = models.CharField(max_length=100)
+	num_pages = models.IntegerField()
+	authors = models.ManyToManyField(Author, limit_choices_to={
+							'name__endswith': 'Smith'
+							})
+	def __unicode__(self):
+		return self.title
+		
+=========================================================
+As mentioned, this behavior extends to the query mechanism as well as the attributes
+of SmithBook instances, so the following query would be completely valid:
+=========================================================
+	smith_fiction_books = SmithBook.objects.filter(genre=’Fiction’)
+=========================================================
+Our example isn’t fully suited to abstract base classes, however, you’d typically want to
+create both normal Book s as well as SmithBook s.Abstract base classes are, of course,
+abstract—they cannot be created on their own, and as stated previously, are mostly useful
+to provide DRY at the model definition level. Multi-table inheritance, outlined next, is a
+better approach for our particular scenario.
+
+Some final notes regarding abstract base classes:The inner Meta class on subclasses is
+inherited from, or combined with, that of the parent class (with the natural exception of
+the abstract option itself, which is reset to False , as well as some database-specific
+options such as db_name ).
+
+In addition, if a base class uses the related_name argument to a relational field such as
+ForeignKey , you need to use some string formatting, so subclasses don’t end up clashing.
+Don’t use a normal string, such as "related_employees" , but one with %(class)s in it,
+such as "related_%(class)s" (refer back to Chapter 1 if you don’t recall the details
+about this type of string replacement).This way, the subclass name is substituted correctly,
+and collisions are avoided

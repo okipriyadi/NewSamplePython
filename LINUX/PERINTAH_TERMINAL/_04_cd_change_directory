@@ -1,0 +1,17 @@
+pindah direktory
+=========================
+	cd [alamat]
+	eg: cd /home
+=========================
+
+
+pindah satu direktori ke atas
+=========================
+	cd ..
+=========================
+
+
+pindah dua direktory ke atas
+=========================
+	cd ../..
+=========================

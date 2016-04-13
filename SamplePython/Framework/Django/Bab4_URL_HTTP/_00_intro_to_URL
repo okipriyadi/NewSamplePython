@@ -1,0 +1,25 @@
+The mechanisms for tying(mengikat/menghubungkan) together a request’s URL and the resulting response are key to
+any Web development framework. Django uses a fairly simple, but powerful mechanism
+which enables you to map regular-expression-based configuration items to Python view
+methods, as well as link these lists of mappings together by including them within one
+another. Such a system is easy to use, but enables practically unlimited flexibility.
+
+The mappings mentioned previously are stored in Python files called URLconfs.These
+files must expose a urlpatterns object, which should be the result of a patterns func-
+tion defined by Django.The patterns function, when called, consists of the following:
+
+1. A leading prefix string, which can be blank
+2. One or more Python tuples consisting of a regular expression (regex) string match-
+   ing a URL or set of URLs; a view function object or string; and, optionally, a dict
+   of arguments for that view function
+
+   
+   Here’s an example to make sense of this, using an extended version of the URLconf
+from our blog application in Chapter 2,“Django for the Impatient: Building a Blog”:
+===================================================================================================
+from django.conf.urls.defaults import *
+urlpatterns = patterns(‘myproject.myapp.views’,
+					    (r’^$’, ‘index’),
+				        (r’^archives/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/$’, ‘archive’),
+					  )
+===================================================================================================

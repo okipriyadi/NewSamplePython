@@ -1,0 +1,6 @@
+masuk ke folder dimana virt env akan dibuat, kemudian:
+===========================================
+	virtualenv [nama-virtual-environtment]
+	eg: virtualenv ENV
+===========================================
+

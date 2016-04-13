@@ -1,0 +1,5 @@
+=========================================+
+	userdel (-r) [nama_user]
+=========================================+
+
+-r (optional) = digunakan jika ingin menghapus direktori homenya sekaligus

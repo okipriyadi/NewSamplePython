@@ -7,8 +7,17 @@ simple steps.
 
 The first step is much like enabling the admin. In mysite/urls.py , there’s a com-
 mented example line that is almost what we need. Edit it so it looks like this:
-
-url(r'^blog/', include('mysite.blog.urls')),
+===========================================================+
+    url(r'^blog/', include('mysite.blog.urls')),
+===========================================================+
+NOTE JIKA MUNCUL 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    NameError: name 'include' is not defined
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+maka tambahkan baris berikut:
+===========================================================+
+    from django.conf.urls import include
+===========================================================+
 
 This catches any requests that begin with blog/ and passes them to a new URLconf
 you’re about to create.
@@ -18,10 +27,18 @@ new file, mysite/blog/urls.py , containing these lines:
 
 from django.conf.urls.defaults import *
 from mysite.blog.views import archive
-
-urlpatterns = patterns('',url(r'^$', archive),)
-
-
+===========================================================+
+    urlpatterns = patterns('',url(r'^$', archive),)
+===========================================================+
+JIKA MUNCUL ERROR 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ImportError: No module named defaults
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+maka tambahkan ini jawabannya
+django.conf.urls.defaults has been removed in Django 1.6. If the problem was in your own code, you would fix it by changing the import to
+=============================================================
+from django.conf.urls import patterns, url, include
+=============================================================
 It looks a lot like our base URLconf.The action happens in line 5. First, note the
 part of the request URL, which our root URLconf was matching, is stripped—our
 blog application is reusable and shouldn’t care if it’s mounted at blog/ or news/ or

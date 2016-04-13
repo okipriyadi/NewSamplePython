@@ -1,0 +1,9 @@
+menampilkan direktory
+=============================+
+	ls
+=============================+
+
+menampilkan direktory berserta atributnya
+=============================+
+	ls -l
+=============================+

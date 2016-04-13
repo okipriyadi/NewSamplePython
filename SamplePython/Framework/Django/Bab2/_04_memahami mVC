@@ -1,0 +1,49 @@
+Separating the Layers (MVC)
+=============================
+The idea of breaking down a dynamic application (Web or otherwise) has been around
+for some time, usually applied to graphical client-side applications, and is generally known
+as the MVC (Model-View-Controller) paradigm. As you can expect, this means the
+application is segregated into 
+
+1. the model, which controls the data, 
+2. the view, which defineshow to display data, and 
+3. the controller, which mediates between the two and enables the user to request and manipulate the data.
+
+Compartmentalizing an application in such a manner enables the programmer to be
+flexible and encourages code reuse among other things. For example, a given view—say, a
+module that knows how to display graphs of numeric data—could be used on top of var-
+ious different sets of data, so long as the glue between the two is able to tie them together.
+
+Or a specific, single set of data could be displayed in multiple different output formats,
+such as the aforementioned graph view, a flat text file, or a sortable table. Multiple con-
+trollers could enable varying levels of access to the same data model for different users or
+enable data entry via a GUI application as well as via e-mail or the command line.
+
+The key to successfully leveraging an MVC architecture lies in correctly segregating
+these different layers of the application. Having one’s data model store information about
+how it should be displayed, although potentially convenient for some setups, means it is
+much harder to completely swap out one view for another.And having database-specific
+access codes in one’s graphical layout code would cause no end of headaches if you
+decide to switch database platforms!
+
+Django’s Approach
+Django adheres to this separation of duties, although it does so in a slightly different man-
+ner than the norm.The model aspect stays the same: Django’s model layer deals solely
+with passing data into and out of a database. However, the “view” in Django isn’t the final
+step in displaying the data—Django’s views are closer to what are normally considered
+the “controller” aspects of MVC.
+
+They’re Python functions which tie together the model layer and the 
+presentation layer (which consists of HTML and Django’s template language
+to be covered later in Chapter 6,“Templates and Form Processing”).To quote the Django
+development team:
+
+In our interpretation of MVC, the “view” describes the data that gets presented to the
+user. It’s not necessarily how the data looks, but which data is presented. The view
+describes which data you see, not how you see it. It’s a subtle distinction.
+In other words, Django splits the presentation layer in twain with a view method
+defining what data to display from the model and a template defining the final representa-
+tion of that information.As for the controller, the framework itself serves as a controller of
+sorts—it provides mechanisms, which determine what view and template are used to
+respond to a given request.
+

@@ -3,15 +3,14 @@ A page, from Django's perspective, has three typical components:
 1. A template that displays information passed to it (in a Python-dictionary-like object called a Context )
 2. A view function that fetches information to be displayed, typically from a database
 3. A URL pattern that matches an incoming request with your view function, optionally passing parameters to the view as well
-We'll tackle these three in that order. In a sense this is building from the inside out-
+
+we'll tackle these three in that order. In a sense this is building from the inside out.
 when Django processes a request, it starts with the URL patterns, then calls the view, and
 then returns the data rendered into a template.
 
 We’ll tackle these three in that order. In a sense this is building from the inside out—
 when Django processes a request, it starts with the URL patterns, then calls the view, and
 then returns the data rendered into a template.
-
-
 
 
 Creating a Template
@@ -49,8 +48,8 @@ plate file should be:
 
 sitesaya/appsaya/templates/archive.html
 
-The name of the template itself is arbitrary (we could have called it foo.html ), but the
-directory name is mandatory. By default, when searching for templates, Django
+The name of the template itself is ARBITRARY(we could have called it foo.html ), but the
+directory name is MANDATORY By default, when searching for templates, Django
 looks for a templates directory inside each of your installed applications.
 """
 

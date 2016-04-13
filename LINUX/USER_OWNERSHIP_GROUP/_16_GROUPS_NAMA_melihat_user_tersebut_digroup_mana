@@ -1,0 +1,13 @@
+===========================================================+
+ 	groups [nama_group]
+===========================================================+
+contoh hasil
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	rizal : rizal wheel direksi
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+disini user rizal terlihat memiliki 3 group (rizal, wheel, direksi)
+rizal yang pertama	: nama user
+rizal yang kedua	: nama group
+wheel yang kedua	: nama group
+direksi yang kedua	: nama group

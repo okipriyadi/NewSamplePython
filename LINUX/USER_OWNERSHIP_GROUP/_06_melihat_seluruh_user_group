@@ -1,0 +1,13 @@
+=============================================
+	cat /etc/passwd
+=============================================
+
+contoh hasilnya:
++++++++++++++++++++++++++++++++++++++++++++++
+namauser:x:1234:1009::/home/namauser:/bin/bash
++++++++++++++++++++++++++++++++++++++++++++++
+
+x 		= artinya user memiliki password
+1234	= user_id (UID)
+1009	= group_ID (GID)
+/home/namauser:/bin/bash =home direktory dan shell yang digunakan

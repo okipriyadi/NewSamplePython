@@ -1,0 +1,4 @@
+===========================================+
+	chown [user_baru].[group_baru] [namafile/folder]
+	eg: chown kyi.kyi file1.txt
+===========================================+

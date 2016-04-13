@@ -1,0 +1,21 @@
+Looked at simply, the Web is about data transfer or the sharing of content (meaning, quite
+literally, anything—blog entries, financial data, ebooks, and so forth). In the Web’s early
+days, content consisted of HTML text files, written by hand, and stored on the server’s
+filesystem.This is known as static because requests to the same URL always return the
+same information.The “path” described previously was more primitive; there were no
+parameters, as it was merely a path on the server’s filesystem where the static content was
+located. Present day, most content is considered dynamic because the data returned by a
+given URL can vary tremendously depending on factors.
+A large part of this dynamic nature is enabled by storing data in a database, where
+instead of a single string of text, one can create multipart pieces of data and link them to
+one another to represent relationships.To define and query the database, SQL (Structured
+Query Language) is used, often further abstracted by an ORM (Object-Relational Map-
+per), which enables object-oriented programming languages to represent the database as
+code objects.
+
+SQL databases are organized into tables, each consisting of rows (for example, entries,
+items, objects) and columns (for example, attributes, fields), similar in overall organization
+to a spreadsheet. Django provides a powerful ORM, where Python classes represent
+tables, objects represent individual rows within those tables, and the table’s columns are
+attributes of those objects
+

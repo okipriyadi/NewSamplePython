@@ -1,0 +1,202 @@
+Foreign Keys
+============
+Because foreign keys are fairly simple, Django’s implementation of them is similarly
+straightforward.They’re represented as their own Field subclass, ForeignKey , whose pri-
+mary argument is simply the model class being referred to, as in the following example:
+==============================================================+
+class Author(models.Model):
+	name = models.CharField(max_length=100)
+
+class Book(models.Model):
+	title = models.CharField(max_length=100)
+	author = models.ForeignKey(Author)
+==============================================================+
+You should note we need to define classes being referred to at the top because other-
+wise the Author variable name would not be available for use in the Book class’s
+ForeignKey field. However, you can use a string instead, either the class name if it’s
+defined in the same file, or using dot notation (for example, ’myapp.Author’ ) otherwise.
+Here’s the previous example rearranged and rewritten using a string-based ForeignKey :
+==============================================================+
+class Book(models.Model):
+	title = models.CharField(max_length=100)
+	author = models.ForeignKey("Author")
+
+class Author(models.Model):
+	name = models.CharField(max_length=100)
+==============================================================+
+It’s also possible to define self-referential ForeignKey s by using the string ’self’ . 
+This is commonly used when defining hierarchical structures (for example, a Container class
+defining a parent attribute enabling nested Container s) or similar situations (such as an
+Employee class with attributes such as supervisor or hired_by ).
+
+Although the ForeignKey is only defined on one side of the relationship, the receiving
+end is able to follow the relationship backward. Foreign keys are technically a many-to-one
+relationship, as multiple “child” objects can refer to the same “parent” object; thus, the
+child gets a single reference to its parent, but the parent gets access to a set of its children.
+
+Using the previous example, you could use Book and Author instances such as:
+===========================================================================================
+	# Pull a book off the shelf - see below in this chapter for details on querying
+	book = Book.objects.get(title="Moby Dick")
+	# Get the book’s author - very simple
+	author = Book.author
+	# Get a set of the books the author has been credited on
+	books = author.book_set.all()
+===========================================================================================
+As you can see, the “reverse relationship” from Author to Book is represented by the
+attribute (a manager object, outlined later in the chapter), which is
+automatically added by the ORM. It’s possible to override this naming scheme by speci-
+fying a related_name argument to the ForeignKey ; in the previous example, we could
+have defined author as ForeignKey("Author", related_name="books") and would
+then have access to author.books instead of author.book_set .
+
+
+NOTE
+The use of related_name is optional for simple object hierarchies, but required for more
+complex ones, such as when you have multiple ForeignKey s leading from one object to
+another. In such situations, the ORM needs you to tell it how to differentiate the two reverse
+relationship managers on the receiving end of those two ForeignKey fields. Django’s data-
+base management tools lets you know by way of an error message if you forget!
+
+
+Many-to-Many Relationships
+==========================
+Foreign keys are generally used to define one-to-many (or many-to-one) relationships—
+in our previous examples, a Book has a single Author and an Author can have many
+Books . However, sometimes you need more flexibility. For example, until now we’ve
+assumed a Book has only one Author , but what about books written by more than one
+person, such as this one?
+
+Such a scenario requires a “many” relationship not only on one side ( Author having
+one or more Book s) but on both ( Book also having one or more Author s).This is where
+the concept of many-to-many relationships come in; because SQL has no definition for
+these, we must build them using the foreign keys it does understand.
+
+Django provides a second relationship-oriented model field to handle this situation:
+ManyToManyField . Syntax-wise, they are identical to ForeignKey ; you define them on
+one side of the relationship, passing in the class to relate to, and the ORM automatically
+grants the other side the necessary methods or attributes to use the relationship (typically
+by creating a _set manager as seen previously with ForeignKey s). However, due to the
+nature of ManyToManyField , it doesn’t generally matter which side you define it on
+because the relationship is inherently symmetrical.
+
+
+Note
+If you plan on using Django’s admin application, keep in mind the admin forms for objects in
+a many-to-many relationship only display a form field on the defining side.
+
+Note
+Self-referential ManyToManyField s (that is, a ManyToManyField on a given model refer-
+encing that same model) are symmetrical by default because it’s assumed the relationship
+goes both ways. However, this is not always the case, and so it’s possible to change this
+behavior by specifying symmetrical=False in the field definition.
+
+
+Let’s update our book example with the newfound realization we must handle
+multiple-author books:
+============================================================
+class Author(models.Model):
+	name = models.CharField(max_length=100)
+
+class Book(models.Model):
+	title = models.CharField(max_length=100)
+	authors = models.ManyToManyField(Author)
+============================================================
+
+The usage of ManyToManyField is similar to the “many” side of a foreign key
+relationship:
+============================================================
+# Pull a book off the shelf
+book = Book.objects.get(title="Python Web Development Django")
+
+# Get the books’ authors
+authors = Book.author_set.all()
+
+# Get all the books the third author has worked on
+books = authors[2].book_set.all()
+============================================================
+The secret of the ManyToManyField is that underneath, it creates an entirely new table
+in order to provide the lookups needed for such a relationship, and it is this table which
+uses the foreign key aspects of SQL; each row represents a single relationship between two
+objects, containing foreign keys to both.
+
+This lookup table is normally hidden during regular use of Django’s ORM and cannot
+be queried on its own, only via one of the ends of the relationship. However, it’s possible
+to specify a special option on a ManyToManyField , through , which points to an explicit
+intermediate model class. Use of through thus lets you manually manage extra fields on
+the intermediate class, while retaining the convenience of managers on the “ends” of the
+relationship.
+
+The following is identical to our previous ManyToManyField example, but contains
+an explicit Authoring intermediate table, which adds a collaboration_type field to the
+relationship, and the through keyword pointing to it.
+============================================================
+class Author(models.Model):
+	name = models.CharField(max_length=100)
+
+class Book(models.Model):
+	title = models.CharField(max_length=100)
+	authors = models.ManyToManyField(Author, through="Authoring")
+
+class Authoring(models.Model):
+	collaboration_type = models.CharField(max_length=100)
+	book = models.ForeignKey(Book)
+	author = models.ForeignKey(Author)
+============================================================
+You can query Author and Book in an identical fashion to our earlier query example
+and can also construct queries dealing with the type of “authoring” that was involved.
+
+============================================================
+# Get all essay compilation books involving Chun
+chun_essay_compilations = Book.objects.filter(
+										author__name__endswith='Chun',
+										authoring__collaboration_type='essays'
+										)
+============================================================
+
+As you can see, this adds significant flexibility to Django's ability to compose relationships meaningfully.
+
+Composition with One-to-One Relationships
+-----------------------------------------
+In addition to the commonly used many-to-one and many-to-many relationship types
+you’ve just seen, relational database development sometimes makes use of a third type,
+namely one-to-one relationships.As with the other two, the name means exactly what it
+says; both sides of the relationship have only a single-related object.
+
+Django implements this concept as as a OneToOneField that is generally identical to
+ForeignKey —it requires a single argument, the class to relate to (or the string “self ” to be
+self-referential).Also like ForeignKey , it optionally takes related_name so you can differ-
+entiate between multiple such relationships between the same two classes. Unlike its
+cousins, OneToOneField does not add a reverse manager for following the reverse rela-
+tionship—just another normal attribute—because there’s always only one object in either
+direction.
+
+This relationship type is most often used to support object composition or ownership,
+and so is generally a bit less rooted in the real world than it is in object-oriented design.
+Before Django supported model inheritance directly (see the following), OneToOneField
+was typically used to implement inheritance-like relationships and now forms the behind-
+the-scenes basis for that feature.
+
+Constraining Relationships
+---------------------------
+As a final note regarding the definition of relationships, it’s possible—for both
+ForeignKey s and ManyToManyField s—to specify a limit_choices_to argument.This
+argument takes a dictionary as its value, whose key/value pairs are query keywords and
+values (again, see the following for details on what those keywords are).This is a powerful
+method for specifying the possible values of the relationship you’re defining.
+
+for example, the following is a version of the Book model class that only works with
+whose name ends in Smith:
+======================================================================
+class Author(models.Model):
+	name = models.CharField(max_length=100)
+
+class SmithBook(models.Model):
+	title = models.CharField(max_length=100)
+	authors = models.ManyToManyField(Author, limit_choices_to={
+									'name__endswith': 'Smith'
+	})
+======================================================================
+Note
+It’s also possible—and sometimes desirable—to specify this limitation at the form level.
+See the description of ModelChoiceField and ModelMultipleChoiceField in Chapter 6.

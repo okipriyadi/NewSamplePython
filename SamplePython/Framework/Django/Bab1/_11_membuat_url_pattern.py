@@ -30,6 +30,19 @@ from mysite.blog.views import archive
 ===========================================================+
     urlpatterns = patterns('',url(r'^$', archive),)
 ===========================================================+
+NOTE :
+don't use it again from django.conf.urls import patterns
+You should use a list because patterns() is deprecated since version 1.8, and will be removed in 1.10:
+sebagai gantinya pake
+===========================================================+
+eg:
+from django.conf.urls import url    
+    urlpatterns =  [
+            url(r'^$', archive),
+        ]
+===========================================================+
+
+
 JIKA MUNCUL ERROR 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ImportError: No module named defaults

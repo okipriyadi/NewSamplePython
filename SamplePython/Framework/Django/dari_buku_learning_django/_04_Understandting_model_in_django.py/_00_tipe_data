@@ -1,0 +1,49 @@
+Field_type			Description	
+IntegerField		An integer 
+TextField 			A large text field
+DateTimeField 		A date-and-time field
+EmailField 			An e-mail field with 75 characters maximum
+URLField 			A URL field with 200 characters maximum
+FileField 			A file-upload field
+
+
+The following are the arguments that can be applied to all the field types (they
+are optional):
+•	 null : By default, it is set to false . When set to true , the associated field is
+			allowed to have a value of null stored in the database.
+•   blank : By default, it is set to false . When set to true , the associated field is
+			allowed to have a value of blank stored in the database.			
+• choices : This can be a list or a tuple and must be iterable. If this is in the
+			form of a tuple, the first element is the value that will get stored to the
+			database and the second value is used for display in widget-like forms or
+			ModelChoiceField .
+			For example:
+				USER_ROLE = (
+					('U', 'USER'),
+					('S', 'STAFF'),
+					('A', 'ADMIN')
+					)
+				user_role = models.CharField(max_length=1,choices=USER_ROLE)				
+•	 default : Values that are assigned to the attribute every time an object of the
+			   class is instantiated.
+• help_text : Help text displayed in the form of a widget.
+• primary_key : If set to True , this field is made primary key for the model. If
+			there is no primary key in the model, Django will create an integer field and
+			mark that as the primary key.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

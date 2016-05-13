@@ -1,0 +1,40 @@
+Template Filters
+----------------
+Although it provides the foundation for building dynamic templates, simple variable out-
+put is fairly inflexible.The template framework enables transformation of context vari-
+ables via mechanisms called filters, which are similar to Unix pipes—see Appendix A,
+“Command Line Basics,” if you’re not already familiar with pipes. Filters even use the
+same syntax as Unix pipes, the pipe character: | .They can be chained together, as they
+always take a single text string as input and return one on output.As you see later in the
+“Extending the Template” section of Chapter 11,“Advanced Django Programming,” fil-
+ters are simply Python functions.
+Django ships with a wide variety of useful filters that encapsulate common Web devel-
+opment and text processing tasks, such as escaping slashes, capitalization, date formatting,
+obtaining the length of lists or tuples, concatenating strings, and so forth. Here’s an exam-
+ple of how filters could be used to transform a list of strings into lowercase.
+===============================================
+	<ul>
+	{% for string in string_list %}
+		<li>{{ string|lower }}</li>
+	{% endfor %}
+	</ul>
+===============================================
+Although most filters take a single string as input, some accept an argument to further
+parameterize their behavior, such as the yes/no filter used to take arbitrary (usually
+boolean) values and print human-useful strings.
+
+===============================================
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Available?</th>
+	</tr>
+	{% for person in person_list %}
+		<tr>
+			<td>{{ person.name }}</td>
+			<td>{{ person.is_available|yesno:”Yes,No” }}</td>
+		</tr>
+	{% endfor %}
+</table>
+===============================================
+

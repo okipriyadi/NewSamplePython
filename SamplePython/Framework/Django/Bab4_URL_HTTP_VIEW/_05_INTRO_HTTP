@@ -1,0 +1,21 @@
+Modeling HTTP: Requests, Responses, and Middleware
+----------------------------------------------------
+You now understand how to set up your URL definitions and associate URLs with view
+functions; now it’s time to detail the ecosystem surrounding those view functions.As dis-
+cussed in Chapter 3, Django models HTTP in a relatively simple request-response
+dichotomy with Python objects for requests and responses.Along with the URL dispatch-
+ing and view functions, a request to your Web application flows such as:
+
+1. HTTP request occurs to your Web server.
+2. Web server passes request to Django, which makes a request object.
+3. Django consults your URLconf to find the right view function.
+4. That view function is called with the request object and any captured URL arguments.
+5. The view then creates and returns a response object.
+6. Django turns that response object into a format your Web server understands.
+7. The Web server then responds to the requesting client.
+
+We first go over the request and response objects and their components, and then get
+into Django middleware, which provides “hooks” into various stages of the previous
+process.Afterward, the next major section teaches you what you need to know about the
+views themselves.
+

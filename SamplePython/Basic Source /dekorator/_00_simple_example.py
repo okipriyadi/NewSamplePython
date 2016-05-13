@@ -8,11 +8,11 @@ def foo():
     pass
 
 """
-@deco syntax is equivalent to executing this line of code (given that foo is a valid function
-object):
+@deco syntax is equivalent to executing this line of code (given that foo is a valid functionobject):
 
+================================
 foo = deco(foo)
-
+================================
 
 The following is a simple example where we acknowledge or log the calling of a func-
 tion live as it happens:
@@ -30,7 +30,9 @@ def foo():
 
 """
 Now if we execute this code, we get the following output:
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 >>> foo()
 *** foo() called
 inside foo()
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 """

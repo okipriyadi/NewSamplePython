@@ -1,0 +1,76 @@
+Custom Views
+--------------
+Finally, as mentioned earlier, it’s sometimes the case you can’t use generic views at all,
+which brings us back to the beginning of this section; the view functions as a blank slate,
+conforming only to a simple API, waiting for you, the programmer, to fill it however you
+want.We share a couple of observations based on our own experience and point out
+some convenient shortcut functions supplied by the framework; however, in general, this
+is an area in which your own skills and experiences determine what you do next.
+
+Framework-Provided Shortcuts
+----------------------------
+As we’ve stated, once you’re in the realm of custom views, Django basically leaves you
+alone. However, it does provide a handful of shortcuts, most of which are defined in the
+django.shortcuts module.
+1. render_to_response :
+   A function that replaces the two- or three-step process of creating a Context object, 
+   rendering a Template with it, and then returning an HttpResponse containing the result. 
+   It takes the template name, an optional context ( Context object, or dictionary, as usual) 
+   and/or MIMEtype, and returns an HttpResponse object.Template rendering is covered in Chapter 6.
+2. Http404 : 
+   An Exception subclass which effectively returns an HTTP 404 error code
+   and renders a top-level 404.html template (unless you’ve overridden this in your
+   settings.py ).To use it, you raise it like you would any other exception, the idea being that when 
+   you encounter a 404 condition, it’s a full-fledged error, same as if you had tried to add a 
+   string to an integer. It is defined in the django.http module.
+3. get_object_or_404 and get_list_or_404 :
+   These two functions are simple shortcuts for obtaining an object or list or raising Http404 if the 
+   lookup fails.They take a klass argument—which is flexible enough to take a model class, a Manager , or a
+   QuerySet —and some database query arguments such as those passed to Managers and QuerySets  and attempt to 
+   return the object or list in question.
+
+Here are two examples using the previous shortcuts:The first uses Http404 by itself,
+and the second shows how to streamline things using get_object_or_404 —the two
+functions exhibit identical behavior in practice. Don’t worry about the template paths for
+now; those are explained in more detail in Chapter 6.
+Here’s the manual method of raising a 404 exception:
+=================================================================================+
+from django.shortcuts import render_to_response
+from django.http import Http404
+from myproject.myapp.models import Person
+
+def person_detail(request, id):
+	try:
+		person = Person.objects.get(pk=id)
+	except Person.DoesNotExist:
+		raise Http404
+
+	return render_to_response(“person/detail.html”, {“person”: person})
+=================================================================================+
+
+And an example of get_object_or_404 , which you’ll usually want to use in place of
+the preceding method:
+
+=================================================================================+
+from django.shortcuts import render_to_response, get_object_or_404
+from myproject.myapp.models import Person
+def person_detail(request, id):
+	person = get_object_or_404(Person, pk=id)
+	return render_to_response(“person/detail.html”, {“person”: person})
+=================================================================================+
+
+Other Observations
+Perhaps a minor point—many Django developers find themselves making use of the
+“args/kwargs” convention when defining their own view functions.As seen in Chapter 1,
+Python functions can define *args and **kwargs to accept arbitrary positional and key-
+word arguments; although a two-edged sword (concrete function signatures are often a
+source of excellent documentation, but are lost here), this is often a useful trick to
+increase flexibility and is also faster to boot.You no longer have to move back to your
+URLconf file to remember exactly what you named your captured regex parameters or
+keyword arguments, just define your function as
+def myview(*args, **kwargs):
+# Here we can refer to e.g. args[0] or kwargs[‘object_id’]
+and away you go, referring to kwargs[“identifier”] when necessary.After a while,
+doing this becomes second nature, and it also makes things easier when you want to pass
+on a function’s arguments to a delegate function—such as in the “semi-generic” views
+mentioned previously.

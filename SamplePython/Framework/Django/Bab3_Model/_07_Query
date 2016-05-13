@@ -1,0 +1,113 @@
+Searches are conducted using a method called filter in the Tweets.objects
+module. You can think of it as the equivalent of the SELECT statements in Django
+models. It receives the search criteria in its arguments and returns the search results.
+The name of each argument must adhere to the following naming convention:
+=======================================================================
+field__operator
+eg:
+tweets = Tweet.objects.filter(text__icontains=query)
+=======================================================================
+Note that the field and operator variables are separated by two underscores: the
+field, which is the name of the field that we want to search by, and operator, which is
+the lookup method that we want to use. Here is a list of the commonly used operators:
+•	 exact : This is the value of the argument that is an exact match of the field
+•	 contains : This field contains the value of the argument
+•	 startswith : This field starts with the value of the argument
+•	 lt : This field is less than the value of the argument
+•	 gt : This field is greater than the value of the argument
+
+contoh kita punya model:
+====================================================================
+	from __future__ import unicode_literals
+	from django.db import models
+	
+	# Create your models here.
+	class Reporter(models.Model):
+	   full_name = models.CharField(max_length=70)
+	   def __str__(self):
+	      return self.full_name
+	# __unicode__ on Python 2
+
+	class Article(models.Model):
+	   pub_date = models.DateField()
+	   headline = models.CharField(max_length=200)
+	   content = models.TextField()
+	   reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
+	   def __str__(self):
+	      return self.headline
+====================================================================
+      
+Query 
+=====================================================================
+	>>> from news.models import Reporter, Article
+	# No reporters are in the system yet.
+	>>> Reporter.objects.all()
+	<QuerySet []>
+
+	# Create a new Reporter.
+	>>> r = Reporter(full_name='John Smith')
+
+	# Save the object into the database. You have to call save() explicitly.
+	>>> r.save()
+	# Now it has an ID.
+	>>> r.id
+	1
+
+	# Now the new reporter is in the database.
+	>>> Reporter.objects.all()
+	<QuerySet [<Reporter: John Smith>]>
+
+	# Fields are represented as attributes on the Python object.
+	>>> r.full_name
+	'John Smith'
+
+	# Django provides a rich database lookup API.
+	>>> Reporter.objects.get(id=1)
+	<Reporter: John Smith>
+
+	>>> Reporter.objects.get(full_name__startswith='John')
+	<Reporter: John Smith>
+
+	>>> Reporter.objects.get(full_name__contains='mith')
+	<Reporter: John Smith>
+
+	>>> Reporter.objects.get(id=2)
+	Traceback (most recent call last):
+	...
+	DoesNotExist: Reporter matching query does not exist.
+
+	# Create an article.
+	>>> from datetime import date
+	##########################Perhatikan reporter = objek(r) karena reporter pada artikel adalah foreign key
+	>>> a = Article(pub_date=date.today(), headline='Django is cool',
+					content='Yeah.', reporter=r)
+	>>> a.save()
+	
+	# Now the article is in the database.
+	>>> Article.objects.all()
+	<QuerySet [<Article: Django is cool>]>
+	
+	# Article objects get API access to related Reporter objects.
+	>>> r = a.reporter
+	>>> r.full_name
+	'John Smith'
+	# And vice versa: Reporter objects get API access to Article objects.
+	>>> d.article_set.all()
+	<QuerySet [<Article: Django is cool>]>
+	
+	
+	# The API follows relationships as far as you need, performing efficient
+	# JOINs for you behind the scenes.
+	# This finds all articles by a reporter whose name starts with "John".
+	################################  if you know it's one object that matches your query, use get. It will fail if it's more than one. 
+	################################  otherwise use filter, which gives you a list of objects.
+	>>> Article.objects.filter(reporter__full_name__startswith='John')
+	<QuerySet [<Article: Django is cool>]>
+	
+	# Change an object by altering its attributes and calling save().
+	>>> r.full_name = 'Billy Goat'
+	>>> r.save()
+	
+	# Delete an object with delete().
+	>>> r.delete()
+=====================================================================

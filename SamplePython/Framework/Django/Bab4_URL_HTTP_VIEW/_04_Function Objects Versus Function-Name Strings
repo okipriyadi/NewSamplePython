@@ -1,0 +1,35 @@
+
+Throughout this section, we’ve been using strings to denote the Python module path
+to the view functions to which our URLs link. However, that’s not the only way to go
+about it; Django also enables you to pass in a callable object in place of a string, such as:
++=================================================================================================
+from django.conf.urls.defaults import *
+from myproject.myapp import views
+urlpatterns = patterns(‘’, # Don’t need the prefix anymore
+					url(r’^$’, views.index),
+					url(r’^blog/’, include(‘myproject.blog.urls’)),
+)
++=================================================================================================
+NOTE :
+don't use it again from django.conf.urls import patterns
+You should use a list because patterns() is deprecated since version 1.8, and will be removed in 1.10:
+sebagai gantinya pake
+===========================================================+
+from django.conf.urls import url    
+    urlpatterns =  [
+            url(r'^$', archive),
+        ]
+===========================================================+
+
+This opens up the door to a lot of functionality, such as using decorator functions to
+wrap generic views or even creating your own callable objects to do more complex dele-
+gation to different views. See Chapter 11,“Advanced Django Programming,” for more on
+decorators and other tricks usable with callable views.
+
+Note
+It’s sometimes tempting to do a blanket from myproject.myapp.views import * in
+your URLconf to use callable views, but this can lead to problems when mixing multiple view
+modules—imagine two separate view files each defining its own index view. Therefore it’s
+probably smart to follow the previous example and import each view module as its own
+object (using the from x import y as z style if necessary), resulting in a cleaner local
+namespace.

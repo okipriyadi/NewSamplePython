@@ -1,0 +1,27 @@
+Every user in our project will have a profile with a unique URL in the following
+format: http://127.0.0.1:8000/user/<username> .
+
+eg:
+
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+from tweet.views import Index,Profile
+
+urlpatterns = patterns('',
+					url(r'^$', Index.as_view()),
+					url(r'^user/(\w+)/$', Profile.as_view()),
+					url(r'^admin/', include(admin.site.urls)),
+				)
+				
+The annotation \w
+means an alphanumeric character or the underscore. The + sign after it causes the
+regular expression to match one or more repetitions of what precedes the sign. So,
+in effect, \w+ means any string that consists of alphanumeric characters and possibly
+the underscore. We have surrounded this portion of the regular expression with
+parentheses. This will cause Django to capture the string that matches this portion
+and pass it to the view.
+
+
+
+
+

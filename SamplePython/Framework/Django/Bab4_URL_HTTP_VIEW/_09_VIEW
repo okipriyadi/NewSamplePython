@@ -1,0 +1,150 @@
+view merupakan controller dalam konsep MVC.
+Ada dua macam views pada django
+1. Function views
+2. Class-based views
+
+contoh functon views
+====================================================================
+#views.py
+from django.http import HttpResponse
+def index(request):
+	if request.method == 'GET':
+		return HttpResponse('I am called from a get Request')
+	elif request.method == 'POST':
+		return HttpResponse('I am called from a post Request')
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#Update the urls.py file as follows:
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+from tweets import views
+
+urlpatterns = patterns('',
+				url(r'^$', views.index, name='index'),
+				url(r'^admin/', admin.site.urls),
+)
+====================================================================
+
+Contoh class-based views
+====================================================================
+#view.py
+from django.http import HttpResponse
+from django.views.generic import View
+class Index(View):
+	def get(self, request):
+		return HttpResponse('I am called from a get Request')
+	def post(self, request):
+		return HttpResponse('I am called from a post Request')
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#urls.py
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+from tweets.views import Index
+urlpatterns = patterns('',
+				url(r'^$', index.as_view(), name='index'),
+				url(r'^admin/', admin.site.urls),
+)
+====================================================================
+Note di class-based, url.py menggunakan index.as_view() dengan kurung buka dan tutup menadakan bahwa fungsi tsb di-fired
+
+
+pada contoh diatas kita telah merender sebuah text I am called from a GET/POST Request
+dengan httpResponse()
+cara lain untuk merender sebuah halaman web adalah edngan cara:
+1. render_to_response(template[, dictionary][, context_instance][, mimetype]) : 
+   The render_to_response command is the standard render function, and to use RequestContext , 
+   we will have to specify context_instance=RequestContext(request) .
+2. render(request, template[, dictionary][, context_instance][,content_type][, status][, current_app]) .
+   This is the new shortcut for the render_to_response command and is available from version 1.3 of
+   Django. This will automatically use RequestContext .
+3. direct_to_template() : #dalam versi terbaru django sudah tidak dapat digunakan 
+   This is a generic view. It automatically uses RequestContext and all its context_processor 
+   parameters.
+4. return HttpResponseRedirect('/user/'+username) ????
+lebih baik gunakan yang kedua, render   
+   
+contoh:
+===================================================================================
+from django.views.generic import View
+from django.shortcuts import render
+class Index(View):
+        def get(self, request):
+                params = {}
+                params["name"] = "Django"
+                return render(request, 'base.html', params)
+===================================================================================
+dan di template bisa dituliskan seperti ini:
+
+==================================================================================
+{% load staticfiles %}
+<html>
+<head>
+        <link href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+        rel="stylesheet" media="screen" />">
+</head>
+<body>
+        {% block content %}
+                <h1 class="text-info">">HELLO {name}!</h1>
+        {% endblock %}
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
+==================================================================================
+We can see how simple it is. All we did is just create a map (called dictionary in
+Python) and assigned the name property to it as Django and added it in the render()
+function as a new parameter. It gets rendered to the base of the HTML and is easily
+called {{name}} . When it is rendered, it replaces itself with Django.
+
+
+
+Views/Logic
+Views (controllers) form the core of any Django Web application in that they provide
+nearly all the actual programming logic.When defining and using the models, we’re data-
+base administrators; when writing the templates, we’re interface designers; but when
+writing views, we’re truly software engineers.
+
+Although the views themselves can easily account for a large portion of your source
+code, the Django framework code surrounding views is surprisingly slim.Views represent
+your business logic and are thus the aspect of a Web application which needs the least glue
+code and the most custom work.At the same time, built-in generic views are one of the
+most touted time-savers in Web development frameworks such as Django, and we introduce
+these and methods of using them both on their own and in tandem with custom views.
+
+
+Just Python Functions
+----------------------
+At the heart of it, Django views are Python functions, plain and simple.The only restric-
+tion on view functions is they must :
+1. take an HttpRequest object 
+2. return an HttpResponse object
+
+previously mentioned are the regex patterns from the URLconfs, in which you can define named groups. 
+Combined with an optional dictionary parameter, they provide the arguments to the view function,
+as in the following example (slightly altered from its earlier incarnation):
+===============================================================================================+
+	urlpatterns = patterns(‘myproject.myapp.views’,
+							url(r’^archives/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/$’, ‘archive’,
+								{‘show_private’: True}),
+							)
+===============================================================================================+
+NOTE :
+don't use it again from django.conf.urls import patterns
+You should use a list because patterns() is deprecated since version 1.8, and will be removed in 1.10:
+sebagai gantinya pake
+===========================================================+
+from django.conf.urls import url    
+    urlpatterns =  [
+            url(r'^$', archive),
+        ]
+===========================================================+
+
+Combined with the HttpRequest object, the archive view function referenced by the
+previous URL could have a signature such as:
+================================================================================================
+	from django.http import HttpResponse
+	def archive(request, year, month, day, show_private):
+		return HttpResponse()
+================================================================================================
+As long as it returns an HttpResponse of some kind, the inner guts of the method are
+inconsequential; what we’re seeing here is essentially an API.As with any API, you can use
+prewritten code implementing it or write your own from scratch.We examine your
+options in that order.

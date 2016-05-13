@@ -1,0 +1,54 @@
+Template Language Syntax
+The syntax of Django’s template language is comparable to non-XML-based template
+languages, such as Smarty or Cheetah, in that it does not attempt to remain XHTML-
+compliant, but uses special characters to set apart template variable and logic commands
+from the static content (usually the HTML).As with most other aspects of Django, the
+template language is only loosely coupled to the rest of the framework, and it is entirely
+possible to use another template library if desired.
+
+As with most template languages, there are singular commands—such as printing the
+value of a context variable—and block-level commands, usually logic commands such as
+“if ” or “for.” Django’s template language uses two conventions, both involving curly
+braces; 
+==================================================================================
+1. variable output is accomplished with double curly braces ( {{ variable }} ), 
+2. everything else is accomplished with tags ( {% command %} ). 
+==================================================================================
+
+Here’s a small example, that
+can render a context similar to the Python dictionary
+====================================================================================== 
+{ “title_text”: “My Webpage”,
+  “object_list”: [“One”, “Two”, “Three”] 
+} 
+<html>
+<head>
+	<title>{{ title_text }}</title>
+</head>
+<body>
+	<ul>
+		{% for item in object_list %}
+			<li>{{ item }}</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>
+======================================================================================
+It should be noted when you output context variables in your templates, there is an
+implicit call to unicode , so objects and other nonstring variables are turned into (Uni-
+code) strings as best they can. Be wary—if you’re attempting to print objects whose
+__unicode__ method is not defined, you don’t see them in your templates.This is
+because the default Python representation of an object just happens to be the same
+format as an HTML tag, specifically text bounded by the < and > characters.
+
+>>> print object()
+<object object at 0x40448>
+
+This is a common pitfall that even experienced Django developers sometimes
+encounter, so if you’re trying to display something and it doesn’t show up, make sure you
+first know what it is and that you know what its string representation is supposed to be!
+As you can see, although Django template syntax is not semantically correct HTML,
+the curly-brace syntax makes it easy to visually distinguish the output and command
+aspects from the static content. In addition, because Django’s development team intended
+to use the template language for document types other than just HTML, they felt a tem-
+plate system focused on XML output wouldn’t make sense.

@@ -1,0 +1,103 @@
+Generic Views
+--------------
+Possibly the most-touted aspect of Django, and Web frameworks in general, is the capabil-
+ity to use predefined code for the so-called CRUD operations that make up most of the
+average Web application. CRUD stands for Create, Read (or Retrieve), Update, and
+Delete, the most common actions taken in a database-backed application. Showing a list of
+items or a detail page for a single object? That’s Retrieve. Displaying an edit form and
+altering the database when it’s submitted? That’s Update or Create, depending on your
+application and the form in question. Delete should need no explanation.
+
+These tasks and their variants are all provided for by Django’s set of generic views. As
+previously shown, they are simply Python functions, but ones that are highly abstracted
+and parameterized to achieve maximum flexibility in their defined role. Because they
+handle the logic, framework users simply need to refer to them in their URLconf files,
+pass the appropriate parameters, and make sure a template exists for the view to render
+and return.
+
+For example, the object_detail generic view is intended to facilitate display of a sin-
+gle object and takes its parameters from both the URL regex and the argument dictionary
+to do so:
+==============================================================
+from django.views.generic.list_detail import object_detail
+from django.conf.urls.defaults import *
+from myproject.myapp.models import Person
+urlpatterns = patterns(‘’,
+					    url(r'^people/(?P<object_id>\d+)/$', object_detail, {
+							'queryset': Person.objects.all()
+							})
+						)
+==============================================================
+NOTE :
+don't use it again from django.conf.urls import patterns
+You should use a list because patterns() is deprecated since version 1.8, and will be removed in 1.10:
+sebagai gantinya pake
+===========================================================+
+from django.conf.urls import url    
+    urlpatterns =  [
+            url(r'^$', archive),
+        ]
+===========================================================+
+
+In the previous example, we’ve defined a regex that matches URLs such as
+/people/25/ , where 25 is the database ID of the Person record we want to display.The
+object_detail generic view needs both an object_id argument and a QuerySet it can
+filter to find the object identified by that ID. In this case, we provide object_id via the
+URL and the queryset via the argument dictionary.
+
+
+Passing Full QuerySets into Generic Views
+------------------------------------------
+It can appear inefficient to pass in Person.objects.all() because if executed as-is that
+QuerySet could be an enormous list of all Person objects! However, remember what you
+saw in Chapter 4, “Defining and Using Models”— QuerySet s can be, and usually are, fil-
+tered with filter and/or exclude before they actually turn into a database query. Because
+of this, you can rest assured the object_detail generic view filters for the specific object
+in question, resulting in a properly sized query.
+
+Furthermore, by requiring a full-fledged QuerySet instead of, say, the model class (which
+would be another way of specifying what type of object to look for) Django enables us to do
+our own filtering if we so choose. For example, an employee-only detail page could pass
+Person.objects.filter(is_employee=True) into object_detail instead of
+Person.objects.all() .
+
+As always, Django’s core team tries to make decisions that give you more flexibility, even if
+the resulting functionality sometimes appears unintuitive at first glance.
+
+
+Generic views often expose a handful of options. Some are specific to that view;
+although others are global, such as a template_name argument enabling the user to over-
+ride the default location of the view’s template or an extra_context dict which enables
+the user to pass extra information into the template’s context. (See Chapter 6,“Templates
+and Form Processing,” for more on templates and contexts.) You can see the official
+Django documentation for details on all the generic views and their arguments; we go
+over some of the more commonly used ones next. Note generic views are organized in a
+two-level module hierarchy for neatness’ sake.
+
+1. simple.direct_to_template : 
+   Useful for templates that have some dynamic content (as opposed to flatpages, which are static HTML, 
+   see Chapter 8,“Content Management System”) but require no specific Python-level logic, such as 
+   index pages or nonpaginated/mixed list pages.
+2. list_detail.object_list and list_detail.object_detail :
+   These two provide the primary read-only aspect of most Web apps and are probably the most commonly used 
+   generic views, as information display doesn’t usually require complex logic. 
+   However, if you need to perform logic to prepare your template context, you can find yourself 
+   wanting custom views instead.
+3. create_update.create_object and create_update.update_object : 
+   Useful for simple object creation or update, where all you need is the form validation defined in your 
+   form or model (see Chapters 6 and 4, respectively) and where no other business logic applies.
+4. date_based.* :
+	A handful of date-based generic views which highlight Django’s origin as a publication-oriented framework.
+	They are extremely useful for any date based data types. Included are date-oriented index and detail 
+	pages plus sublist pages ranging from the year down to the day.
+
+	Generic views are both a blessing and a curse.The blessing aspect should be obvious;
+they save a lot of time and can be used to cut out almost all the work involved in simple
+or moderately complex views.Their usefulness is further expanded by wrapping them
+within custom views, as we outline next. However, generic views’ usefulness can make it
+difficult to accept that sometimes; you just have to write your own completely custom
+view from scratch, even if the generic view closest to your vision would get you 90 per-
+cent of the way there. Knowing when to throw in the towel and go the custom route is a
+valuable skill, which, like many aspects of software development, can only truly be picked
+up with experience.
+

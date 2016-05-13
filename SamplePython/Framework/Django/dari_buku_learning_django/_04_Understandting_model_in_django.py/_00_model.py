@@ -47,6 +47,7 @@ Relationships in models
     There are three major types of relationships: many-to-one, many-to-many, and one-to-one.
 
 Many-to-one relationships
+-------------------------
     In Django, the django.db.models.ForeignKey parameter is used to define a model as a foreign key 
     to another model's attribute, which results in a many-to-many relationship.
     
@@ -66,6 +67,7 @@ class Student(models.Model):
 ========================================================================
 
 One-to-one relationships
+------------------------
 One-to-one relationships are very similar to many-to-one relationships. The only
 difference is that reverse mapping results in a single object in the case of one-to-one
 as opposed to many-to-one relationships.

@@ -1,0 +1,42 @@
+Semi-generic Views
+-------------------
+There are times when generic views on their own, called straight from a URLconf file,
+do not suffice. Often, this requires a completely custom view function to be written, but
+equally often, a generic view can still be leveraged to do the grunt work depending on
+the logic required.
+
+The most common use of such “semi-generic” views, in our experience, has been to
+work around an inherent limitation in the URLconf itself.You can’t perform logic with
+the captured URL parameters until the regex has been parsed.This limitation exists due
+to the way URLconfs are designed, and it’s easy to work around it. Consider the follow-
+ing snippet combining portions of a URLconf file and a view file:
+============================================================================+
+## urls.py
+from django.conf.urls.defaults import *
+urlpatterns = patterns(‘myproject.myapp.views’,
+						url(r’^people/by_lastname/(?P<last_name>\w+)/$’, ‘last_name_search’),
+					  )
+## views.py
+from django.views.generic.list_detail import object_list
+from myproject.myapp.models import Person
+def last_name_search(request, last_name):
+	return object_list(request, queryset=Person.objects.filter(last__istartswith=last_name)
+)
+============================================================================+
+NOTE :
+don't use it again from django.conf.urls import patterns
+You should use a list because patterns() is deprecated since version 1.8, and will be removed in 1.10:
+sebagai gantinya pake
+===========================================================+
+from django.conf.urls import url    
+    urlpatterns =  [
+            url(r'^$', archive),
+        ]
+===========================================================+
+
+As you can see, although our function takes the last_name argument defined as a
+named group in the URL regex, we’re still delegating 99 percent of the actual work to
+the generic view.This is possible because generic views are normal Python functions and
+can be imported and called as such. It’s easy to fall into the trap of thinking about the
+framework as its own language, but as we’ve emphasized before, it’s all just Python, and
+this sort of trick shows why that’s a good thing.

@@ -1,0 +1,68 @@
+Middleware
+-----------
+Although the basic flow of a Django application is fairly simple—take in request, find
+appropriate view function, return a response—extra layers are available that can be lever-
+aged to add a lot of power and flexibility. One of these extra layers is middleware—
+Python functions executed at various points in the previous process that can alter the
+effective input (by modifying the request before it reaches the view) or output (modifying
+the response created by the view) of the entire application.
+
+A middleware component in Django is simply a Python class which implements a
+certain interface, namely it defines one of a number of methods with names such as
+process_request or process_view . (We examine the most commonly used ones in the
+following subsections.) When listed in the MIDDLEWARE_CLASSES tuple in your
+settings.py file, Django introspects the middleware class and calls its method at the
+appropriate time.The order of classes listed in your settings file determines the order in
+which they are executed.
+
+Django comes with a handful of built-in middleware, some of which are generally use-
+ful and others which are required for specific “contrib” applications such as the authenti-
+cation framework. See the official Django documentation for more on these.
+
+Request Middleware
+------------------
+On the input side sits request middleware, which is defined as a class that implements the
+process_request method, as in the following example:
+===================================================================
+from some_exterior_auth_lib import get_user
+class ExteriorAuthMiddleware(object):
+	def process_request(self, request):
+		token = request.COOKIES.get(‘auth_token’)
+		if token is None and not request.path.startswith(‘/login’):
+			return HttpResponseRedirect(‘/login/’)
+		request.exterior_user = get_user(token)
+===================================================================
+Note the line assigning a value to request.exterior_user , which illustrates a com-
+mon use of request middleware: adding extra attributes to the request object. In the situa-
+tion where that line is called, process_request implicitly returns None (Python functions
+always return None if they lack an explicit return statement), and in that case Django
+continues to process other request middleware and eventually the view function itself.
+
+If, however, the test checking for a valid auth token (and making sure the user isn’t cur-
+rently trying to log in!) fails, our middleware redirects the user to the login page.This
+illustrates the other possible behavior of middleware methods; they can return an
+HttpResponse (or subclass) that is immediately sent off to the requesting client. In this
+case, because our middleware is a request middleware, everything past that point in the
+normal flow of things—including the view that would have been called—is skipped.
+
+
+Response Middleware
+--------------------
+As you can expect, response middleware is run on the HttpResponse objects returned by
+view functions. Such middleware must implement the process_response method, which
+accepts request and response parameters and returns an HttpResponse or subclass.
+Those are the only limitations—your middleware can modify the response it is given or
+create an entirely new response and return that instead.
+One of the most common uses of response middleware is to inject extra headers into
+the response, either across the board—such as enabling caching-related HTTP features—
+or conditionally, such as a built-in middleware that sets Content-Language equal to the
+current translation.
+Following is a trivial example that does a simple search and replace of “foo” with “bar”
+on all text output by the Web application:
+====================================================+
+class TextFilterMiddleware(object):
+	def process_response(self, request, response):
+		response.content = response.content.replace(‘foo’, ‘bar’)
+====================================================+
+We could have made this a more realistic example that filters out naughty words
+(which can be useful for a community Web site, for example), but this is a family book!

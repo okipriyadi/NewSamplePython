@@ -1,0 +1,10 @@
+. (Dot) 		Any character
+^ (Caret)		Start of string
+$ 				End of string
+* 				0 or more repetitions
++ 				1 or more repetitions
+? 				0 or 1 repetitions
+| 				A | B means A or B
+[a-z] 			Any lowercase character
+\w 				Any alphanumeric character or _
+\d 				Any digit

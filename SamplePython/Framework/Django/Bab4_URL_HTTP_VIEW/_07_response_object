@@ -1,0 +1,34 @@
+At this point, you’ve read about the information that is passed into our view function;
+now we examine what it’s responsible for returning, namely a response. From our point of
+view, responses are simpler than requests—their primary data point is the body text, stored
+in the content attribute. It’s usually a large string of HTML, and it’s so central to
+HttpResponse objects there are a couple of ways of setting it.
+
+The most common method is via the act of creating the response object—
+HttpResponse takes a string as a constructor argument, which is then stored in content .
+==============================================================================
+	response = HttpResponse(“<html>This is a tiny Web page!</html>”)
+==============================================================================
+Just with that, you’ve got a fully functioning response object, one worthy of being
+returned farther up the stack to the Web server and forwarded to the user’s browser. How-
+ever, it’s sometimes useful to build the response content piece-by-piece; to support this,
+HttpResponse objects implement a partial file-like behavior, notably the write method.
+==============================================================================
+	response = HttpResponse()
+	response.write(“<html>”)
+	response.write(“This is a tiny Web page!”)
+	response.write(“</html>”)
+==============================================================================
+Of course, this means you can use an HttpResponse for any code that expects a file-
+like object—for example, the csv module’s CSV writing utilities—that adds a lot of flexi-
+bility to the process of generating the information your code returns to end users.
+Another key aspect of response objects is the capability to set HTTP headers by treat-
+ing the HttpResponse object like a dictionary.
+==============================================================================
+	response = HttpResponse()
+	response[“Content-Type”] = “text/csv”
+	response[“Content-Length”] = 256
+==============================================================================
+Finally, Django provides a number of HttpRequest subclasses for many common
+response types, such as HttpResponseForbidden (which uses the HTTP 403 status code)
+and HttpResponseServerError (similar but for HTTP 500 or internal server errors).

@@ -1,0 +1,1 @@
+http://stackoverflow.com/questions/852414/how-to-dynamically-compose-an-or-query-filter-in-django

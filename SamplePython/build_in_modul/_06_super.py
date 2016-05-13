@@ -5,8 +5,9 @@ Hal ini berguna untuk mengakses metode warisan yang telah diganti (overridden) d
 ada dua kasus penggunaan yang khas untuk super. Dalam hirarki kelas dengan pewarisan tunggal, 
 super bisa digunakan untuk merujuk ke kelas induk tanpa menyebut secara explisit. 
 
-kegunaan kedua adalah mendukung multiple inheritance dalam dinamyc environtment. kasus ini unik 
-yang hanya bisa terjadi di python. ini memungkinkan menerapkan diagram diamond dimana beberapa kelas dasar menerapkan metode yang sama. 
+kegunaan kedua adalah mendukung multiple inheritance dalam dynamic environtment. kasus ini unik 
+yang hanya bisa terjadi di python. ini memungkinkan menerapkan diagram diamond dimana beberapa 
+kelas dasar menerapkan metode yang sama. 
 """
 
 class Orangtua(object):

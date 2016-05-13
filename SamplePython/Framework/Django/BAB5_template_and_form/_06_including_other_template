@@ -1,0 +1,21 @@
+Including Other Templates
+--------------------------
+Despite the niceties of template inheritance, template inclusion still has its place. Some-
+times you need to reuse chunks of HTML or other text that doesn’t fit well into the
+inheritance scheme, such as a commonly used pagination element. Django supports
+inclusion with {% include %} , which behaves exactly as you can assume, taking the
+name of the template file to include and replacing itself with the contents of that file.
+
+Included files can themselves be fully realized Django templates; their contents are parsed
+with respect to the context of the including template.
+
+In addition to `{% include %} , Django provides the {% ssi %} tag (where ssi refers
+to the Apache-ism SSI, or Server Side Includes). {% include %} and {% extends %}
+refer to template files locally within the defined template directories specified in
+settings.py ; by comparison, {% ssi %} uses an absolute filesystem path. However, in
+the interests of security, {% ssi %} is limited to a specific set of directories, specified in
+the settings.py ALLOWED_INCLUDE_ROOTS variable.
+Finally, it should be noted both {% extends %} and {% include %} accept context
+variable names as well as strings, enabling templates to dynamically determine what they
+are including or inheriting from.
+

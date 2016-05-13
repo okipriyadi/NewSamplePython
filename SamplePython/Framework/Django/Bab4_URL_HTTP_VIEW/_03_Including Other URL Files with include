@@ -1,0 +1,71 @@
+Including Other URL Files with include
+
+The refactoring mindset seen in the previous section can be further applied, by breaking
+up URLconf files into multiple such files.This is most commonly seen in projects consist-
+ing of multiple apps, where there can be a “base” app defining an index page or other site-
+wide features such as authentication.The base application’s URLconf then defines the
+subsections filled in by other apps and uses a special include function to pass off further
+URL dispatching to said apps, as seen here in an update to the previous example.
+
+============================================================================
+## urls.py
+from django.conf.urls.defaults import *
+urlpatterns = patterns(‘myproject.blog.views’,
+						url(r’^$’, ‘index’),
+						url(r’^blog/’, include(‘myproject.blog.urls’),
+					   )
+					   
+urlpatterns += patterns(‘’,
+						url(r’^guestbook/’, include(‘myproject.guestbook.urls’)),
+						)
+
+urlpatterns += patterns(‘’,
+						url(r’^catalog/’, include(‘myproject.catalog.urls’)),
+						)
+						
+						
+## blog/urls.py
+urlpatterns = patterns(‘myproject.blog.views’,
+						url(r’^new/$’, ‘new_post’),
+						url(r’^topics/(?P<topic_name>\w+)/new/$’, ‘new_post’),
+						)
+
+
+## guestbook/urls.py
+urlpatterns += patterns(‘myproject.guestbook.views’,
+						url(r’^$’, ‘index’),
+						url(r’^add/$’, ‘new_entry’),
+						)
+						
+## catalog/urls.py
+urlpatterns += patterns(‘myproject.catalog.views’,
+						url(r’^$’, ‘index’),
+						)
+						
+============================================================================
+NOTE :
+don't use it again from django.conf.urls import patterns
+You should use a list because patterns() is deprecated since version 1.8, and will be removed in 1.10:
+sebagai gantinya pake
+===========================================================+
+from django.conf.urls import url    
+    urlpatterns =  [
+            url(r'^$', archive),
+        ]
+===========================================================+
+
+This example is actually a bit larger than the previous one, but hopefully you can see
+the benefits for a realistic Web site with dozens of potential URLs for each section; in
+each scenario, we save a decent amount of typing and repetition of the “blog,”“guest-
+book,” and “catalog” parts of the URL definitions. Specifically, we now have a multi-app
+Web site delegating most URLs to its subapplications, with the exception of the index
+page, which lives in the blog application (although you can make a base or similar appli-
+cation for such things—it’s entirely up to you).
+
+URLconf including can be valuable even within single applications—there’s no hard
+limit on when to use multiple apps versus individual ones, so it’s entirely possible to have a
+Django app with hundreds of URLs. Most developers, in such a situation, would quickly
+start organizing things into modules, and URLconf including supports this as well. In gen-
+eral, the organization of your site is up to you, and the URLconf mechanisms have been
+set up to be as flexible as possible, in which includes play a large part.
+

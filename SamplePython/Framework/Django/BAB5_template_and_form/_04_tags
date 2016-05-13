@@ -1,0 +1,51 @@
+Tags
+----
+As you’ve probably noticed in the previous examples, although variable output and filters
+are useful, the real power lies in tags—thus far we’ve seen them used to loop over lists of
+strings or objects, but they’re also capable of performing logic 
+======================================++
+( {% if %} , {% ifequal%} ), 
+======================================++
+template inclusion/inheritance 
+======================================++
+( {% block %} , {% include %} and {% extends %} ,
+======================================++
+as seen in the next section), and various other tasks.
+Tags are technically free-form and can take any manner of input after the tag name
+(see the “Extending the Template” section of Chapter 11 for more), but the built-in tags
+and most user-created tags tend to follow certain conventions, generally a space-delimited
+list of arguments. Many tag arguments can be context variables, and in fact most of the
+time, filters can be used as well. For example, the following is how one could check the
+length of a list before iterating over its contents.
+======================================++
+{% ifequal object_list|length 10 %}
+	<ul>
+	{% for item in object_list %}
+		<li>{{ item }}</li>
+	{% endfor %}
+	</ul>
+{% endifequal %}
+======================================++
+Of course, we could have also used the length_is filter, which takes a list and argument and returns a boolean value.
+======================================++
+{% if object_list|length_is:10 %}
+	<ul>
+		{% for item in object_list %}
+			<li>{{ item }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+
+As this hopefully illustrates, there’s a lot of flexibility in Django’s built-in filter and tag
+library. It’s a good idea to become well-acquainted with what’s available (the official
+Django documentation provides an excellent list) to avoid reinventing the wheel.
+
+One final word on tags:The block-level ones such as {% if %} and {% for %} are
+capable of altering their local context, which often comes in handy. For example, {% for
+%} provides a local context variable, {{ forloop }} , which has a variety of attributes that
+enable you to take differing actions based on which attributes you use and what loop
+iteration you are on. Such attributes enable various actions such as what to do at the
+beginning or end of the loop ( {{ forloop.first }} or {{ forloop.last }} , booleans
+for whether this is the first or last loop iteration, respectively) or displaying the loop
+counter ( {{ forloop.counter }} and {{ forloop.counter0 }} , starting at 1 or 0,
+respectively). Refer to the Django documentation for more information and examples.

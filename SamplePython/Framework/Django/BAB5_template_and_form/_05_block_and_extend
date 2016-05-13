@@ -1,0 +1,97 @@
+Blocks and Extends
+------------------
+One useful set of template tags are those that reach out of the current template and interact with other 
+template files, enabling composition and code reuse via two primary
+methods: 
+1. inheritance 
+2. inclusion.
+
+We go over inheritance first, as it is generally more conducive to logical template organization. 
+Includes, although useful, can easily lead to “include soup,” making debugging and development difficult.
+Template inheritance is realized via two template tags, 
+========================================+
+{% extends %} and {% block%} . 
+========================================+
+{% extends %} must be called at the top of a template and signals to the rendering
+engine this template inherits from a higher-level one. For example, you can define a top-
+level or site-wide template that outlines headers/footers and global navigation; then, a
+mid-level template for each subsection, which would extend the top-level template (such
+as adding a second-level nagivation menu); and finally, bottom-level templates for each
+individual site location, each extending the mid-level template and providing the actual
+content for the page in question.
+
+{% block %} is a block-level tag used to define sections of a template that are
+intended to be filled in by those extending it.Although blocks are typically used by a
+template’s immediate child, it’s not required. Blocks can be ignored (thus displaying what-
+ever is inside them in the parent template) or delegated further to a lower template. Fol-
+lowing is a simplistic example using the three-level Web site layout mentioned previously
+with URLs consisting of / , /section1/ , /section2/ , /section1/page1/ , and /section1/page2/ .
+
+For now, let’s omit the index pages for the site root and the sections and focus on the
+“leaf ” pages at the lowest level.As shown next, base.html provides the top level wrap-
+ping structure with section templates providing the page title (thus denoting which site
+section users are in) and page templates providing simple content.
+
+===============================================================================
+##base.html:
+<html>
+<head>
+	<title>{% block title %}My Web site{% endblock %}</title>
+</head>
+<body>
+	<div id=”header”>
+		<a href=”/section1/”>Section 1</a>
+		<a href=”/section2/”>Section 2</a>
+	</div>
+	<div id=”content”>
+		{% block content %}{% endblock %}
+	</div>
+	<div id=”footer”>
+		<a href=”/about/”>About The Site</a>
+	</div>
+</body>
+</html>
+
+
+##section1.html:
+{% extends “base.html” %}
+{% block title %}Section 1{% endblock %}
+
+##section2.html:
+{% extends “base.html” %}
+{% block title %}Section 2{% endblock %}
+
+##page1.html:
+{% extends “section1.html” %}
+{% block content %}This is Page 1.{% endblock %}
+
+##page2.html:
+{% extends “section1.html” %}
+{% block content %}<p>This is Page 2.</p>{% endblock %}
+===============================================================================
+With templates set up per the previous example, the user’s browser sees the following
+when visiting /section1/page2/ :
+===============================================================================
+<html>
+<head>
+	<title>Section 2</title>
+</head>
+<body>
+	<div id=”header”>
+		<a href=”/section1/”>Section 1</a>
+		<a href=”/section2/”>Section 2</a>
+	</div>
+	<div id=”content”>
+		<p>This is Page 2.</p>
+	</div>
+	<div id=”footer”>
+		<a href=”/about/”>About The Site</a>
+	</div>
+</body>
+</html>
+===============================================================================
+The nice thing about template inheritance is it’s easy to navigate the template hierar-
+chy and see what template is generating which chunk of HTML on any given page; addi-
+tionally, compared to an inclusion-based approach that can have code for including
+headers, footers, sidebars, and so forth on every subpage, inheritance saves a decent
+amount of typing.

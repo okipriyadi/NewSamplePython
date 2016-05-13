@@ -1,0 +1,17 @@
+As touched on in previous chapters, templates are stand-alone text files containing both
+static content (such as HTML) and dynamic markup specifying logic, looping, and the
+display of data.The decision of which template to use and what set of data to render it
+with is made either in the view function itself (via explicit rendering or the use of
+render_to_response ) or in the view’s arguments (such as the template_name argument
+to generic views).
+
+Django’s template language is designed to be used by front-end developers who are
+not necessarily programmers; because of this and the desire to separate logic from presen-
+tation, the template language is emphatically not embedded Python. However, the exten-
+sible system of tags and filters (see the following for more) enables the programmers of a
+Django application to expand the logical constructs available to the template language.
+Finally, note that although the template system is generally used to generate HTML
+(this being the Web and all), it is not married to HTML and can be equally useful in gen-
+erating log files, e-mail content, CSV files, and any other text-based format. Keeping this
+in mind allows you to make the fullest use of what Django’s templates have to offer.
+

@@ -1,0 +1,39 @@
+Understanding Contexts
+----------------------
+Templates, being dynamic text documents, wouldn’t be very useful if they didn’t have any
+dynamic information to display.The term Django uses for the information passed to a
+rendered template is context—a template’s context is essentially a dictionary of key-value
+pairs, represented as a dict-like Context object when rendering takes place.
+
+As seen briefly in Chapters 2,“Django for the Impatient: Building a Blog,” and 5,
+“URLs, HTTP Mechanisms, and Views,” every rendering of a template requires a context
+to be present. Sometimes the context is prepopulated for you, such as in generic views,
+and you merely append to it with an extra_context argument. Other times, as with cus-
+tom views, you provide the context yourself when calling a template’s render method, or
+more commonly as an argument to the helper function render_to_response . It’s techni-
+cally possible to render a template with an empty context, but in such situations, you’d be
+better off using the flatpages contrib application—a template with no context is not
+very dynamic.
+
+The other method for contributing data to template contexts is through context
+processors, a middleware-like aspect of the framework where various functions can be
+defined to append key-value pairs to all contexts just prior to template render time.This
+is how features such as the authentication framework are able to ensure that certain site-
+wide pieces of data are always present. 
+
+Here’s a quick example of a context processor.
+===========================================================
+def breadcrumb_processor(request):
+	return {
+			‘breadcrumbs’: request.path.split(‘/’)
+			}
+===========================================================
+Perhaps not terribly useful—breadcrumbs are rarely that easy in practice—it highlights
+the simplicity of context processors.You can store your context processor functions any-
+where, but as usual, it’s probably a good idea to standardize on something, such as a
+context_processors.py file in the root of your project or in an app directory.
+Context processors, such as middlewares, are enabled by referring to them in Python
+module syntax in your settings.py , specifically in a tuple named TEMPLATE_CONTEXT_
+PROCESSORS .And in another nod to their similarity to middlewares, order matters; context
+processors are applied in the order listed within that settings variable.
+

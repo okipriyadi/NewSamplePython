@@ -1,0 +1,52 @@
+The fields and relationships you define in your models provide the database layout and the
+variable names you use when querying your model later on—you often find yourself
+adding model methods such as __unicode__ and get_absolute_url or overriding the
+built-in save or delete methods. However, there’s a third aspect of model definition and
+that’s the inner class used to inform Django of various metadata concerning the model in
+question: the Meta class.
+The Meta class, as the name implies, deals with metadata surrounding the model and its
+use or display: how its name should be displayed when referring to a single object versus
+multiple objects, what the default sort order should be when querying the database table,
+the name of that database table (if you have strong opinions on the subject), and so forth.
+In addition, the Meta class is where you define multi-field uniqueness constraints because
+it wouldn’t make sense to define those inside any single field declaration. Let’s add some
+metadata to our first Book example from earlier.
+===================================================================+
+class Book(models.Model):
+	title = models.CharField(max_length=100)
+	authors = models.ManyToManyField(Author)
+	
+	class Meta:
+	# Alphabetical order
+	ordering = [‘title’]
+===================================================================+
+
+That’s it! The Book class is so simple it doesn’t need to define most of the options the
+inner class provides, and if we didn’t really care about a default ordering, it could
+have been left out entirely. Meta and Admin are entirely optional, albeit commonly used,
+aspects of model definition. Let’s whip up a more complex example because Book ’s meta
+options are fairly boring.
+Meta
+===================================================================+
+class Person(models.Model):
+	first = models.CharField(max_length=100)
+	last = models.CharField(max_length=100)
+	middle = models.CharField(max_length=100, blank=True)
+	class Meta:
+	# The proper way to order people, assuming a Last, First M. style of
+	# display.
+	ordering = [‘last’, ‘first’, ‘middle’]
+	# Here we encode the fact that we can’t have a person with a 100%
+	# identical name. Of course, in real life, we could, but we’ll pretend
+	# this is an ideal world.
+	unique_together = [‘first’, ‘last’, ‘middle’]
+	# Django’s default pluralization is simply to add ‘s’ to the end: that
+	# doesn’t work here.
+	verbose_name_plural = "people"
+===================================================================+
+As you can see from the comments, modeling the concept of a person would be rough
+going without defining some Meta options.We have to consider all three fields when
+ordering records, and to avoid duplication, and having the system refer to more than one
+person as “persons” can be quaint, but is probably not desired.
+For more details on the various Meta class options you can define, we defer you to the
+official Django documentation.

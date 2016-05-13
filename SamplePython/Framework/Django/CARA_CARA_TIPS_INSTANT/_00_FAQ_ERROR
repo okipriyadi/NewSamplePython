@@ -1,0 +1,30 @@
+DATABASE
+1. Django - DatabaseError: No such table
+jawaban:
+	> ./manage.py makemigrations [namaaplikasi]
+	> ./manage.py migrate
+	
+	CEK juga di modelnya apakah pada class Meta:  app_label nya teah sesuai denga nama aplikasi
+	Kalau gak bisa juga coba ganti nama class di model tersebut kemudian kalukan makemigrations dan kembalikan ke nama semua kemudian makemigrations lagi
+	
+2. Django migration error :you cannot alter to or from M2M fields, or add or remove through= on M2M fields
+jawaban :
+	If you're still developing the application, and don't need to preserve your existing data, you can get around this issue by doing the following:
+	.> Delete and re-create the db.
+	.> go to your project/app/migrations folder
+	.> Delete everything in that folder with the exception of the init.py file. Make sure you also delete the pycache dir.
+	.> Run syncdb, makemigrations, and migrate.
+	
+URL
+1. no attribute 'post_list'. / No reserve match 
+
+jawaban
+we don't have a URL or a view for post_detail
+That's the name of the view that Django is trying to find and use, but we haven't created it yet. 
+jadi view tidak ditemukan.
+
+2. TypeError: __init__() takes exactly 1 argument (2 given)
+jawaban:
+
+untuk a class-based view, you need to use the as_view method in your URL pattern:
+eg: url(r'^$', home.as_view(), name='home'),

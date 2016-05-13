@@ -1,0 +1,102 @@
+Let's start by creating our first Django form. Create a new file in the 
+application folder and call it forms.py 
+===================================================================================================
+from django import forms
+class TweetForm(forms.Form):
+	text = forms.CharField(widget=forms.Textarea(attrs={'rows': 1,'cols': 85}), max_length=160)
+	country = forms.CharField(widget=forms.HiddenInput())
+===================================================================================================
+After examining the code, you will notice that the way in which we defined this
+class is similar to the way in which we defined the model classes. We derived the
+TweetForm class from forms.Form . All form classes need to inherit from this class.
+Next, we define the fields that this form contains:
+
+
+
+PARAMETER
+There are many field types in the forms package. There are several parameters, listed
+as follows, which can be passed to the constructor of any field type. Some specialized
+field types can take other parameters in addition to these ones.
+•	 label : The label of the field when HTML code is generated.
+•	 required : Whether the user must enter a value or not. It is set to True by 
+     default. To change it, pass required=False to the constructor.
+•	 widget : This parameter lets you control how the field is rendered in HTML.
+     We used it just now to make the CharField parameter of the password
+     become a password input field.
+•	 help_text : A description of the field will be displayed when the form is
+     rendered.
+     
+     
+FIELD
+Field type					Description
+CharField 					Returns an integer
+IntegerField 				Returns an integer.
+DateField 					Returns a Python datetime.date object.
+DateTimeField 				Returns a Python datetime.datetime object.
+EmailField 					Returns a valid e-mail address as a string.
+URLField 					Returns a valid URL as a string.
+
+WIDGET
+Widget type					Description
+PasswordInput 				a password text field
+HiddenInput 				A hidden input field.
+Textarea 					A text area that enables text entry on multiple lines.
+FileInput 					A file upload field.
+
+
+
+
+
+
+cara memasukan ke dalam template:
+========================================================================
+{% extends "base.html" %}
+{% block content %}
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="post/">{% csrf_token %}
+				<div class="col-md-8 col-md-offset-2 fieldWrapper">
+					{{ form.text.errors }}
+					{{ form.text }}
+				</div>
+				{{ form.country.as_hidden }}
+				<div>
+					<input type="submit" value="post">
+				</div>
+			</form>
+		</div>
+		<h3>&nbsp;</h3>
+		<div class="col-md-12 column">
+			{% for tweet in tweets %}
+				<div class="well">
+					<span>{{ tweet.text }}</span>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+======================================================================
+Now, we need to do two things to make this form work:
+1.	 We have to define a method in a controller that is going to take this form
+	submission request and save the tweet data to our tweet model class object.
+2.	 We have to define a URL pattern to which this form will be submitted with
+	the	tweet as content
+	
+This class is added in [application]/view.py with an import dependency from tweet.forms import TweetForm:
+==================================================================
+class PostTweet(View):
+	def post(self, request, username):
+		form = TweetForm(self.request.POST)
+		if form.is_valid():
+			user = User.objects.get(username=username)
+			tweet = Tweet(text=form.cleaned_data['text'],
+							user=user,
+							country=form.cleaned_data['country'])
+			tweet.save()
+			words = form.cleaned_data['text'].split(" ")
+			for word in words:
+				if word[0] == "#":
+				hashtag, created = HashTag.objects.get_or_create(name=word[1:])
+				hashtag.tweet.add(tweet)
+			return HttpResponseRedirect('/user/'+username)
+==================================================================

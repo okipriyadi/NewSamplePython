@@ -2,25 +2,39 @@ Using Multiple patterns Objects
 One trick commonly used by Django developers is that of refactoring their URLconfs
 into multiple patterns calls per URL file, at least for files which have a nontrivial num-
 ber of entries.This is possible because the return type of patterns is an internal Django
-object type that can be appended to as if it were a list or other container type.As such, it’s
+object type that can be appended to as if it were a list or other container type. As such, it’s
 easy to concatenate multiple such objects together, and thus it’s possible and desirable to
 segregate them based on the prefix string. Here’s a semi-abstract example representing a
 top-level URL tying together multiple apps.
 =====================================================================++
 from django.conf.urls.defaults import *
 urlpatterns = patterns(‘myproject.blog.views’,
-url(r’^$’, ‘index’),
-url(r’^blog/new/$’, ‘new_post’),
-url(r’^blog/topics/(?P<topic_name>\w+)/new/$’, ‘new_post’),
-)
+						url(r’^$’, ‘index’),
+						url(r’^blog/new/$’, ‘new_post’),
+						url(r’^blog/topics/(?P<topic_name>\w+)/new/$’, ‘new_post’),
+						)
+						
 urlpatterns += patterns(‘myproject.guestbook.views’,
-url(r’^guestbook/$’, ‘index’),
-url(r’^guestbook/add/$’, ‘new_entry’),
-)
+						url(r’^guestbook/$’, ‘index’),
+						url(r’^guestbook/add/$’, ‘new_entry’),
+						)
+
 urlpatterns += patterns(‘myproject.catalog.views’,
-url(r’^catalog/$’, ‘index’),
-)
+						url(r’^catalog/$’, ‘index’),
+						)
 =====================================================================++
+NOTE :
+don't use it again from django.conf.urls import patterns
+You should use a list because patterns() is deprecated since version 1.8, and will be removed in 1.10:
+sebagai gantinya pake
+===========================================================+
+from django.conf.urls import url    
+    urlpatterns =  [
+            url(r'^$', archive),
+        ]
+===========================================================+
+
+
 Note the use of the += operator for the second and third calls to patterns . By the end
 of the file, urlpatterns contains a conglomerate of all six defined URLs, each with their
 own distinct mappings thanks to the different prefix arguments. Of course, astute readers

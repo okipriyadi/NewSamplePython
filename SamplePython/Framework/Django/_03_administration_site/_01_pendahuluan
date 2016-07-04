@@ -1,0 +1,8 @@
+Django comes with a built-in administration interface
+that is very useful for editing content. The Django admin site is built dynamically by
+reading your model metadata and providing a production-ready interface for editing
+content. You can use it out-of-the-box, configuring how you want your models to be
+displayed in it.
+Remember that django.contrib.admin is already included in the INSTALLED_APPS
+setting of our project and that's why we don't have to add it.
+

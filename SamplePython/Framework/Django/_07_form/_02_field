@@ -1,0 +1,90 @@
+> BooleanField = True/False
+  Default widget: CheckboxInput
+> CharField
+  Default widget: TextInput
+  Argumments:
+  max_length
+  min_length
+> ChoiceField
+  Default widget: Select
+  arguments:
+  choices
+> TypedChoiceField => Just like a ChoiceField, except TypedChoiceField takes two extra arguments, coerce and empty_value.
+  Default widget: Select
+> DateField
+  Default widget: DateInput
+  Arguments:
+  input_formats =>A list of formats used to attempt to convert a string to a valid datetime.date object.
+  If no input_formats argument is provided, the default input formats are:
+	['%Y-%m-%d',      # '2006-10-25'
+	 '%m/%d/%Y',      # '10/25/2006'
+	 '%m/%d/%y']      # '10/25/06'  
+> DateTimeField
+  Default widget: DateTimeInput
+  Arguments: 
+  input_formats
+> DecimalField: 
+  Default widget: NumberInput 
+  Arguments:
+  max_value
+  min_value
+  max_digits¶
+  decimal_places
+> DurationField
+  widget: TextInput
+> EmailField
+  Default widget: EmailInput
+  Parameters:
+  max_length
+  min_length   
+> FileField
+  Default widget: ClearableFileInput
+  Arguments:
+  max_length
+  allow_empty_file
+> FilePathField
+  Default widget: Select
+  Arguments:
+  path: The absolute path to the directory whose contents you want listed. This directory must exist.
+  recursive: 
+> FloatField
+  Default widget: NumberInput
+> ImageField
+  Default widget: ClearableFileInput
+  *Using an ImageField requires that Pillow is installed with support for the image formats you use. If you encounter a corrupt image error when you upload an image, it usually means that Pillow doesn’t understand its format. To fix this, install the appropriate library and reinstall Pillow.
+  When you use an ImageField on a form, you must also remember to bind the file data to the form.
+> IntegerField
+> IPAddressField
+> GenericIPAddressField
+> MultipleChoiceField
+> TypedMultipleChoiceField
+> NullBooleanField
+> RegexField
+> SlugField
+> TimeField
+> URLField
+> UUIDField
+> MultiValueField
+
+After the field has been cleaned and validated, the UploadedFile object will have an additional image attribute containing the Pillow Image instance used to check if the file was a valid image. Also, UploadedFile.content_type will be updated with the image’s content type if Pillow can determine it, otherwise it will be set to None.
+  
+  
+  
+
+Argument:
+required = True/False ==> By default, each Field class assumes the value is required, so if you pass an empty value – either None or the empty string ("") – then clean() will raise a ValidationError exception:
+
+Parameters:	
+regex 			– If not None, overrides regex. Can be a regular expression string or a pre-compiled regular expression.
+message 		– If not None, overrides message.
+code 			– If not None, overrides code.
+inverse_match 	– If not None, overrides inverse_match.
+flags 			– If not None, overrides flags. In that case, regex must be a regular expression string, or TypeError is raised.
+
+
+regex:
+The regular expression pattern to search for the provided value, or a pre-compiled regular expression. By default, raises a ValidationError with message and code if a match is not foun
+message:
+The error message used by ValidationError if validation fails. Defaults to "Enter a valid value".
+code
+The error code used by ValidationError if validation fails. Defaults to "invalid".

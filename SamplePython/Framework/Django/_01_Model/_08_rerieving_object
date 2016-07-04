@@ -1,0 +1,16 @@
+name_obejct = name_Model.objects.all()    => meretrieve semua data di model tertentu
+ex: 
+all_posts = Post.objects.all()
+
+
+
+This is how we create a QuerySet that returns all objects in the database. Note
+that this QuerySet has not been executed yet. Django QuerySets are lazy; they are
+only evaluated when they are forced to do it. This behavior makes QuerySets very
+efficient. If we don't set the QuerySet to a variable, but instead write it directly on
+the Python shell, the SQL statement of the QuerySet is executed because we force
+it to output results:
+
+
+slice: 
+Post.objects.all()[:3]

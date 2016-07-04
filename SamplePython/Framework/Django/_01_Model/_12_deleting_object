@@ -1,0 +1,7 @@
+If you want to delete an object, you can do it from the object instance:
+
+post = Post.objects.get(id=1)
+post.delete()
+
+
+Note that deleting objects will also delete any dependent relationships.

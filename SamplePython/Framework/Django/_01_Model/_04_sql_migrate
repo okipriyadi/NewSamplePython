@@ -1,0 +1,22 @@
+setelah menjalankan ./manage.py makemigrations pertama kali, akan terbentuk sebuah file bernama :
+0001_initial.py di folder migrations.
+The sqlmigrate command takes migration names and returns their SQL without running it. 
+Run the following command to inspect its output:
+=================================================================
+	python manage.py sqlmigrate 'name app' 'name_number dari migration folder'
+	ex:python manage.py sqlmigrate blog 0001
+=================================================================
+The output should look as follows:
+BEGIN;
+CREATE TABLE "blog_post" ("id" integer NOT NULL PRIMARY KEY
+AUTOINCREMENT, "title" varchar(250) NOT NULL, "slug" varchar(250) NOT
+NULL, "body" text NOT NULL, "publish" datetime NOT NULL, "created"
+datetime NOT NULL, "updated" datetime NOT NULL, "status" varchar(10)
+NOT NULL, "author_id" integer NOT NULL REFERENCES "auth_user" ("id"));
+CREATE INDEX "blog_post_2dbcba41" ON "blog_post" ("slug");
+CREATE INDEX "blog_post_4f331e2f" ON "blog_post" ("author_id");
+COMMIT;
+The exact output depends on the database you are using. The output above
+is generated for SQLite. As you can see, Django generates the table names by
+combining the app name and the lowercase name of the model ( blog_post ), but
+you can also specify them in the Meta class of the models using the db_table attribute

@@ -1,0 +1,5 @@
+You can order results by different fields using the order_by() method of the
+manager. For example, you can retrieve all objects ordered by their title:
+=========================================
+	Post.objects.order_by('title')
+=========================================

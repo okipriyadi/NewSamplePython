@@ -1,0 +1,6 @@
+You can exclude certain results from your QuerySet using the exclude() method
+of the manager. For example, we can retrieve all posts published in 2015 whose
+titles don't start by Why :
+=========================================================================
+	Post.objects.filter(publish__year=2015).exclude(title__startswith='Why')
+=========================================================================

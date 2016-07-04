@@ -1,0 +1,46 @@
+Django comes with two base classes to build forms:
+•	 Form : Allows you to build standard forms
+•	 ModelForm : Allows you to build forms to create or update model instances
+
+First, create a forms.py file inside the directory of your blog application and make it
+look like this:
+========================================================+++
+from django import forms
+class EmailPostForm(forms.Form):
+	name = forms.CharField(max_length=25)
+	email = forms.EmailField()
+	to = forms.EmailField()
+	comments = forms.CharField(required=False, widget=forms.Textarea)
+========================================================+++
+
+Each Field instance has a clean() method, which takes a single argument and either raises a django.forms.ValidationError exception or returns the clean value:
+
+>>> from django import forms
+>>> f = forms.EmailField()
+>>> f.clean('foo@example.com')
+'foo@example.com'
+>>> f.clean('invalid email address')
+Traceback (most recent call last):
+...
+ValidationError: ['Enter a valid email address.']
+
+
+>>> f = forms.CharField()
+>>> f.clean('foo')
+'foo'
+>>> f.clean('')
+Traceback (most recent call last):
+...
+ValidationError: ['This field is required.']
+>>> f.clean(None)
+Traceback (most recent call last):
+...
+ValidationError: ['This field is required.']
+>>> f.clean(' ')
+' '
+>>> f.clean(0)
+'0'
+>>> f.clean(True)
+'True'
+>>> f.clean(False)
+'False'

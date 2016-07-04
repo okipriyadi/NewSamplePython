@@ -1,0 +1,10 @@
+Edit the 
+====================================+
+	admin.py 
+====================================+
+file of your 'App' application and make it look like this:
+* Note: kita sudah membuat aplikasi dengan nama 'blog' & model dengan nama 'Post' 
+
+from django.contrib import admin
+from .models import Post
+admin.site.register(Post)

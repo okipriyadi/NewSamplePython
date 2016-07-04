@@ -1,0 +1,32 @@
+Open the terminal and run the following command to open the Python shell:
+python manage.py shell
+Then type the following lines:
+===========================================================
+	from django.contrib.auth.models import User
+	from blog.models import Post
+	user = User.objects.get(username='admin')
+	#This object direct to the database.
+	Post.objects.create(title='One more post', 
+						slug='one-more-post',
+						body='Post body.',
+						author=user)
+	#This object is in memory and is not persisted to the database.
+	'''
+	post = Post(title='Another post', 
+				slug='another-post', 
+				body='Post body.', 
+				author=user)
+	'''
+	#Finally, we save the Post object to the database using the save() method
+	post.save()
+===========================================================
+Let's analyze what this code does. First, we retrieve the user object that has the
+username admin :
+
+user = User.objects.get(username='admin')
+The get() method allows you to retrieve a single object from the database. Note that
+this method expects one result that matches the query. If no results are returned by
+the database, this method will raise a DoesNotExist exception, and if the database
+returns more than one result, it will raise a MultipleObjectsReturned exception.
+Both exceptions are attributes of the model class that the query is being performed on.
+

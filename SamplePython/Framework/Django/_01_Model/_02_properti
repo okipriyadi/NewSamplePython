@@ -1,0 +1,29 @@
+max_length = number 
+unique_for_date='field'
+related_name='string'    => We specify the name of the reverse relationship,(ex: from User to Post), with the
+						    related_name attribute.
+default=[timezone.now]   => set default value
+auto_now_add			 => the date will be saved automatically when creating an object
+auto_now				 => the date will be updated automatically when saving an object.
+choice					 => the value of this field can only be set to one of the given choices.
+
+ex:
+class Post(models.Model):
+	STATUS_CHOICES = (
+		('draft', 'Draft'),
+		('published', 'Published'),
+		)
+	title = models.CharField(max_length=250)
+	slug = models.SlugField(max_length=250, unique_for_date='publish')
+	author = models.ForeignKey(User, related_name='blog_posts')
+	body = models.TextField()
+	publish = models.DateTimeField(default=timezone.now)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+	status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='draft')
+
+	class Meta:
+		ordering = ('-publish',)
+
+	def __str__(self):
+		return self.title

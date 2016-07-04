@@ -1,0 +1,14 @@
+from django.shortcuts import render, get_object_or_404
+from .models import Post
+
+def post_list(request):
+	posts = Post.published.all()
+	return render(request, 'blog/post/list.html', {'posts': posts})
+	
+
+The post_list view takes the request
+object as the only parameter. Remember that this parameter is required by all views.
+Finally, we are using the render() shortcut provided by Django to render the list of
+posts with the given template. This function takes the request object as parameter,
+the template path and the variables to render the given template. It returns an
+HttpResponse object with the rendered text (normally HTML code).

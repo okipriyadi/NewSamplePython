@@ -1,0 +1,27 @@
+As we previously mentioned, objects is the default manager of every model,
+which retrieves all objects in the database. But we can also define custom managers
+for our models. We are going to create a custom manager to retrieve all posts with
+published status.
+There are two ways to add managers to your models: You can add extra manager
+methods or modify initial manager QuerySets. The first one turns up something
+like Post.objects.my_manager() and the later like Post.my_manager.all() .
+Our manager will allow us to retrieve posts using Post.published .
+
+Edit the models.py file of your blog application to add the custom manager:
+===============================================================
+class PublishedManager(models.Manager):
+	def get_queryset(self):
+		return super(PublishedManager,self).get_queryset().filter(status='published')
+===============================================================
+
+===============================================================
+class Post(models.Model):
+	# ...
+	objects = models.Manager() # The default manager.
+	published = PublishedManager() # Our custom manager.
+===============================================================
+get_queryset() is the method that returns the QuerySet to be executed. We use it to
+include our custom filter in the final QuerySet. We have defined our custom manager
+and added it to the Post model; we can now use it to perform queries. For example,
+we can retrieve all published posts whose title starts with Who using:
+Post.published.filter(title__startswith='Who')

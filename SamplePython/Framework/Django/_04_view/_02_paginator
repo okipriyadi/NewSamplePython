@@ -1,0 +1,82 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+def post_list(request):
+	object_list = Post.published.all()
+	paginator = Paginator(object_list, 3) # 3 posts in each page
+	page = request.GET.get('page')
+
+	try:
+		posts = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer deliver the first page
+		posts = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range deliver last page of results
+		posts = paginator.page(paginator.num_pages)
+	
+	return render(request, 'blog/post/list.html', {'page': page, 'posts': posts})
+	
+	
+This is how pagination works:
+1.	 We instantiate the Paginator class with the number of objects we want to display in each page.
+2.	 We get the page GET parameter that indicates the current page number.
+3.	 We obtain the objects for the desired page calling the page() method of Paginator .
+4.	 If the page parameter is not an integer, we retrieve the first page of results.
+	 If this parameter is a number higher than the last page of results, we retrieve the last page.
+5.	 We pass the page number and retrieved objects to the template.
+
+	 Now, we have to create a template to display the paginator, so that it can be included
+in any template that uses pagination. In the templates folder of the blog application,
+create a new file and name it pagination.html . Add the following HTML code to
+the file:
+
+<div class="pagination">
+	<span class="step-links">
+		{% if page.has_previous %}
+			<a href="?page={{ page.previous_page_number }}">Previous</a>
+		{% endif %}
+			<span class="current">
+				Page {{ page.number }} of {{ page.paginator.num_pages }}.
+			</span>
+		{% if page.has_next %}
+			<a href="?page={{ page.next_page_number }}">Next</a>
+		{% endif %}
+	</span>
+</div>
+
+
+ini tampilan menggunakan ./manage.py shell
+
+>>> from blog.models import Post
+>>> object_list = Post.objects.all()
+>>> object_list
+[<Post: dasda>, <Post: asda>, <Post: me>]
+#ada tiga post didalam ke database
+>>> from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
+>>> paginator = Paginator(object_list, 1)
+>>> paginator
+<django.core.paginator.Paginator object at 0x7f6253806510>
+>>> paginator.page(1)
+<Page 1 of 3>
+>>> paginator.page(2)
+<Page 2 of 3>
+>>> paginator.page(3)
+<Page 3 of 3>
+>>> posts = paginator.page(1)
+>>> posts
+<Page 1 of 3>
+>>> posts.number
+1
+>>> posts.has_previous()
+False
+>>> posts.has_next()
+True
+>>> posts.previous_page_number()
+error : EmptyPage: That page number is less than 1
+>>> posts.next_page_number()
+2
+>>> for value in posts:
+...    print value
+... 
+dasda
+asda

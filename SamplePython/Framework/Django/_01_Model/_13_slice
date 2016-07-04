@@ -1,0 +1,1 @@
+Post.objects.all()[:3]

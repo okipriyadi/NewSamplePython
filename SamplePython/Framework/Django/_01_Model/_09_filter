@@ -1,0 +1,15 @@
+To filter a QuerySet, you can use the filter() method of the manager. For example,
+we can retrieve all posts published in the year 2015 using the following QuerySet:
+===============================================================
+	Post.objects.filter(publish__year=2015)
+===============================================================
+You can also filter by multiple fields. For example, we can retrieve all posts
+published in 2015 by the author with the username admin :
+===============================================================
+	Post.objects.filter(publish__year=2015, author__username='admin')
+===============================================================
+This equals to building the same QuerySet chaining multiple filters:
+===============================================================
+Post.objects.filter(publish__year=2015)\
+filter(author__username='admin')
+===============================================================

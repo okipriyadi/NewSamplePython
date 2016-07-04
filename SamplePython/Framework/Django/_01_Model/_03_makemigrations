@@ -1,0 +1,22 @@
+To create a data table for our model in the database. Django comes with a
+migration system to track the changes you do to your models and propagate them
+into the database. The migrate command applies migrations for all applications
+listed in INSTALLED_APPS ; it synchronizes the database with the current models
+and migrations.
+
+irst, we need to create a migration for the new model we just created. From the root
+directory of your project, enter this command:
+==============================================
+	python manage.py makemigrations 'your app'
+	ex : python manage.py makemigrations blog
+==============================================
+You should get the following output:
+Migrations for 'blog':
+0001_initial.py:
+- Create model Post
+
+If you edit your models.py file in order to add, remove, or change fields of existing
+models, or if you add new models, you will have to make a new migration using the
+makemigrations command. The migration will allow Django to keep track of model
+changes. Then you will have to apply it with the migrate command to keep the
+database in sync with your models.

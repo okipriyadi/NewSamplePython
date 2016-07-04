@@ -1,0 +1,13 @@
+In order for Django to keep track of our application and be able to create database
+tables for its models, we have to activate it. To do this, edit the settings.py file
+and add "our apps" to the INSTALLED_APPS setting. if we create app called "blog" It should look like this:
+
+INSTALLED_APPS = (
+'django.contrib.admin',
+'django.contrib.auth',
+'django.contrib.contenttypes',
+'django.contrib.sessions',
+'django.contrib.messages',
+'django.contrib.staticfiles',
+'blog',
+)

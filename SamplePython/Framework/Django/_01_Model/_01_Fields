@@ -1,0 +1,12 @@
+CharField
+IntegerField
+TextField
+DateField
+DateTimeField
+
+slug :  This is a field intended to be used in URLs. A slug is a short label
+		containing only letters, numbers, underscores, or hyphens. We will use the
+		slug field to build beautiful, SEO-friendly URLs for our blog posts. We have
+		added the unique_for_date parameter to this field so we can build URLs
+		for posts using the date and slug of the post. Django will prevent from
+		multiple posts having the same slug for the same date.

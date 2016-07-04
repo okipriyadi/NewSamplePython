@@ -1,0 +1,11 @@
+First, we need to create a user to manage the admin site. Run the following command:
+=================================================================+
+python manage.py createsuperuser
+=================================================================+
+You will see the following output. Enter your desired username, e-mail, and
+password:
+Username (leave blank to use 'admin'): admin
+Email address: admin@admin.com
+Password: ********
+Password (again): ********
+Superuser created successfully.

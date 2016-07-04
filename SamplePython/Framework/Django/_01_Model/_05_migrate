@@ -1,0 +1,14 @@
+use 'migrate' to apply existing migrations
+===================================
+python manage.py migrate
+===================================
+You will get the following output that ends with the following line:
+Applying blog.0001_initial... OK
+
+We just applied migrations for the applications listed in INSTALLED_APPS
+
+If you edit your models.py file in order to add, remove, or change fields of existing
+models, or if you add new models, you will have to make a new migration using the
+makemigrations command. The migration will allow Django to keep track of model
+changes. Then you will have to apply it with the migrate command to keep the
+database in sync with your models.

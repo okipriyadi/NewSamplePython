@@ -1,0 +1,6 @@
+object.field = new value
+object.save()
+
+ex:
+	post.title = 'New title'
+	post.save()

@@ -1,0 +1,21 @@
+post_tags_ids = post.tags.values_list('id', flat=True)
+similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
+similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
+
+This code is as follows:
+1.	 We retrieve a Python list of ID'S for the tags of the current post. The
+	 values_list() QuerySet returns tuples with the values for the given
+	 fields. We are passing it flat=True to get a flat list like [1, 2, 3, ...] .
+2.	 We get all posts that contain any of these tags excluding the current post itself.
+3.   We use the Count aggregation function to generate a calculated field
+	 same_tags that contains the number of tags shared with all the tags queried.
+4.	 We order the result by the number of shared tags (descendant order) and
+	 by the publish to display recent posts first for the posts with the same
+	 number of shared tags. We slice the result to retrieve only the first four posts.
+	 
+In adition to Count , Django offers the aggregation functions Avg , Max , Min , and Sum .
+You can read more about aggregation functions at https://docs.djangoproject.
+com/en/1.8/topics/db/aggregation/ .
+
+
+

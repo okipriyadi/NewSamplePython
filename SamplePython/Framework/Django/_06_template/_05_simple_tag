@@ -1,0 +1,65 @@
+Inside your blog application directory, create a new directory, name it
+templatetags and add an empty __init__.py file to it. Create another file in the
+same folder and name it blog_tags.py . The file structure of the blog application
+should look like the following:
+=============================================================================================+
+blog/
+	__init__.py
+	models.py
+	...
+	templatetags/
+		__init__.py
+		blog_tags.py
+=============================================================================================+
+
+The name of the file is important. You are going to use the name of this module to
+load your tags in templates.
+We will start by creating a simple tag to retrieve the total posts published in the blog.
+Edit the blog_tags.py file you just created and add the following code:
+=============================================================================================+
+from django import template
+register = template.Library()
+from ..models import Post
+
+@register.simple_tag
+def total_posts():
+	return Post.published.count()
+=============================================================================================+	
+	
+We have created a simple template tag that returns the number of posts published
+so far. Each template tags module needs to contain a variable called register to be
+a valid tag library. This variable is an instance of template.Library and it's used
+to register your own template tags and filters. Then we are defining a tag called
+total_posts with a Python function and using @register.simple_tag to define
+the function as a simple tag and register it. Django will use the function's name as the
+tag name. If you want to register it with a different name, you can do it by specifying
+a name attribute like @register.simple_tag(name='my_tag') .
+
+Before using custom template tags, you have to make them available for the template
+using the {% load %} tag. As mentioned before, you need to use the name of the
+Python module containing your template tags and filters. Open the blog/base.html
+template and add {% load blog_tags %} at the top of it to load your template tags
+module. Then use the tag you created to display your total posts. Just add {% total_
+posts %} to your template. The template should finally look like this:
+=============================================================================================+
+{% load blog_tags %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<link href="{% static "css/blog.css" %}" rel="stylesheet">
+</head>
+<body>
+<div id="content">
+{% block content %}
+{% endblock %}
+</div>
+<div id="sidebar">
+<h2>My blog</h2>
+<p>This is my blog. I've written {% total_posts %} posts so far.</
+p>
+</div>
+</body>
+</html>
+=============================================================================================+

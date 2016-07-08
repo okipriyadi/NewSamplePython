@@ -1,0 +1,18 @@
+{% with comments.count as total_comments %}
+	<h2>
+		{{ total_comments }} comment{{ total_comments|pluralize }}
+	</h2>
+{% endwith %}
+
+
+comments.
+count() . Note that Django template language doesn't use parentheses for calling
+methods. The {% with %} tag allows us to assign a value to a new variable that
+will be available to be used until the {% endwith %} tag
+
+We use the pluralize template filter to display a plural suffix for the word comment
+depending on the total_comments value. Template filters take the value of the
+variable they are applied to as input and return a computed value.
+
+The pluralize template filter displays an " s " if the value is different than 1 . The
+preceding text will be rendered as 0 comments, 1 comment, or N comments.

@@ -1,0 +1,17 @@
+{% for comment in comments %}
+	<div class="comment">
+		<p class="info">
+		Comment {{ forloop.counter }} by {{ comment.name }}
+		{{ comment.created }}
+		</p>
+		{{ comment.body|linebreaks }}
+	</div>
+	{% empty %}
+	<p>There are no comments yet.</p>
+{% endfor %}
+
+
+We use the {% for %} template tag to loop through comments. We display a default
+message if the comments list is empty, telling our users there are no comments for
+this post yet. We enumerate comments with the {{ forloop.counter }} variable,
+which contains the loop counter in each iteration

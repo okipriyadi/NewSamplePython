@@ -1,0 +1,5 @@
+Django provides the following helper functions that allow you to create your own
+template tags in an easy manner:
+•	 simple_tag 	: Processes the data and returns a string
+•	 inclusion_tag 	: Processes the data and returns a rendered template
+•	 assignment_tag : Processes the data and sets a variable in the context

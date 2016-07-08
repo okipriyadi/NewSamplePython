@@ -1,0 +1,33 @@
+Now, we are going to create another tag to display the latest posts in the sidebar of
+our blog. This time we are going to use an inclusion tag. Using an inclusion tag, you
+can render a template with context variables returned by your template tag. Edit the
+blog_tags.py file and add the following code:
+=============================================================================================+
+@register.inclusion_tag('blog/post/latest_posts.html')
+def show_latest_posts(count=5):
+	latest_posts = Post.published.order_by('-publish')[:count]
+	return {'latest_posts': latest_posts}
+=============================================================================================+
+In this code, we register the template tag with @register.inclusion_tag and we
+specify the template that has to be rendered with the returned values with blog/
+post/latest_posts.html . Our template tag will accept an optional count parameter
+that defaults to 5 and allows us to specify the number of comments we want to
+display. We use this variable to limit the results of the query Post.published.order_by('-publish')[:count]. 
+Notice that the function returns a dictionary
+of variables instead of a simple value. Inclusion tags have to return a dictionary of
+values that is used as the context to render the specified template. Inclusion tags
+return a dictionary. The template tag we just created can be used passing the optional
+number of comments to display like {% show_latest_posts 3 %} .
+
+Now, create a new template file under blog/post/ and name it latest_posts.
+html . Add the following code to it:
+=============================================================================================+
+<ul>
+	{% for post in latest_posts %}
+	<li>
+		<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+	</li>
+		{% endfor %}
+</ul>
+
+=============================================================================================+

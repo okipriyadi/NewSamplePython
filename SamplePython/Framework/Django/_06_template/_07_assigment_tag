@@ -1,0 +1,38 @@
+Assignment tags are like simple
+tags but they store the result in a given variable. We will create an assignment tag
+to display the most commented posts. Edit the blog_tags.py file and add the
+following import and template tag in it:
+
+
+=============================================================================================+
+from django.db.models import Count
+@register.assignment_tag
+def get_most_commented_posts(count=5):
+	return Post.published.annotate( total_comments=Count('comments')).order_by('-total_comments')[:count]
+=============================================================================================+
+
+This QuerySet uses the annotate() function for query aggregation, using the Count
+aggregation function. We build a QuerySet aggregating the total number of comments
+for each post in a total_comments field and we order the QuerySet by this field. We
+also provide an optional count variable to limit the total number of objects returned
+to a given value.
+
+Edit the blog/base.html template and append the following code to the sidebar
+=============================================================================================+
+<div> element:
+<h3>Most commented posts</h3>
+{% get_most_commented_posts as most_commented_posts %}
+<ul>
+	{% for post in most_commented_posts %}
+	<li>
+	<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+	</li>
+	{% endfor %}
+</ul>
+=============================================================================================+
+The notation for assignment template tags is {% template_tag as variable
+%} . For our template tag, we use {% get_most_commented_posts as most_
+commented_posts %} . This way, we are storing the result of the template tag in a
+new variable named most_commented_posts . Then, we display the returned posts
+with an unordered list.
+

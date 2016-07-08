@@ -1,0 +1,60 @@
+Sending e-mails with Django is pretty straightforward. First, you need to have a local
+SMTP server or define the configuration of an external SMTP server by adding the
+following settings in the settings.py file of your project:
+
+•	 EMAIL_HOST : The SMTP server host. Default localhost .
+•	 EMAIL_PORT : The SMTP port Default 25.
+•	 EMAIL_HOST_USER : Username for the SMTP server.
+•	 EMAIL_HOST_PASSWORD : Password for the SMTP server.
+•	 EMAIL_USE_TLS : Whether to use a TLS secure connection.
+•	 EMAIL_USE_SSL : Whether to use an implicit TLS secure connection.
+
+If you don't have a local SMTP server, you can probably use the SMTP server of your
+e-mail provider. The sample configuration below is valid for sending e-mails via
+Gmail servers using a Google account:
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'your_account@gmail.com'
+EMAIL_HOST_PASSWORD = 'your_password'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+Run the command python manage.py shell to open the Python shell and send an
+e-mail like this:
+
+>>> from django.core.mail import send_mail
+>>> send_mail('Django mail', 'This e-mail was sent with Django.',
+'your_account@gmail.com', ['your_account@gmail.com'], fail_
+silently=False)
+
+jika gagal, coba nyalakan(TURN ON) fitur less secureapps dari googlenya 
+https://www.google.com/settings/security/lesssecureapps
+
+send_mail() takes the subject, message, sender, and list of recipients as required
+arguments. By setting the optional argument fail_silently=False , we are telling
+it to raise an exception if the e-mail couldn't be sent correctly. If the output you see is
+1 , then your e-mail was successfully sent. If you are sending e-mails by Gmail with
+the preceding configuration, you might have to enable access for less secured apps at
+https://www.google.com/settings/security/lesssecureapps .
+Now, we are going to add this to our view. Edit the post_share view in the
+views.py file of your blog application and make it look like this
+
+from django.core.mail import send_mail
+def post_share(request, post_id):
+	# Retrieve post by id 
+	post = get_object_or_404(Post, id=post_id, status='published')
+	sent = False
+	if request.method == 'POST':
+		# Form was submitted
+		form = EmailPostForm(request.POST)
+		if form.is_valid():
+			# Form fields passed validation
+			cd = form.cleaned_data
+			post_url = request.build_absolute_uri( post.get_absolute_url())
+			subject = '{} ({}) recommends you reading "{}"'.format(cd['name'], cd['email'], post.title)
+			message = 'Read "{}" at {}\n\n{}\'s comments: {}'.format(post.title, post_url, cd['name'], cd['comments'])
+			send_mail(subject, message, 'admin@myblog.com', [cd['to']])
+			sent = True
+	else:
+		form = EmailPostForm()
+	return render(request, 'blog/post/share.html', {'post': post, 'form': form,'sent': sent})

@@ -4,3 +4,8 @@ object.save()
 ex:
 	post.title = 'New title'
 	post.save()
+	
+save akan mengaupdate seluruh field (bukan hanya field title yg kita ubah saja)
+
+Publisher.objects.filter(id=52).update(name='Apress Publishing')
+cara berikut lebih efisien

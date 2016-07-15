@@ -2,4 +2,29 @@ You can order results by different fields using the order_by() method of the
 manager. For example, you can retrieve all objects ordered by their title:
 =========================================
 	Post.objects.order_by('title')
+	Publisher.objects.order_by("state_province", "address")
+	Publisher.objects.filter(country="U.S.A.").order_by("-name")
 =========================================
+
+You can also specify reverse ordering by prefixing the field name with a - (that’s a minus
+character):
+=========================================
+	Publisher.objects.order_by("-name")
+=========================================
+
+While this flexibility is useful, using order_by() all the time can be quite repetitive. Most of
+the time you’ll have a particular field you usually want to order by. In these cases, Django lets
+you specify a default ordering in the model:
+
+class Publisher(models.Model):
+	name = models.CharField(max_length=30)
+	address = models.CharField(max_length=50)
+	city = models.CharField(max_length=60)
+	state_province = models.CharField(max_length=30)
+	country = models.CharField(max_length=50)
+	website = models.URLField()
+	
+	def __str__(self):
+		return self.name
+	class Meta:
+		ordering = ['name']

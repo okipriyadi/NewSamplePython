@@ -80,3 +80,4 @@ error : EmptyPage: That page number is less than 1
 ... 
 dasda
 asda
+>>> posts.start_index()    #ini untuk for loop counter  page 

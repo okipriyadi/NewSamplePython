@@ -1,1 +1,2 @@
+Publisher.objects.order_by('name')[0]
 Post.objects.all()[:3]

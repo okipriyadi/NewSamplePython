@@ -15,3 +15,39 @@ We use the {% for %} template tag to loop through comments. We display a default
 message if the comments list is empty, telling our users there are no comments for
 this post yet. We enumerate comments with the {{ forloop.counter }} variable,
 which contains the loop counter in each iteration
+
+
+Variabel
+
+Deskripsi
+
+forloop.counter			:	The current iteration of the loop (1-indexed)
+forloop.counter0		:	The current iteration of the loop (0-indexed)
+forloop.revcounter		:	The number of iterations from the end of the loop (1-indexed)
+forloop.revcounter0		:	The number of iterations from the end of the loop (0-indexed)
+forloop.first			:	True if this is the first time through the loop
+forloop.last			:	True if this is the last time through the loop
+forloop.parentloop		:	For nested loops, this is the loop surrounding the current one
+
+for ... empty¶
+
+The for tag can take an optional {% empty %} clause whose text is displayed if the given array is empty or could not be found:
+
+<ul>
+{% for athlete in athlete_list %}
+    <li>{{ athlete.name }}</li>
+{% empty %}
+    <li>Sorry, no athletes in this list.</li>
+{% endfor %}
+</ul>
+The above is equivalent to – but shorter, cleaner, and possibly faster than – the following:
+
+<ul>
+  {% if athlete_list %}
+    {% for athlete in athlete_list %}
+      <li>{{ athlete.name }}</li>
+    {% endfor %}
+  {% else %}
+    <li>Sorry, no athletes in this list.</li>
+  {% endif %}
+</ul>

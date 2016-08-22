@@ -1,0 +1,17 @@
+masuk ke command postgre
+
+Masuk ke admnistrator {default user untuk administrator adalah postgres}
+===============================================
+sudo -u postgres psql
+===============================================
+
+
+melihat database yang tersedia
+===============================================
+postgres-# \l
+===============================================
+
+PILIH DATABASE
+===============================================
+postgres=# \c namadatabase;
+===============================================

@@ -1,0 +1,18 @@
+#akan dibuat file pdf di folder yang sama dimana file ini dijalankan
+from reportlab.pdfgen import canvas
+ 
+c = canvas.Canvas("hello.pdf")
+c.drawString(100,750,"Welcome to Reportlab!")
+c.save()
+
+"""
+The first thing to notice about this code is that if we want to save the PDF, 
+we need to supply a file name to the Canvas object. This can be an absolute path or a relative path.
+In this example, it should create the PDF in the same location that you run the script from. 
+The next piece of the puzzle is the drawString method. This will draw text wherever you tell it to.
+When using the canvas object, it starts at the bottom left of the page, so for this example, 
+we told it to draw the string 100 points from the left margin and 750 points from the bottom 
+of the page (1 point = 1/72 inch). You can change this default in the Canvas constructor by 
+passing a zero to the bottomup keyword argument.
+The final piece in the code above is to save your PDF. 
+"""

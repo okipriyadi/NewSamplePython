@@ -1,0 +1,23 @@
+Instead of a list (rather, QuerySet ), only a single object is returned. Because of that, a query
+resulting in multiple objects will cause an exception:
+
+>>> Publisher.objects.get(country="U.S.A.")
+Traceback (most recent call last):
+MultipleObjectsReturned: get() returned more than one Publisher --
+
+A query that returns no objects also causes an exception:
+>>> Publisher.objects.get(name="Penguin")
+Traceback (most recent call last):
+...
+DoesNotExist: Publisher matching query does not exist.
+
+The exception is an attribute of the model’s class –Publisher.DoesNotExist . 
+In your applications, you’ll want to trap these exceptions, like
+this:
+	
+try:
+	p = Publisher.objects.get(name='Apress')
+except Publisher.DoesNotExist:
+	print ("Apress isn't in the database yet.")
+else:
+	print ("Apress is in the database.")

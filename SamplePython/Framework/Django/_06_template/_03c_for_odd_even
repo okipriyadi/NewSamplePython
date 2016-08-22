@@ -1,0 +1,11 @@
+{% for category in categories %}
+	{% if forloop.counter|divisibleby:"2" %}
+		<div class="col-lg-6 col-md-6">
+    		<h5><a href="{% url 'home' %}?category={{category.code}}">{{category.code}} - {{category.name}} ({{category.count}})</a> </h5>
+		</div>    
+	{% else %}		
+		<div class="col-lg-6 col-md-6">
+			<h5><a href="{% url 'home' %}?category={{category.code}}">{{category.code}} - {{category.name}} ({{category.count}})</a></h5>
+		</div>
+	{% endif %}
+{% endfor %}

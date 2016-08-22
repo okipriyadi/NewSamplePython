@@ -1,0 +1,12 @@
+
+
+
+The MySQL Command-Line ToolUsing mysql is very easy. Invoke it from the prompt of your command interpreter as follows:
+=====================================================
+shell> mysql db_name
+=====================================================
+Or:
+=====================================================
+shell> mysql --user=user_name --password=your_password db_name
+=====================================================
+Then type an SQL statement, end it with “;”, \g, or \G and press Enter.

@@ -1,0 +1,30 @@
+MODEL METHODS
+Define custom methods on a model to add custom “row-level” functionality to your objects.
+Whereas managers are intended to do “table-wide” things, model methods should act on a
+particular model instance.
+This is a valuable technique for keeping business logic in one place – the model.
+An example is the easiest way to explain this. Here’s a model with a few custom methods:
+
+from django.db import models
+class Person(models.Model):
+	first_name = models.CharField(max_length=50)
+	last_name = models.CharField(max_length=50)
+	birth_date = models.DateField()
+	
+	def baby_boomer_status(self):
+		"Returns the person's baby-boomer status."
+		import datetime
+		if self.birth_date < datetime.date(1945, 8, 1):
+			return "Pre-boomer"
+		elif self.birth_date < datetime.date(1965, 1, 1):
+			return "Baby boomer"
+		else:
+			return "Post-boomer"
+	
+	def _get_full_name(self):
+		"Returns the person's full name."
+		return '%s %s' % (self.first_name, self.last_name)
+	
+	full_name = property(_get_full_name)
+
+	

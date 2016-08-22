@@ -1,0 +1,27 @@
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+ 
+canvas = canvas.Canvas("form.pdf", pagesize=letter)
+canvas.setLineWidth(.3)
+canvas.setFont('Helvetica', 12)
+ 
+canvas.drawString(30,750,'OFFICIAL COMMUNIQUE')
+canvas.drawString(30,735,'OF ACME INDUSTRIES')
+canvas.drawString(500,750,"12/12/2010")
+canvas.line(480,747,580,747)
+ 
+canvas.drawString(275,725,'AMOUNT OWED:')
+canvas.drawString(500,725,"$1,000.00")
+canvas.line(378,723,580,723)
+ 
+canvas.drawString(30,703,'RECEIVED BY:')
+canvas.line(120,700,580,700)
+canvas.drawString(120,703,"JOHN DOE")
+ 
+canvas.save()
+
+"""
+This is based on an actual receipt I created at work. The main difference between this one and the previous example is the canvas.line code. You can use it to draw lines on your documents by passing two X/Y pairs. I’ve used this functionality to create grids, although it’s pretty tedious. Other points of interest in this code include the setLineWidth(.3) command, which tells Reportlab how thick or thin the line should be; and the setFont(‘Helvetica’, 12) command, which allows us to specify a specific font and point size.
+
+"""
+"""

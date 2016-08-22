@@ -1,0 +1,7 @@
+Filters¶
+
+You can also use filters in the if expression. For example:
+
+{% if messages|length >= 100 %}
+   You have lots of messages today!
+{% endif %}

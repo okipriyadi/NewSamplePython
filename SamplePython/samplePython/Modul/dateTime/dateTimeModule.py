@@ -37,6 +37,11 @@ print 'Tomorrow :', tomorrow
 print 'tomorrow - yesterday:', tomorrow - yesterday
 print 'yesterday - tomorrow:', yesterday - tomorrow
 
+tgl1 = datetime.date(2014,01,20)
+tgl2 = datetime.date.today()
+selisih = tgl2-tgl1
+print tgl1, "-",tgl2, "=",selisih
+print "selisih hari = ",selisih.days
 print "\n ===================== komparasi date & time ====================="
 import time
 
@@ -53,3 +58,5 @@ print '\td1:', d1
 d2 = datetime.date.today() + datetime.timedelta(days=1)
 print '\td2:', d2
 print '\td1 > d2:', d1 > d2
+
+

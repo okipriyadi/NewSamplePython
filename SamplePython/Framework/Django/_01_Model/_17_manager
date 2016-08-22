@@ -1,0 +1,85 @@
+MANAGERS
+
+In the statement Book.objects.all() , objects is a special attribute through which you
+query your database. we briefly identified this as the model’s manager. Now it’s
+time to dive a bit deeper into what managers are and how you can use them.
+
+Each Django model has at least one manager, and you can create custom managers
+in order to customize database access.
+
+ADDING EXTRA MANAGER METHODS
+For example, let’s give our Book model a manager method title_count() that takes a
+keyword and returns the number of books that have a title containing that keyword. (This
+example is slightly contrived, but it demonstrates how managers work.)
+
+# models.py
+from django.db import models
+
+# ... Author and Publisher models here ...
+
+class BookManager(models.Manager):
+	def title_count(self, keyword):
+		return self.filter(title__icontains=keyword).count()
+
+class Book(models.Model):
+	title = models.CharField(max_length=100)
+	authors = models.ManyToManyField(Author)
+	publisher = models.ForeignKey(Publisher)
+	publication_date = models.DateField()
+	num_pages = models.IntegerField(blank=True, null=True)
+	objects = BookManager()
+	
+	def __str__(self):
+		return self.title
+		
+With this manager in place, we can now do this:
+===============================================
+>>> Book.objects.title_count('django')
+4
+>>> Book.objects.title_count('python')
+18
+===============================================
+
+Here are some notes about the code:
+> We’ve created a BookManager class that extends django.db.models.Manager . This
+has a single method, title_count() , which does the calculation. Note that the
+method uses self.filter() , where self refers to the manager itself.
+> We’ve assigned BookManager() to the objects attribute on the model. This has the
+effect of replacing the “default” manager for the model, which is called objects and
+is automatically created if you don’t specify a custom manager. We call it objects
+rather than something else, so as to be consistent with automatically created
+managers.
+
+
+A manager’s base QuerySet returns all objects in the system. For example,
+Book.objects.all() returns all books in the book database.
+You can override a manager’s base QuerySet by overriding the Manager.get_queryset()
+method. get_queryset() should return a QuerySet with the properties you require.
+For example, the following model has two managers – one that returns all objects, and one
+that returns only the books by Roald Dahl.
+
+
+from django.db import models
+
+# First, define the Manager subclass.
+class DahlBookManager(models.Manager):
+	def get_queryset(self):
+		return super(DahlBookManager,self).get_queryset().filter(author='Roald Dahl')
+
+# Then hook it into the Book model explicitly.
+class Book(models.Model):
+	title = models.CharField(max_length=100)
+	author = models.CharField(max_length=50)
+	# ...
+	objects = models.Manager() # The default manager.
+	dahl_objects = DahlBookManager() # The Dahl-specific manager.
+	
+With this sample model, Book.objects.all() will return all books in the database, but
+Book.dahl_objects.all() will only return the ones written by Roald Dahl. Note that we
+explicitly set objects to a vanilla Manager instance, because if we hadn’t, the only available
+manager would be dahl_objects .
+Of course, because get_queryset() returns a QuerySet object, you can use filter() ,
+exclude() and all the other QuerySet methods on it. So these statements are all legal:
+Book.dahl_objects.all()
+Book.dahl_objects.filter(title='Matilda')
+Book.dahl_objects.count()

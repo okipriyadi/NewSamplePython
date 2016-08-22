@@ -1,0 +1,13 @@
+"""
+That was easy! You’ve just created a really simple PDF! Note that the default Canvas size is A4, so if you happen to be American, you’ll probably want to change that to letter size. This is easy to do in Reportlab. All you need to do is the following:
+"""
+=================================================================
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+ 
+canvas = canvas.Canvas('myfile.pdf', pagesize=letter)
+width, height = letter
+=================================================================
+"""
+The main reason to grab the width and height is that you can use them for calculations to decide 
+when to add a page break or help define margins. 

@@ -1,0 +1,4 @@
+flush will truncate (delete data)
+sqlclear will drop (delete table, thus data too)
+
+=> if you have structural modifications in your db, you have to do sqlclear (but better use south)

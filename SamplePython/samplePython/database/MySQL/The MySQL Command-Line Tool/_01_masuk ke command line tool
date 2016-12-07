@@ -3,7 +3,7 @@
 
 The MySQL Command-Line ToolUsing mysql is very easy. Invoke it from the prompt of your command interpreter as follows:
 =====================================================
-shell> mysql db_name
+shell> mysql db_name 
 =====================================================
 Or:
 =====================================================

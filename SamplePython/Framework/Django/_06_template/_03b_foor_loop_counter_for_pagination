@@ -38,16 +38,18 @@ You can use the add template tag to add the current count from the paginator to 
 
 jika for nya bersarang (nested for) maka bisa digunakan method parentloop. 
 dibawah ini disajikan untuk memakai for pertama dari 3 buar for bersarang
+===================================================================================
 {{ forloop.parentloop.parentloop.counter0|add:query_set.start_index }}-{{ forloop.counter }}
-
+===================================================================================
 
 
 
 Withratio
-
+===================================================================================
 {% widthratio 10 1 categories.number as seque %}
 	seque = {{ seque }}
 	{% for i in categories %}
 		
 		item{{ forloop.counter|add:seque|add:-10 }}
 	{% endfor %}	
+===================================================================================

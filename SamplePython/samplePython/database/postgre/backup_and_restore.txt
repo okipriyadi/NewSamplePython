@@ -1,3 +1,25 @@
+Backup per database
+1. masuk ke user
+	sudo -i -u postgres
+2. backup database
+	ex : pg_dump [nama_database] > nama_database_yg_baru
+	ex : pg_dump vcm_saas_dns > warehouse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Salah satu cara mekanisme membackup database PostgreSQL adalah dengan menjalankan skrip pg_dump atau pg_dumpall 
 yang menghasil file SQL dump.
 

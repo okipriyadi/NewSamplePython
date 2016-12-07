@@ -1,9 +1,10 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def post_list(request):
+	halaman = request.GET.get('halaman') or 1
 	object_list = Post.published.all()
 	paginator = Paginator(object_list, 3) # 3 posts in each page
-	page = request.GET.get('page')
+	page = request.GET.get('halaman') 
 
 	try:
 		posts = paginator.page(page)

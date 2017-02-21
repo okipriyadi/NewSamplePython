@@ -1,0 +1,24 @@
+RANGE_CHOICES = (
+    ('last', 'Last Year'),
+    ('this', 'This Year'),
+    ('next', 'Next Year'),
+)   
+
+class MonthlyTotalsForm(forms.Form):
+    range = forms.ChoiceField(choices=RANGE_CHOICES, initial='this')
+    
+    
+In some situations I don't want to show the 'Next Year' option. Is it possible to remove this option in the view where the form is created?
+
+    
+class MonthlyTotalsForm(forms.Form):
+    range = forms.ChoiceField(choices=RANGE_CHOICES, initial='this')
+
+    def __init__(self, *args, **kwargs):
+        no_next_year = kwargs.pop('no_next_year', False)
+        super(MonthlyTotalsForm, self).__init__(*args, **kwargs)
+        if no_next_year:
+            self.fields['range'].choices = RANGE_CHOICES[:-1]
+
+#views.py
+MonthlyTotalsForm(request.POST, no_next_year=True)

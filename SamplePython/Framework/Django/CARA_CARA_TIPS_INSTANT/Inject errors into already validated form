@@ -1,0 +1,15 @@
+After my form.Form validates the user input values I pass them to a separate (external) process for further processing. This external process can potentially find further errors in the values.
+
+Is there a way to inject these errors into the already validated form so they can be displayed via the usual form error display methods (or are there better alternative approaches)?
+
+One suggestions was to include the external processing in the form validation, which is not ideal because the external process does a lot more than merely validate.
+
+
+
+Jawaban:
+Form._errors can be treated like a standard dictionary. It's considered good form to use the ErrorList class, and to append errors to the existing list:
+
+from django.forms.util import ErrorList
+errors = form._errors.setdefault("myfield", ErrorList())
+errors.append(u"My error here")
+And if you want to add non-field errors, use django.forms.forms.NON_FIELD_ERRORS (defaults to "__all__") instead of "myfield".

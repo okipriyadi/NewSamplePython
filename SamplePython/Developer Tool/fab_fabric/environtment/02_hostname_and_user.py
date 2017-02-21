@@ -4,11 +4,11 @@ Untuk mensetting environment
 from fabric.api import env, run
 
 
-env.hosts = '172.16.191.41'
+env.hosts = 'gcp-build.gcplocal.net'
 
 # Set the username
-env.user   = 'avionics'
-
+env.user   = 'gcp'
+#env.password = "geta8080@GCP"
 # Set the password [NOT RECOMMENDED]
 #env.password = "your password
 

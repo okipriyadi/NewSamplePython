@@ -1,0 +1,19 @@
+Finally got it to work, although I don't know why and I hope it will work in the future.
+After doing numerous trials and going through Django's dev site (link).
+Here are the steps (for whoever runs into this problem):
+
+1. Empty the django_migrations table: delete from django_migrations;
+2. For every app, delete its migrations folder: rm -rf <app>/migrations/
+3. Reset the migrations for the "built-in" apps: python manage.py migrate --fake (hati2 kalau ada fixture, delete dulu aja)
+4. For each app run: python manage.py makemigrations <app>. Take care of dependencies (models with ForeignKey's should run after their parent model).
+5. Finally: python manage.py migrate --fake-initial
+
+After that I ran the last command without the --fake-initial flag, just to make sure.
+
+Now everything works and I can use the migrations system normally.
+
+I'm sure I'm not the only one who encounters this issue. It must be documented better and even simplified.
+
+Update for Django 1.9 users:
+I had this scenario again with a Django 1.9.4, and step 5 failed.
+All I had to do is replace --fake-initial with --fake to make it work.

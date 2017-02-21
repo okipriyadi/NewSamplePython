@@ -1,0 +1,1 @@
+sod, created = SODetail.objects.get_or_create(so=so, item=item, borang=None)

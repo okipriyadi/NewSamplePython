@@ -32,33 +32,31 @@ ACCESSING FOREIGN KEY VALUES
 
 When you access a field that’s a ForeignKey , you’ll get the related model object. For
 example:
->>> b = Book.objects.get(id=50)
->>> b.publisher
-<Publisher: Apress Publishing>
->>> b.publisher.website
-'http://www.apress.com/'
+=======================================================
+	>>> b = Book.objects.get(id=50)
+	>>> b.publisher
+	<Publisher: Apress Publishing>
+	>>> b.publisher.website
+	'http://www.apress.com/'
+=======================================================
 
-With ForeignKey fields, it works the other way, too, but it’s slightly different due to the non-
-symmetrical nature of the relationship. To get a list of books for a given publisher, use
-publisher.book_set.all() , like this:
->>> p = Publisher.objects.get(name='Apress Publishing')
->>> p.book_set.all()
-[<Book: The Django Book>, <Book: Dive Into Python>, ...]
 
 With ForeignKey fields, it works the other way, too, but it’s slightly different due to the non-
 symmetrical nature of the relationship. To get a list of books for a given publisher, use
 publisher.book_set.all() , like this:
 =================================================================================
->>> p = Publisher.objects.get(name='Apress Publishing')
->>> p.book_set.all()
-[<Book: The Django Book>, <Book: Dive Into Python>, ...]
+	>>> p = Publisher.objects.get(name='Apress Publishing')
+	>>> p.book_set.all()
+	[<Book: The Django Book>, <Book: Dive Into Python>, ...]
 =================================================================================
+
+
 Behind the scenes, book_set is just a QuerySet (as covered in Chapter 4), and it can be
 filtered and sliced like any other QuerySet . For example:
 =================================================================================
->>> p = Publisher.objects.get(name='Apress Publishing')
->>> p.book_set.filter(title__icontains='django')
-[<Book: The Django Book>, <Book: Pro Django>]
+	>>> p = Publisher.objects.get(name='Apress Publishing')
+	>>> p.book_set.filter(title__icontains='django')
+	[<Book: The Django Book>, <Book: Pro Django>]
 =================================================================================
 
 
